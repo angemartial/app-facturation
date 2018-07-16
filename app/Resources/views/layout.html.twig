@@ -1,0 +1,98 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}Iboh Gestion {% endblock %}</title>
+    <!-- Place favicon.ico in the root directory -->
+    <link href="{{ asset('apple-touch-icon.png') }}" type="img/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <!-- All css files are included here. -->
+
+    <!-- customizer style css -->
+
+    {% block css %}{% endblock %}
+
+    <!-- Moderniser JS -->
+</head>
+<body>
+
+<header></header>
+<div id="page" class="container-fluid">
+    <ul id="left-menu"  class="col-3">
+        <li><a href="#"><i class="fa fa-tachometer-alt">Tableau de Bord</i></a></li>
+        <li><a href="#"><i class="fa fa-shopping-cart"></i>Facturation</a>
+            <ul class="sub-menu-left">
+                <li><a href="#"><i></i> Pro-forma</a></li>
+                <li><a href="#"><i></i> Facture</a></li>
+                <li><a href="#"><i></i> Devis</a></li>
+                <li><a href="#"><i></i> Facture Fournisseurs</a></li>
+            </ul>
+        </li>
+        <li><a href="#"><i class="fa fa-users"></i>Clients</a>
+            <ul class="sub-menu-left">
+                <li><a href="#"><i></i> Clients</a></li>
+                <li><a href="#"><i></i> Contact Client</a></li>
+                <li><a href="#"><i></i> Prospects</a></li>
+                <li><a href="#"><i></i> Contact Prospects</a></li>
+            </ul>
+        </li>
+        <li><a href="#"><i class="fa fa-book-open"></i>Catalogue</a>
+            <ul class="sub-menu-left">
+                <li><a href="#"><i></i> Articles</a></li>
+                <li><a href="#"><i></i> Groupe d'articles</a></li>
+                <li><a href="#"><i></i> Inventaire</a></li>
+                <li><a href="#"><i></i> Mouvements de stock</a></li>
+                <li><a href="#"><i></i> Mise à jour article</a></li>
+            </ul>
+        </li>
+        <li><a href="#"><i class="fa fa-address-book"></i>Fournisseurs</a>
+            <ul class="sub-menu-left">
+                <li><a href="#"><i></i> Fournisseurs</a></li>
+                <li><a href="#"><i></i> Contacts Fournisseurs</a></li>
+            </ul>
+        </li>
+        <li><a href="#"><i class="fa fa-shopping-cart"></i>Caisse</a>
+            <ul class="sub-menu-left">
+                <li><a href="#"><i></i> Entrée</a></li>
+                <li><a href="#"><i></i> Sortie</a></li>
+                <li><a href="#"><i></i> Mouvements de caisse</a></li>
+                <li><a href="#"><i></i> Depense hors caisse</a></li>
+            </ul>
+        </li>
+        <li><a href="#"><i class="fa fa-truck"></i>Bons </a>
+            <ul class="sub-menu-left">
+                <li><a href="#"><i></i> Bons de livraison</a></li>
+                <li><a href="#"><i></i> Bons de commande</a></li>
+            </ul>
+        </li>
+        <li><a href="#"><i class="fa fa-shopping-cart"></i>Achats</a>
+            <ul class="sub-menu-left">
+                <li><a href="#"><i></i> Bons de réception </a></li>
+                <li><a href="#"><i></i> Règlements</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <div id="content" class="col-9">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</div>
+
+
+<footer></footer>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+<script type="text/javascript" src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/axios.min.js') }}"></script>
+{% block js %}{% endblock %}
+</body>
+</html>
