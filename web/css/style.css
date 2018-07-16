@@ -1,0 +1,56 @@
+header {
+    background-color: #1077BD;
+    height: 4rem;
+    padding: 1rem;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+#page {
+    padding: 4rem 0 0;
+    height: 100vh;
+    position: relative;
+}
+#left-menu {
+    margin: 0;
+    background-color: rgba(0,0,0,0.1);
+    padding: 0;
+    height: 100%;
+    /* margin: 0; */
+}
+#left-menu ul, #left-menu {
+    list-style: none;
+    padding: 0;
+}
+#left-menu a {
+    color: inherit;
+    text-transform: none;
+    padding: 0.5rem;
+    display: block;
+    text-decoration: none;
+
+}
+#left-menu li.active > a{
+    background-color: #1077BD;
+    color: white;
+}
+#left-menu i {
+    margin-right: 0.5rem;
+}
+#left-menu li a:hover{
+    transition-property: background-color;
+    transition-duration: 500ms;
+}
+#left-menu li a:hover {
+    background-color: rgba(0,0,0,0.2);
+}
+.sub-menu-left {
+    display: none;
+}
+#left-menu .sub-menu-left li a {
+    padding-left: 2rem !important;
+}
+#left-menu li a.drop-open, #left-menu li a.drop-open:hover {
+    background-color: rgba(0,0,0,0.3);
+}
