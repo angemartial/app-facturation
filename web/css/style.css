@@ -7,16 +7,64 @@ header {
     top: 0;
     left: 0;
 }
+.client {
+    width: 25rem;
+    background-color: rgba(0,0,0,0.05);
+    padding: 2rem;
+    border-radius: 1rem;
+}
+.subject {
+    padding: 1rem;
+    margin-top: 2rem;
+}
+.comments {
+    margin: 2rem 0;
+}
+.comment-content {
+    padding: 1rem;
+    background-color: rgba(0,0,0,0.05);
+}
+.conditions {
+    font-weight: 500;
+}
+.comments h3 {
+    font-size: 1.2rem;
+}
+.client h5 {
+}
+.client ul {
+    padding: 0;
+}
+.client li {
+    list-style: none;
+}
+h1 {
+    padding: 0.5rem;
+}
 #page {
     padding: 4rem 0 0;
-    height: 100vh;
     position: relative;
+    display: flex;
+}
+.list-container{
+    background-color: rgba(0,0,0,0.02);
+    padding: 1rem;
+}
+.dataTables_wrapper .dataTables_filter input {
+    border: solid 1px rgba(0,0,0,0.5);
+}
+.action-buttons {
+    padding: 1rem;
+    text-align: right;
+    position: absolute;
+    top: 0;
+    right: 1rem;
 }
 #left-menu {
     margin: 0;
     background-color: rgba(0,0,0,0.1);
     padding: 0;
-    height: 100%;
+    min-height: 100vh;
     /* margin: 0; */
 }
 #left-menu ul, #left-menu {
@@ -53,4 +101,93 @@ header {
 }
 #left-menu li a.drop-open, #left-menu li a.drop-open:hover {
     background-color: rgba(0,0,0,0.3);
+}
+.trumbowyg-box, .trumbowyg-editor {
+    min-height: 100px !important;
+}
+.trumbowyg-editor, .trumbowyg-textarea {
+    min-heigh: 100px !important;
+}
+
+.ligne-widget {
+    display: flex;
+    margin: 2rem 0;
+    position: relative;
+}
+.lignes > li {
+    list-style: none;
+    position: relative;
+}
+.lignes {
+    padding: 0;
+    width: 100%;
+}
+.add_ligne_link {
+    float: right;
+    margin-right: 0.5rem;
+    margin: 2rem 0;
+}
+.ligne-widget > div {
+    padding: 0.5rem;
+}
+.little-widget {
+    width: 5rem;
+}
+.widen{
+    transition-property: all;
+    transition-duration: 300ms;
+}
+.widen:focus {
+    position: absolute;
+    width: 100%;
+    /* max-width: 800px; */
+    left: 0;
+    height: 5rem;
+}
+.little-form-control {
+    width: 5rem;
+}
+.wide-form-control {
+    width: 20rem;
+}
+.totaux .table {
+    float: right;
+    width: 20rem;
+}
+.totaux {
+    width: 100%;
+}
+button.remove-document-line {
+    position: absolute;
+    right: 2rem;
+    top: 0;
+}
+button.remove-document-line {
+    position: absolute;
+    right: 2rem;
+    top: 0;
+    border-radius: 50%;
+    padding: 0.1rem;
+    line-height: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.entite-form .form-group {
+    margin: 2rem;
+    padding: 1rem;
+    border: solid 1px #ccc;
+    border-radius: 0.5rem;
+}
+.button-switch-group {
+    margin: 3rem 2rem -1rem;
+}
+.button-switch-group .btn.disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+}
+.entite-form .form-group.form-disabled {
+    display: none;
+}
+body{
+    overflow-x: hidden;
 }

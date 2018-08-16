@@ -8,6 +8,33 @@ window.onload = function () {
                 var parts = _.split(eventSpec, ' ');
                 $(document).on(parts[0], _.join(_.slice(parts, 1), ' '), callback);
             });
+            $('#document-list').DataTable({
+                'language' : admin.language
+            });
+        },
+        language: {
+            "decimal":        "",
+            "emptyTable":     "Aucune donnée disponible",
+            "info":           "Afficher _START_ à _END_ des entrées _TOTAL_",
+            "infoEmpty":      "Afficher 0 à 0 de 0 entrées",
+            "infoFiltered":   "(filtré à partir des entrées totales _MAX_)",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "lengthMenu":     "Afficher les entrées _MENU_",
+            "loadingRecords": "Chargement...",
+            "processing":     "En traitement...",
+            "search":         "Rechercher:",
+            "zeroRecords":    "Aucun enregistrements correspondants trouvés",
+            "paginate": {
+                "first":      "Premier",
+                "last":       "Dernier",
+                "next":       "Suivant",
+                "previous":   "Précedent"
+            },
+            "aria": {
+                "sortAscending":  ": activer pour trier la colonne en croissant",
+                "sortDescending": ": activer pour trier la colonne décroissante"
+            }
         },
         events: {
             'click #left-menu > li a': function (e) {

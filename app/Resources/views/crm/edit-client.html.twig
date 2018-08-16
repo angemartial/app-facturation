@@ -1,10 +1,104 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
+    <h1 class="container-fluid">Nouvelle entité</h1>
+    <div class="container-fluid button-switch-group">
+        <button data-target=".person-input-group" class="btn btn-primary active disabled">Particulier</button>
+        <button data-target=".company-input-group" class="btn btn-primary">Entreprise</button>
+    </div>
+    <div class="container-fluid entite-form">
+        {{ form_start(form) }}
+        <div class="row person-input-group switch-group form-group">
+            <h2 class="col-md-12">Particulier</h2>
+            <div class="col-md-4">
+                {{ form_row(form.civilite) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.nom) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.prenoms) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.fonction) }}
+            </div>
+        </div>
+        <div class="row company-input-group switch-group form-group form-disabled">
+            <h2 class="col-md-12">Entreprise</h2>
+            <div class="col-md-6">
+                {{ form_row(form.raisonSociale) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.formeJuridique) }}
+            </div>
+        </div>
+        <div class="row contact-input-group form-group">
+            <h2 class="col-md-12">Contact</h2>
+            <div class="col-md-4">
+                {{ form_row(form.adresse.adresse) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.adresse.adresseSuite) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.adresse.codePostal) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.adresse.ville) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.adresse.pays) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.adresse.telBureau) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.adresse.portable) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.adresse.fax) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.siteWeb) }}
+            </div>
+        </div>
+        <div class="row bank-input-group form-group">
+            <h2 class="col-md-12">Coordonnées bancaires</h2>
+            <div class="col-md-4">
+                {{ form_row(form.coordonneesBanque.banque) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.coordonneesBanque.rib) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.coordonneesBanque.iban) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.coordonneesBanque.bic) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.coordonneesBanque.montantDeLencours) }}
+            </div>
+        </div>
+        <div class="row submit-input-group form-group text-right">
+            <div class="float-right">{{ form_row(form.submit) }}</div>
 
+        </div>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
 
 {% block js %}
+    <script type="text/javascript">
+        $(function () {
+            $(document).on('click', '.button-switch-group .btn:not(.disabled)', function (e) {
+                var target = $(e.currentTarget),
+                    switchTarget = $(target.attr('data-target'));
 
+                switchTarget.removeClass('form-disabled').siblings('.switch-group').addClass('form-disabled');
+                target.addClass('disabled active') .siblings('.btn').removeClass('active disabled');
+            });
+        })
+    </script>
 {% endblock %}
 

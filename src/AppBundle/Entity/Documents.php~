@@ -1,0 +1,302 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Documents
+ *
+ * @ORM\Table(name="documents")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\DocumentsRepository")
+ */
+class Documents
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="objet", type="string", length=255)
+     */
+    private $objet;
+
+    /**
+     * @var TypeDeDocuments
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\TypeDeDocuments")
+     */
+    private $typeDeDocuments;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateDeLivraison", type="datetime")
+     */
+    private $dateDeLivraison;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="dureeDeValidite", type="integer")
+     */
+    private $dureeDeValidite;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire", type="string", length=255)
+     */
+    private $commentaire;
+
+    /**
+     * @var LigneFacture[]|ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\LigneFacture", mappedBy="document")
+     */
+    private $lignes;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="tauxDePenalite", type="integer", nullable=true)
+     */
+    private $tauxDePenalite;
+
+
+    /**
+     * @var ConditionsDeReglements
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ConditionsDeReglements")
+     */
+    private $conditionsDeReglements;
+
+    /**
+     * @return ConditionsDeReglements
+     */
+    public function getConditionsDeReglements(): ConditionsDeReglements
+    {
+        return $this->conditionsDeReglements;
+    }
+
+    /**
+     * @param ConditionsDeReglements $conditionsDeReglements
+     * @return Documents
+     */
+    public function setConditionsDeReglements(ConditionsDeReglements $conditionsDeReglements): Documents
+    {
+        $this->conditionsDeReglements = $conditionsDeReglements;
+        return $this;
+    }
+
+    /**
+     * @return ModeDePaiement
+     */
+    public function getModeDePaiement(): ModeDePaiement
+    {
+        return $this->modeDePaiement;
+    }
+
+    /**
+     * @param ModeDePaiement $modeDePaiement
+     * @return Documents
+     */
+    public function setModeDePaiement(ModeDePaiement $modeDePaiement): Documents
+    {
+        $this->modeDePaiement = $modeDePaiement;
+        return $this;
+    }
+
+    /**
+     * @var ModeDePaiement
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ModeDePaiement")
+     */
+    private $modeDePaiement;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Documents
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set objet
+     *
+     * @param string $objet
+     *
+     * @return Documents
+     */
+    public function setObjet($objet)
+    {
+        $this->objet = $objet;
+
+        return $this;
+    }
+
+    /**
+     * Get objet
+     *
+     * @return string
+     */
+    public function getObjet()
+    {
+        return $this->objet;
+    }
+
+    /**
+     * Set dateDeLivraison
+     *
+     * @param \DateTime $dateDeLivraison
+     *
+     * @return Documents
+     */
+    public function setDateDeLivraison($dateDeLivraison)
+    {
+        $this->dateDeLivraison = $dateDeLivraison;
+
+        return $this;
+    }
+
+    /**
+     * Get dateDeLivraison
+     *
+     * @return \DateTime
+     */
+    public function getDateDeLivraison()
+    {
+        return $this->dateDeLivraison;
+    }
+
+    /**
+     * Set dureeDeValidite
+     *
+     * @param integer $dureeDeValidite
+     *
+     * @return Documents
+     */
+    public function setDureeDeValidite($dureeDeValidite)
+    {
+        $this->dureeDeValidite = $dureeDeValidite;
+
+        return $this;
+    }
+
+    /**
+     * Get dureeDeValidite
+     *
+     * @return int
+     */
+    public function getDureeDeValidite()
+    {
+        return $this->dureeDeValidite;
+    }
+
+    /**
+     * Set commentaire
+     *
+     * @param string $commentaire
+     *
+     * @return Documents
+     */
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * Get commentaire
+     *
+     * @return string
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
+    }
+
+    /**
+     * Set tauxDePenalite
+     *
+     * @param integer $tauxDePenalite
+     *
+     * @return Documents
+     */
+    public function setTauxDePenalite($tauxDePenalite)
+    {
+        $this->tauxDePenalite = $tauxDePenalite;
+
+        return $this;
+    }
+
+    /**
+     * Get tauxDePenalite
+     *
+     * @return int
+     */
+    public function getTauxDePenalite()
+    {
+        return $this->tauxDePenalite;
+    }
+
+    /**
+     * @return TypeDeDocuments
+     */
+    public function getTypeDeDocuments(): TypeDeDocuments
+    {
+        return $this->typeDeDocuments;
+    }
+
+    /**
+     * @param TypeDeDocuments $typeDeDocuments
+     * @return Documents
+     */
+    public function setTypeDeDocuments(TypeDeDocuments $typeDeDocuments): Documents
+    {
+        $this->typeDeDocuments = $typeDeDocuments;
+        return $this;
+    }
+
+}
+

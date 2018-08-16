@@ -2,9 +2,141 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>{{ document.reference }}</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/pdf.css">
 </head>
 <body>
-$END$
+<header>
+    <div class="company font-weight-bold">
+        <span class="company-name">Iboh Company</span> <br>
+        iboh@ibohcompany.com <br>
+        07676745
+    </div>
+    <div class="document-title circle">
+        <h1>{{ document.typeDeDocuments.titre }} N° {{ document.reference }}</h1>
+        <span>Date: {{ document.date|date('d m Y') }}</span>
+    </div>
+</header>
+<div class="client-section">
+    <div class="client-block  circle">
+        <h2>
+            {{ document.entite }}
+        </h2>
+        <div>
+            {{ document.entite.adresse.adresse }}
+        </div>
+        <div>
+            {{  document.entite.adresse.adresseSuite is not empty ? document.entite.adresse.adresseSuite : '' }}
+        </div>
+        <div>
+            {{  document.entite.adresse.codePostal is not empty ? document.entite.adresse.codePostal  : '' }}
+        </div>
+        <div>
+            {{  document.entite.adresse.ville is not empty ? document.entite.adresse.ville : '' }}
+        </div>
+         <div>
+             {{  document.entite.adresse.telBureau is not empty ? document.entite.adresse.telBureau : '' }}
+         </div>
+         <div>
+             {{  document.entite.adresse.portable is not empty ? document.entite.adresse.portable : '' }}
+         </div>
+    </div>
+</div>
+<div class="subject">
+    <span class="font-weight-bold">Objet:</span> <span>{{ document.objet }}</span>
+</div>
+<div class="clearfix">
+    <table class="table-bordered table">
+        <thead class=" thead-light">
+        <tr>
+            <th>Reference</th>
+            <th>Désignation</th>
+            <th>Qté</th>
+            <th>Prix unitaire</th>
+            <th>TVA</th>
+            <th>Total HT</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for line in document.lignes %}
+            <tr>
+                <td>{{ line.reference }}</td>
+                <td>{{ line.designation }}</td>
+                <td>{{ line.quantite }}</td>
+                <td>{{ line.prixUnitaire }}</td>
+                <td>{{ line.tva }}</td>
+                <td>{{ line.ht }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div>
+    <div class="conditions">
+        {% if document.dateDeLivraison is not empty %}
+        <div>
+            Date de livraison: {{ document.dateDeLivraison|date('d m Y') }}
+        </div>
+        {% endif %}
+        {% if document.dureeDeValidite is not empty %}
+            <div>
+                Durée de validité: {{ document.dureeDeValidite }}
+            </div>
+        {% endif %}
+        {% if document.tauxDePenalite is not empty %}
+            <div>
+                Taux de pénalité (En cas de non respect des echéances): {{ document.tauxDePenalite }}
+            </div>
+        {% endif %}
+
+        {% if document.modeDePaiement is not empty %}
+            <div>
+                Mode de paiement: {{ document.modeDePaiement }}
+            </div>
+        {% endif %}
+
+        <ul>
+            {% for condition in document.conditionsDeReglements %}
+                <li>{{ condition }}</li>
+            {% endfor %}
+        </ul>
+        <div class="comments">
+            {% if document.commentaire is not empty %}
+                <h3>Commentaires</h3>
+                {{ document.commentaire|raw }}
+            {% endif %}
+        </div>
+
+    </div>
+    <div class="summary">
+
+        <table class="table-bordered table">
+            <tbody>
+            <tr class="font-weight-bold">
+                <td>Total HT</td>
+                <td>{{ document.montantHT }}</td>
+            </tr>
+            <tr>
+                <td>Total TVA</td>
+                <td>{{ document.tva }}</td>
+            </tr>
+            <tr class="font-weight-bold">
+                <td>Total TTC</td>
+                <td>{{ document.montantTTC }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table">
+            <tbody>
+            <tr class="font-weight-bold">
+                <td>Net à payer</td>
+                <td>{{ document.montantTTC }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>

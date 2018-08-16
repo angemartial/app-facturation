@@ -1,6 +1,39 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-
+    <h1 class="container-fluid">
+        Liste {{ type.titre|lower }}
+    </h1>
+    <div class="container-fluid action-buttons">
+        <a href="{{ path('document', { code: type.code }) }}" class="btn btn-primary">Ajouter {{ type.titre|lower }}</a>
+    </div>
+    <div class="container-fluid list-container">
+        <table id="document-list">
+            <thead>
+                <tr>
+                    <th>Reference</th>
+                    <th>Date</th>
+                    <th>Etat</th>
+                    <th>Total HT</th>
+                    <th>Total TTC</th>
+                    <th>Total Reglé</th>
+                    <th>Reste</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for document in documents %}
+                    <tr>
+                        <td><a href="{{ path('show_document', { 'code': document.typeDeDocuments.code, 'id': document.id }) }}">{{ document.reference }}</a> </td>
+                        <td>{{ document.date|date('d m Y') }}</td>
+                        <td>{{ document.reste == 0 ? 'Payé' : 'En cours' }}</td>
+                        <td>{{ document.montantHT }}</td>
+                        <td>{{ document.montantTTC }}</td>
+                        <td>{{ document.montantTTC - document.reste }}</td>
+                        <td>{{ document.reste }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
 

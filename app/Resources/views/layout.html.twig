@@ -9,6 +9,7 @@
     <link href="{{ asset('apple-touch-icon.png') }}" type="img/x-icon" rel="shortcut icon">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- All css files are included here. -->
 
@@ -23,13 +24,13 @@
 <header></header>
 <div id="page" class="container-fluid">
     <ul id="left-menu"  class="col-2">
-        <li><a href="#"><i class="fa fa-tachometer-alt"></i>Tableau de Bord</a></li>
+        <li><a href="{{ path('index') }}"><i class="fa fa-tachometer-alt"></i>Tableau de Bord</a></li>
         <li><a href="#"><i class="fa fa-shopping-cart"></i>Facturation</a>
             <ul class="sub-menu-left">
-                <li><a href="#"> Pro-forma</a></li>
-                <li><a href="#"> Facture</a></li>
-                <li><a href="#"> Devis</a></li>
-                <li><a href="#"> Facture Fournisseurs</a></li>
+                <li><a href="{{ path('documents', {"code" : "CUST_ORDER"}) }}"> Commande</a></li>
+                <li><a href="{{ path('documents', {"code" : "FACT"}) }}"> Facture</a></li>
+                <li><a href="{{ path('documents', {"code" : "QUOT"}) }}"> Devis</a></li>
+                <li><a href="{{ path('documents', {"code" : "SUPP_ORDER"}) }}"> Facture Fournisseurs</a></li>
             </ul>
         </li>
         <li class="active"><a href="#"><i class="fa fa-users"></i>Clients</a>
@@ -94,6 +95,7 @@
 <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/axios.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/lodash.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
 {% block js %}{% endblock %}
 </body>

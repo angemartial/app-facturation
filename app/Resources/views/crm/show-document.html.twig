@@ -1,0 +1,142 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1 class="container-fluid">
+        {{ document.typeDeDocuments.titre }} {{ document.reference }}
+    </h1>
+    <div class="container-fluid action-buttons">
+        <a href="{{ path('document', { code: document.typeDeDocuments.code, id: document.id }) }}" class="btn btn-primary">Modifier</a>
+        <a href="{{ asset('pdf/' ~ document.reference ~ '.pdf') }}" class="btn btn-outline-info">Télécharger au format pdf</a>
+        <a href="#" class="btn btn-danger">Supprimer</a>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                {{ document.date|localizeddate('long', 'none', 'fr') }}
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-6 client-group">
+                <div class="client">
+                    <h5>{{ document.entite }}</h5>
+                    <div>{{ document.entite.adresse|raw }}</div>
+                </div>
+
+            </div>
+            <div class="row subject">
+                Objet: {{ document.objet }}
+            </div>
+        </div>
+        <div id="lignes" class="row">
+            <table class="table-bordered table">
+                <thead class=" thead-light">
+                <tr>
+                    <th>Reference</th>
+                    <th>Désignation</th>
+                    <th>Qté</th>
+                    <th>Prix unitaire</th>
+                    <th>TVA</th>
+                    <th>Total HT</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for line in document.lignes %}
+                    <tr>
+                        <td>{{ line.reference }}</td>
+                        <td>{{ line.designation }}</td>
+                        <td>{{ line.quantite }}</td>
+                        <td>{{ line.prixUnitaire }}</td>
+                        <td>{{ line.tva }}</td>
+                        <td>{{ line.ht }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container-fluid position-relative">
+        <div class="row">
+            <div class="conditions col-md-5">
+                <div class="">
+                    {% if document.modeDePaiement is not empty %}
+                        <div>
+                            Mode de paiement: {{ document.modeDePaiement }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="">
+                    <ul>
+                        {% for condition in document.conditionsDeReglements %}
+                            <li>{{ condition }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="">
+                    {% if document.dureeDeValidite is not empty %}
+                        <div>
+                            Durée de validité: {{ document.dureeDeValidite }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="">
+                    {% if document.tauxDePenalite is not empty %}
+                        <div>
+                            Taux de pénalité (En cas de non respect des echéances): {{ document.tauxDePenalite }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="">
+                    {% if document.dateDeLivraison is not empty %}
+                        <div>
+                            Date de livraison: {{ document.dateDeLivraison|date('d m Y') }}
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+            <div class="col-md-2"></div>
+            <div class="summary col-md-5">
+
+                <table class="table-bordered table">
+                    <tbody>
+                    <tr class="font-weight-bold">
+                        <td>Total HT</td>
+                        <td>{{ document.montantHT }}</td>
+                    </tr>
+                    <tr>
+                        <td>Total TVA</td>
+                        <td>{{ document.tva }}</td>
+                    </tr>
+                    <tr class="font-weight-bold">
+                        <td>Total TTC</td>
+                        <td>{{ document.montantTTC }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <tbody>
+                    <tr class="font-weight-bold">
+                        <td>Net à payer</td>
+                        <td>{{ document.montantTTC }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="comments col-md-12">
+                {% if document.commentaire is not empty %}
+                    <h3>Commentaires</h3>
+                    <div class="comment-content">
+                        {{ document.commentaire|raw }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}
+
