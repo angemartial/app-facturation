@@ -71,7 +71,7 @@ class DocumentListener
             $ht = $line->getQuantite() * $line->getPrixUnitaire();
             $totalHt += $ht;
             $tvaObject = $line->getTva();
-            $tva = null === $tvaObject ? 0 : $ht * $tvaObject->getTaux();
+            $tva = null === $tvaObject ? 0 : ($ht * ($tvaObject->getTaux() / 100));
 
             $totalTva += $tva;
 

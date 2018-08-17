@@ -245,5 +245,4 @@ class LigneFacture
         return $this->prixUnitaire * $this->quantite;
     }
 
-
 }

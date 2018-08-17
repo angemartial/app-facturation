@@ -35,12 +35,23 @@ class Article
     private $classificationArticle;
 
     /**
+     * @var ClassificationVente
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ClassificationVente")
+     */
+    private $classificationVente;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="designation", type="string", length=255, unique=true)
+     * @ORM\Column(name="designation", type="text", length=255)
      */
     private $designation;
 
+    /**
+     * @var Marge
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Marge")
+     */
+    private $marge;
 
     /**
      * @var Unite
@@ -119,33 +130,12 @@ class Article
      */
     private $taxe;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prixAchat", type="string", length=255)
-     */
-    private $prixAchat;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="coefficientMultiplicateur", type="decimal", precision=5, scale=0)
-     */
-    private $coefficientMultiplicateur;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="marge", type="decimal", precision=10, scale=0)
-     */
-    private $marge;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="margeBrute", type="decimal", precision=2, scale=0)
-     */
-    private $margeBrute;
+
+
+
 
 
     /**
@@ -302,100 +292,41 @@ class Article
         return $this->taxe;
     }
 
-    /**
-     * Set prixAchat
-     *
-     * @param string $prixAchat
-     *
-     * @return Article
-     */
-    public function setPrixAchat($prixAchat)
-    {
-        $this->prixAchat = $prixAchat;
-
-        return $this;
-    }
 
     /**
-     * Get prixAchat
-     *
-     * @return string
+     * @return Marge
      */
-    public function getPrixAchat()
-    {
-        return $this->prixAchat;
-    }
-
-    /**
-     * Set coefficientMultiplicateur
-     *
-     * @param string $coefficientMultiplicateur
-     *
-     * @return Article
-     */
-    public function setCoefficientMultiplicateur($coefficientMultiplicateur)
-    {
-        $this->coefficientMultiplicateur = $coefficientMultiplicateur;
-
-        return $this;
-    }
-
-    /**
-     * Get coefficientMultiplicateur
-     *
-     * @return string
-     */
-    public function getCoefficientMultiplicateur()
-    {
-        return $this->coefficientMultiplicateur;
-    }
-
-    /**
-     * Set marge
-     *
-     * @param string $marge
-     *
-     * @return Article
-     */
-    public function setMarge($marge)
-    {
-        $this->marge = $marge;
-
-        return $this;
-    }
-
-    /**
-     * Get marge
-     *
-     * @return string
-     */
-    public function getMarge()
+    public function getMarge(): Marge
     {
         return $this->marge;
     }
 
     /**
-     * Set margeBrute
-     *
-     * @param string $margeBrute
-     *
+     * @param Marge $marge
      * @return Article
      */
-    public function setMargeBrute($margeBrute)
+    public function setMarge(Marge $marge): Article
     {
-        $this->margeBrute = $margeBrute;
-
+        $this->marge = $marge;
         return $this;
     }
 
     /**
-     * Get margeBrute
-     *
-     * @return string
+     * @return ClassificationVente
      */
-    public function getMargeBrute()
+    public function getClassificationVente(): ClassificationVente
     {
-        return $this->margeBrute;
+        return $this->classificationVente;
+    }
+
+    /**
+     * @param ClassificationVente $classificationVente
+     * @return Article
+     */
+    public function setClassificationVente(ClassificationVente $classificationVente): Article
+    {
+        $this->classificationVente = $classificationVente;
+        return $this;
     }
 
     /**
@@ -415,6 +346,8 @@ class Article
         $this->classificationArticle = $classificationArticle;
         return $this;
     }
+
+
 
 }
 

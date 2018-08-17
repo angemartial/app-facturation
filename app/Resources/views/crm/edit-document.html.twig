@@ -80,10 +80,11 @@
                 format: 'D MM YYYY'
             });
             $('.select-container').find('select').addClass('form-control');
-            $('textarea').trumbowyg({
+            $('textarea:not(.widen)').trumbowyg({
                 lang: 'fr',
                 resetCss: true
             });
+            $('.document-line > div > div').addClass('ligne-widget');
             var $collectionHolder;
 
 // setup an "add a tag" link
@@ -106,8 +107,14 @@
                 });
             $addLigneButton.click();
             $(document).on('change', '.qte, .tva, .pu', function (e) {
-                var line = $(e.currentTarget).parents('.document-line'),
-                    qte = parseFloat( line.find('.qte').val()) || 0,
+                var line = $(e.currentTarget).parents('.document-line');
+                updateTtc(line);
+            });
+            $('.document-line').each(function () {
+                updateTtc($(this));
+            });
+            function updateTtc(line) {
+                var qte = parseFloat( line.find('.qte').val()) || 0,
                     tva = parseFloat( line.find('.tva option:selected').text()) || 0,
                     pu = parseFloat( line.find('.pu').val()) || 0,
                     totalElement = line.find('.total-ttc'),
@@ -120,8 +127,8 @@
                 }
                 totalElement.val(total);
                 var lines = line.parent().children('.document-line'),
-                totauxHT = 0,
-                totauxTTC = 0;
+                    totauxHT = 0,
+                    totauxTTC = 0;
                 lines.each(function () {
                     var totalHt = parseFloat($(this).attr('data-ht')) || 0;
                     totauxHT += totalHt;
@@ -130,8 +137,7 @@
                 });
                 $('.totaux-ht-value').text(totauxHT);
                 $('.totaux-ttc-value').text(totauxTTC);
-
-            });
+            }
             $(document).on('click', '.remove-document-line', function (e) {
                 var button = $(e.currentTarget);
                 button.parents('.document-line').remove();

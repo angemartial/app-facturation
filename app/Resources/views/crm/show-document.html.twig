@@ -6,7 +6,7 @@
     </h1>
     <div class="container-fluid action-buttons">
         <a href="{{ path('document', { code: document.typeDeDocuments.code, id: document.id }) }}" class="btn btn-primary">Modifier</a>
-        <a href="{{ asset('pdf/' ~ document.reference ~ '.pdf') }}" class="btn btn-outline-info">Télécharger au format pdf</a>
+        <a target="_blank" href="{{ asset('pdf/' ~ document.reference ~ '.pdf') }}" class="btn btn-outline-info">Télécharger au format pdf</a>
         <a href="#" class="btn btn-danger">Supprimer</a>
     </div>
     <div class="container-fluid">

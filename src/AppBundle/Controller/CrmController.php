@@ -8,9 +8,12 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Article;
 use AppBundle\Entity\Documents;
 use AppBundle\Entity\Entite;
+use AppBundle\Entity\LigneFacture;
 use AppBundle\Entity\TypeDeDocuments;
+use AppBundle\Form\ArticleType;
 use AppBundle\Form\DocumentsType;
 use AppBundle\Form\EntiteType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -64,6 +67,7 @@ class CrmController extends Controller
 
          if(0 === $id){
              $document = new Documents();
+             $document->setDate(new \DateTime());
          }else{
              $document = $em->find(Documents::class, $id);
              if(null === $document){
@@ -76,8 +80,16 @@ class CrmController extends Controller
          $form->handleRequest($request);
 
          if($form->isSubmitted() && $form->isValid()){
+             /** @var Documents $data */
             $data = $form->getData();
+            $lines = $data->getLignes();
+            /** @var LigneFacture $line */
+             foreach ($lines as $line) {
+                 $line->setDocument($data);
+                 $em->persist($line);
+            }
             $em->persist($data);
+
             $em->flush();
             return $this->redirectToRoute('documents', ['code' => $type->getCode()]);
          }
@@ -147,5 +159,32 @@ class CrmController extends Controller
         return $this->render('crm/edit-client.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    public function editCatalogueAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        if (0 === $id){
+            $catalogue = new Article();
+        }else {
+            $catalogue = $em->find(ArticleType::class, $id);
+            if(null === $catalogue){
+                throw $this->createNotFoundException('Cet élément n\'existe pas en base de données');
+            }
+        }
+        $form = $this->createForm(ArticleType::class, $catalogue);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+
+            $catalogue = $form->getData();
+            $em->persist($catalogue);
+            $em->flush();
+            $this->addFlash('success', 'Article ajouté ');
+            return $this->redirectToRoute('app_homepage');
+        }
+
+        return $this->render('crm/create-product.html.twig', [
+            'form' => $form->createView()
+        ]);
+
     }
 }
