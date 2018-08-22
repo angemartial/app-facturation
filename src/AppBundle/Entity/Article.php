@@ -34,6 +34,13 @@ class Article
      */
     private $classificationArticle;
 
+
+    /**
+     * @var Fournisseur
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Fournisseur")
+     */
+    private $fournisseurs;
+
     /**
      * @var ClassificationVente
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ClassificationVente")
@@ -54,6 +61,12 @@ class Article
     private $marge;
 
     /**
+     * @var Tva
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Tva")
+     */
+    private $tva;
+
+    /**
      * @var Unite
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Unite")
      */
@@ -62,7 +75,7 @@ class Article
     /**
      * @return Unite
      */
-    public function getUnite(): Unite
+    public function getUnite()
     {
         return $this->unite;
     }
@@ -71,7 +84,7 @@ class Article
      * @param Unite $unite
      * @return Article
      */
-    public function setUnite(Unite $unite): Article
+    public function setUnite(Unite $unite)
     {
         $this->unite = $unite;
         return $this;
@@ -80,7 +93,7 @@ class Article
     /**
      * @return NatureArticle
      */
-    public function getNatureArticle(): NatureArticle
+    public function getNatureArticle()
     {
         return $this->natureArticle;
     }
@@ -89,7 +102,7 @@ class Article
      * @param NatureArticle $natureArticle
      * @return Article
      */
-    public function setNatureArticle(NatureArticle $natureArticle): Article
+    public function setNatureArticle(NatureArticle $natureArticle)
     {
         $this->natureArticle = $natureArticle;
         return $this;
@@ -115,27 +128,6 @@ class Article
      * @ORM\Column(name="prixUnitaire", type="string", length=255, unique=true)
      */
     private $prixUnitaire;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="referenceFournisseur", type="string", length=255, unique=true)
-     */
-    private $referenceFournisseur;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="taxe", type="boolean")
-     */
-    private $taxe;
-
-
-
-
-
-
-
 
 
     /**
@@ -244,59 +236,11 @@ class Article
         return $this->prixUnitaire;
     }
 
-    /**
-     * Set referenceFournisseur
-     *
-     * @param string $referenceFournisseur
-     *
-     * @return Article
-     */
-    public function setReferenceFournisseur($referenceFournisseur)
-    {
-        $this->referenceFournisseur = $referenceFournisseur;
-
-        return $this;
-    }
-
-    /**
-     * Get referenceFournisseur
-     *
-     * @return string
-     */
-    public function getReferenceFournisseur()
-    {
-        return $this->referenceFournisseur;
-    }
-
-    /**
-     * Set taxe
-     *
-     * @param boolean $taxe
-     *
-     * @return Article
-     */
-    public function setTaxe($taxe)
-    {
-        $this->taxe = $taxe;
-
-        return $this;
-    }
-
-    /**
-     * Get taxe
-     *
-     * @return bool
-     */
-    public function getTaxe()
-    {
-        return $this->taxe;
-    }
-
 
     /**
      * @return Marge
      */
-    public function getMarge(): Marge
+    public function getMarge()
     {
         return $this->marge;
     }
@@ -305,7 +249,7 @@ class Article
      * @param Marge $marge
      * @return Article
      */
-    public function setMarge(Marge $marge): Article
+    public function setMarge(Marge $marge)
     {
         $this->marge = $marge;
         return $this;
@@ -314,7 +258,7 @@ class Article
     /**
      * @return ClassificationVente
      */
-    public function getClassificationVente(): ClassificationVente
+    public function getClassificationVente()
     {
         return $this->classificationVente;
     }
@@ -323,7 +267,7 @@ class Article
      * @param ClassificationVente $classificationVente
      * @return Article
      */
-    public function setClassificationVente(ClassificationVente $classificationVente): Article
+    public function setClassificationVente(ClassificationVente $classificationVente)
     {
         $this->classificationVente = $classificationVente;
         return $this;
@@ -332,7 +276,7 @@ class Article
     /**
      * @return ClassificationArticle
      */
-    public function getClassificationArticle(): ClassificationArticle
+    public function getClassificationArticle()
     {
         return $this->classificationArticle;
     }
@@ -341,9 +285,45 @@ class Article
      * @param ClassificationArticle $classificationArticle
      * @return Article
      */
-    public function setClassificationArticle(ClassificationArticle $classificationArticle): Article
+    public function setClassificationArticle(ClassificationArticle $classificationArticle)
     {
         $this->classificationArticle = $classificationArticle;
+        return $this;
+    }
+
+    /**
+     * @return Fournisseur
+     */
+    public function getFournisseurs()
+    {
+        return $this->fournisseurs;
+    }
+
+    /**
+     * @param Fournisseur $fournisseurs
+     * @return Article
+     */
+    public function setFournisseurs(Fournisseur $fournisseurs)
+    {
+        $this->fournisseurs = $fournisseurs;
+        return $this;
+    }
+
+    /**
+     * @return Tva
+     */
+    public function getTva()
+    {
+        return $this->tva;
+    }
+
+    /**
+     * @param Tva $tva
+     * @return Article
+     */
+    public function setTva(Tva $tva)
+    {
+        $this->tva = $tva;
         return $this;
     }
 

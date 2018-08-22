@@ -56,7 +56,6 @@ class DocumentListener
         $domPdf->render();
         $output = $domPdf->output();
         $path = $kernel->getProjectDir().'/web/pdf/'.$document->getReference().'.pdf';
-        file_put_contents($kernel->getProjectDir().'/web/pdf/'.$document->getReference().'.html', $html);
         $domPdf->setBasePath($kernel->getProjectDir()."/css/");
         file_put_contents($path, $output);
     }

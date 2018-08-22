@@ -17,7 +17,6 @@ use AppBundle\Form\ArticleType;
 use AppBundle\Form\DocumentsType;
 use AppBundle\Form\EntiteType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Svg\Document;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,7 +52,26 @@ class CrmController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return Response
+     * @Route("/list-produits", name="show-product")
+     */
+    public function showCatalogue(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $catalogue = $em->getRepository(Article::class)->findAll();
+
+        /* cataloguetwig contient les elements de la variable $catalogue , elle servira à appeler les elements de cette variable
+        dans les boucles de la vue  */
+        return $this->render('crm/catalogue.html.twig', ['cataloguetwig' => $catalogue]);
+    }
+
+
+    /**
      * @Route("/document/{code}/{id}", name="document")
+     * @param Request $request
+     * @param $code
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function documentAction(Request $request, $code, int $id = 0){
          $em = $this->getDoctrine()->getManager();
@@ -161,16 +179,25 @@ class CrmController extends Controller
         ]);
     }
 
-    public function editCatalogueAction(Request $request, $id) {
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @Route("/editer-produit/{id}", name="edit_product")
+     */
+    public function editCatalogueAction(Request $request, int $id) {
         $em = $this->getDoctrine()->getManager();
-        if (0 === $id){
+
+        if(0 === $id){
             $catalogue = new Article();
-        }else {
-            $catalogue = $em->find(ArticleType::class, $id);
+        }else{
+            $catalogue = $em->find(Article::class, $id);
             if(null === $catalogue){
                 throw $this->createNotFoundException('Cet élément n\'existe pas en base de données');
             }
         }
+
+
         $form = $this->createForm(ArticleType::class, $catalogue);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){

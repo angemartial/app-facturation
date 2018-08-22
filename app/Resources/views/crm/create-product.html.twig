@@ -2,6 +2,56 @@
 
 {% block content %}
 
+    <h1 class="container-fluid">Ajouter un nouvel article</h1>
+
+    <div class="container-fluid entite-form">
+        {{ form_start(form) }}
+        <div class="row form-group">
+            <h2 class="col-md-12"></h2>
+            <div class="col-md-4">
+                {{ form_row(form.reference) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.classificationArticle) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.classificationVente) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.designation) }}
+            </div>
+        </div>
+        <div class="row form-group">
+            <h2 class="col-md-12"></h2>
+            <div class="col-md-6">
+                {{ form_row(form.marge) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.unite) }}
+            </div>
+        </div>
+        <div class="row form-group">
+            <h2 class="col-md-12"></h2>
+            <div class="col-md-4">
+                {{ form_row(form.natureArticle) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.quantite) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.prixUnitaire) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.fournisseurs) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.tva) }}
+            </div>
+
+        </div>
+        {{ form_end(form) }}
+    </div>
+
 {% endblock %}
 
 {% block js %}

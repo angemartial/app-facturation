@@ -2,6 +2,8 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Tva;
+use function PHPSTORM_META\type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -38,15 +40,15 @@ class ArticleType extends AbstractType
                 ],
                 'label' => 'Prix Unitaire'
             ])
-            ->add('referenceFournisseur', null, [
+            ->add('fournisseurs', null, [
                 'attr' => [
                     'class' => 'form-control person-input'
                 ],
-                'label' => 'Référence Fournisseur'
+                'label' => ' Fournisseur'
             ])
-            ->add('taxe', null, [
+            ->add('tva', null, [
                 'attr' => [
-                    'class' => 'form-control person-input'
+                    'class' => 'form-control'
                 ],
                 'label' => 'Tva'
             ])
