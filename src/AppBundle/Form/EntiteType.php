@@ -21,6 +21,13 @@ class EntiteType extends AbstractType
                 ],
                 'label' => 'Civilité'
             ])
+            ->add('code',null, [
+                'attr' => [
+                    'class' => 'form-control code-input'
+                ],
+                'disabled' => true,
+                'label' => ' '
+            ])
             ->add('nom',null, [
                 'attr' => [
                     'class' => 'form-control person-input'
@@ -63,13 +70,18 @@ class EntiteType extends AbstractType
             ->add('coordonneesBanque',CoordonneesBanqueType::class, [
                 'label' => ' '
             ])
+            ->add('classificationArticles',null, [
+                'label' => ' ',
+                'expanded' => true
+            ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary'
                 ],
                 'label' => 'Enregistrer'
             ]);
-    }/**
+    }
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

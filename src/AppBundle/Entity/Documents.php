@@ -80,6 +80,12 @@ class Documents
 
     /**
      * @var \DateTime
+     * @ORM\Column(type="datetime", name="modified_at")
+     */
+    private $modifiedAt;
+
+    /**
+     * @var \DateTime
      *
      * @ORM\Column(name="dateDeLivraison", type="datetime")
      */
@@ -364,6 +370,7 @@ class Documents
     public function __construct()
     {
         $this->lignes = new ArrayCollection();
+        $this->modifiedAt = new \DateTime();
     }
 
     /**
@@ -514,6 +521,24 @@ class Documents
     public function setReference(string $reference)
     {
         $this->reference = $reference;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getModifiedAt(): \DateTime
+    {
+        return $this->modifiedAt;
+    }
+
+    /**
+     * @param \DateTime $modifiedAt
+     * @return Documents
+     */
+    public function setModifiedAt(\DateTime $modifiedAt): Documents
+    {
+        $this->modifiedAt = $modifiedAt;
         return $this;
     }
 

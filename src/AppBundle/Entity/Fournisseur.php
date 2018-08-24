@@ -27,12 +27,6 @@ class Fournisseur
      */
     private $entite;
 
-    /**
-     * @var ClassificationArticle
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\ClassificationArticle")
-     */
-    private $classificationArticle;
-
 
     /**
      * Get id
@@ -59,24 +53,6 @@ class Fournisseur
     public function setEntite(Entite $entite): Fournisseur
     {
         $this->entite = $entite;
-        return $this;
-    }
-
-    /**
-     * @return ClassificationArticle
-     */
-    public function getClassificationArticle(): ClassificationArticle
-    {
-        return $this->classificationArticle;
-    }
-
-    /**
-     * @param ClassificationArticle $classificationArticle
-     * @return Fournisseur
-     */
-    public function setClassificationArticle(ClassificationArticle $classificationArticle): Fournisseur
-    {
-        $this->classificationArticle = $classificationArticle;
         return $this;
     }
 

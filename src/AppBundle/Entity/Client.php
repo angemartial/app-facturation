@@ -30,6 +30,7 @@ class Client
     private $entite;
 
 
+
     /**
      * Get id
      *

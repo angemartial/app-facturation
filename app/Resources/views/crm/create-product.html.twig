@@ -7,10 +7,26 @@
     <div class="container-fluid entite-form">
         {{ form_start(form) }}
         <div class="row form-group">
-            <h2 class="col-md-12"></h2>
-            <div class="col-md-4">
-                {{ form_row(form.reference) }}
+            <h2 class="col-md-12">Informations de l'article</h2>
+            <div class="ligne-widget article-ligne">
+                {{ form_row(form.designation) }}
+                {{ form_row(form.quantite) }}
+                {{ form_row(form.unite) }}
+                {{ form_row(form.tva) }}
+                {{ form_row(form.prixUnitaire) }}
             </div>
+
+        </div>
+        <div class="row form-group">
+            <h2 class="col-md-12">Gestion de la marge</h2>
+            {{ form_widget(form.marge) }}
+        </div>
+        <div class="row form-group">
+            <h2 class="col-md-12">Extra</h2>
+            <div class="col-md-4">
+                {{ form_row(form.natureArticle) }}
+            </div>
+
             <div class="col-md-4">
                 {{ form_row(form.classificationArticle) }}
             </div>
@@ -18,34 +34,7 @@
                 {{ form_row(form.classificationVente) }}
             </div>
             <div class="col-md-4">
-                {{ form_row(form.designation) }}
-            </div>
-        </div>
-        <div class="row form-group">
-            <h2 class="col-md-12"></h2>
-            <div class="col-md-6">
-                {{ form_row(form.marge) }}
-            </div>
-            <div class="col-md-6">
-                {{ form_row(form.unite) }}
-            </div>
-        </div>
-        <div class="row form-group">
-            <h2 class="col-md-12"></h2>
-            <div class="col-md-4">
-                {{ form_row(form.natureArticle) }}
-            </div>
-            <div class="col-md-4">
-                {{ form_row(form.quantite) }}
-            </div>
-            <div class="col-md-4">
-                {{ form_row(form.prixUnitaire) }}
-            </div>
-            <div class="col-md-4">
                 {{ form_row(form.fournisseurs) }}
-            </div>
-            <div class="col-md-4">
-                {{ form_row(form.tva) }}
             </div>
 
         </div>
@@ -55,6 +44,10 @@
 {% endblock %}
 
 {% block js %}
-
+    <script>
+        $(function () {
+            $('.marge-type-row > div').addClass('col-md-3');
+        })
+    </script>
 {% endblock %}
 

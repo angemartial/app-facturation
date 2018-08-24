@@ -381,45 +381,5 @@ class Entite
     
 
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->classificationArticles = new ArrayCollection();
-    }
-
-    /**
-     * Add classificationArticle
-     *
-     * @param ClassificationArticle $classificationArticle
-     *
-     * @return Entite
-     */
-    public function addClassificationArticle(ClassificationArticle $classificationArticle)
-    {
-        $this->classificationArticles[] = $classificationArticle;
-
-        return $this;
-    }
-
-    /**
-     * Remove classificationArticle
-     *
-     * @param ClassificationArticle $classificationArticle
-     */
-    public function removeClassificationArticle(ClassificationArticle $classificationArticle)
-    {
-        $this->classificationArticles->removeElement($classificationArticle);
-    }
-
-    /**
-     * Get classificationArticles
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getClassificationArticles()
-    {
-        return $this->classificationArticles;
-    }
 }
+

@@ -33,28 +33,24 @@
                 <li><a href="{{ path('documents', {"code" : "SUPP_ORDER"}) }}"> Facture Fournisseurs</a></li>
                 <li><a href="#"> Paiements</a></li>
                 <li><a href="#"> Acomptes</a></li>
-                <li><a href="#"> Regroupements BL</a></li>
+                {#<li><a href="#"> Regroupements BL</a></li>#}
             </ul>
         </li>
         <li class="active"><a href="#"><i class="fa fa-users"></i>Clients</a>
             <ul class="sub-menu-left">
-                <li><a href="#"> Clients</a></li>
-                <li><a href="#"> Contact Client</a></li>
-                <li><a href="#"> Prospects</a></li>
-                <li><a href="#"> Contact Prospects</a></li>
+                <li><a href="{{ path('show_Entity', { type: 'client'  }) }}"> Clients</a></li>
+
+
             </ul>
         </li>
         <li><a href="#"><i class="fa fa-book-open"></i>Catalogue</a>
             <ul class="sub-menu-left">
                 <li><a href="{{ path('show-product') }}"> Articles</a></li>
-                <li><a href="#"> Groupe d'articles</a></li>
-
             </ul>
         </li>
         <li><a href="#"><i class="fa fa-address-book"></i>Fournisseurs</a>
             <ul class="sub-menu-left">
-                <li><a href="#"> Fournisseurs</a></li>
-                <li><a href="#"> Contacts Fournisseurs</a></li>
+                <li><a href="{{ path('show_Entity', { type: 'fournisseur'  }) }}"> Fournisseurs</a></li>
             </ul>
         </li>
         <li><a href="#"><i class="fa fa-shopping-cart"></i>Caisse</a>
@@ -67,16 +63,18 @@
         </li>
         <li><a href="#"><i class="fa fa-truck"></i>Bons </a>
             <ul class="sub-menu-left">
-                <li><a href="#"> Bons de livraison</a></li>
                 <li><a href="#"> Bons de commande</a></li>
-            </ul>
-        </li>
-        <li><a href="#"><i class="fa fa-shopping-cart"></i>Achats</a>
-            <ul class="sub-menu-left">
+                <li><a href="#"> Bons de livraison</a></li>
                 <li><a href="#"> Bons de réception </a></li>
-                <li><a href="#"> Règlements</a></li>
+
             </ul>
         </li>
+        {#<li><a href="#"><i class="fa fa-shopping-cart"></i>Achats</a>#}
+            {#<ul class="sub-menu-left">#}
+
+                {#<li><a href="#"> Règlements</a></li>#}
+            {#</ul>#}
+        {#</li>#}
     </ul>
 
     <div id="content" class="col-10">

@@ -1,0 +1,37 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1 class="container-fluid">
+        Liste des {{ type }}s
+    </h1>
+    <div class="container-fluid action-buttons">
+        <a href="{{ path('new_entity',  { id: 0, type: type  }) }}" class="btn btn-primary">Ajouter </a>
+    </div>
+    <div class="container-fluid list-container">
+        <table id="document-list">
+            <thead>
+            <tr>
+                <th>Nom/Société</th>
+                <th>Adresse</th>
+                <th>Ville</th>
+                <th>Téléphone</th>
+                <th>code</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for client in client %}
+                <tr>
+                    <td><a href="#">{{ client.entite }}</a> </td>
+                    <td>{{ client.entite.adresse.adresse }}</td>
+                    <td>{{ client.entite.adresse.ville }}</td>
+                    <td>{{ client.entite.adresse.telBureau }}</td>
+                    <td></td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+

@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Tva;
 use function PHPSTORM_META\type;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,69 +17,72 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('reference', null, [
-                'attr' => [
-                    'class' => 'form-control person-input'
-                ],
-                'label' => 'Référence'
-            ])
             ->add('designation', null, [
                 'attr' => [
-                    'class' => 'form-control person-input'
+                    'class' => 'form-control widen'
                 ],
                 'label' => 'Désignation'
             ])
             ->add('quantite', null, [
                 'attr' => [
-                    'class' => 'form-control person-input'
+                    'class' => 'form-control little-form-control'
                 ],
                 'label' => 'Qté'
             ])
             ->add('prixUnitaire', null, [
                 'attr' => [
-                    'class' => 'form-control person-input'
+                    'class' => 'form-control '
                 ],
                 'label' => 'Prix Unitaire'
             ])
             ->add('fournisseurs', null, [
                 'attr' => [
-                    'class' => 'form-control person-input'
+                    'class' => 'form-control '
                 ],
                 'label' => ' Fournisseur'
             ])
             ->add('tva', null, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control little-form-control'
                 ],
                 'label' => 'Tva'
             ])
             ->add('classificationArticle', null, [
                 'attr' => [
-                    'class' => 'form-control person-input'
+                    'class' => 'form-control '
                 ],
                 'label' => 'Classification article'
             ])
             ->add('classificationVente', null, [
                 'attr' => [
-                    'class' => 'form-control person-input'
+                    'class' => 'form-control '
                 ],
                 'label' => 'Classification vente'
             ])
             ->add('marge', MargeType::class, [
-                'label' => ''
+                'label' => ' ',
+                'attr' => [
+                    'class' => 'row marge-type-row'
+                ]
             ])
             ->add('unite', null, [
                 'attr' => [
-                    'class' => 'form-control person-input'
+                    'class' => 'form-control little-form-control'
                 ],
                 'label' => 'Unité'
             ])
             ->add('natureArticle', null, [
                 'attr' => [
-                    'class' => 'form-control person-input'
+                    'class' => 'form-control '
                 ],
                 'label' => 'Nature article'
-            ]);
+            ])
+            ->add('submit', SubmitType::class, [
+                 'attr' => [
+                    'class' => 'btn btn-primary'
+                 ],
+                 'label' => 'Enregistrer'
+             ]);
     }
 
     /**

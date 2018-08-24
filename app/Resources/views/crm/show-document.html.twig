@@ -3,15 +3,26 @@
 {% block content %}
 
     <div class="position-client-zone">
-        <h2 class="container-fluid">
+        <h1 class="container-fluid">
             {{ document.typeDeDocuments.titre }} {{ document.reference }}
-        </h2>
+            {% if document.reste == document.montantTTC %}
+                <span class="badge badge-danger">Non payé</span>
+            {% elseif document.reste <= 0 %}
+                <span class="badge badge-success">Soldé</span>
+            {% else %}
+                <span class="badge badge-warning">En cours</span>
+            {% endif %}
+
+        </h1>
     </div>
 
     <div class="container-fluid action-buttons position-client-zone">
-        <a href="{{ path('document', { code: document.typeDeDocuments.code, id: document.id }) }}" class="btn btn-primary">Modifier</a>
-        <a target="_blank" href="{{ asset('pdf/' ~ document.reference ~ '.pdf') }}" class="btn btn-outline-info">Télécharger au format pdf</a>
-        <a href="#" class="btn btn-danger">Supprimer</a>
+        <a title="Modifier" href="{{ path('document', { code: document.typeDeDocuments.code, id: document.id }) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+        <a target="_blank" title="Telecharger au format pdf" href="{{ asset('pdf/' ~ document.reference ~ '.pdf') }}" class="btn btn-outline-info"><i class="fa fa-file"></i></a>
+        {% if document.reste > 0 %}
+            <a title="Encaisser un paiement" href="#" class="btn btn-outline-info" data-toggle="modal" data-target="#payment-modal"><i class="fa fa-money-bill-alt"></i></a>
+        {% endif %}
+        <a href="#" title="Supprimer" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -122,11 +133,42 @@
                         <td>Net à payer</td>
                         <td>{{ document.montantTTC }}</td>
                     </tr>
+                    <tr class="font-weight-bold">
+                        <td>Reste à payer</td>
+                        <td>{{ document.reste }}</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+
         <div class="row">
+            <div class="col-md-12">
+                <h3>Paiements</h3>
+                <div>
+                    <table class="table-bordered table">
+                        <thead class=" thead-light">
+                        <tr>
+                            <th>Montant</th>
+                            <th>Date</th>
+                            <th>Libellé</th>
+                            <th>Mode</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for paiement in document.paiements %}
+                            <tr>
+                                <td>{{ paiement.montant }}</td>
+                                <td>{{ paiement.date|localizeddate('long', 'none', 'fr') }}</td>
+                                <td>{{ paiement.libelle }}</td>
+                                <td>{{ paiement.modeDePaiement }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
             <div class="comments col-md-12">
                 {% if document.commentaire is not empty %}
                     <h3>Commentaires</h3>
@@ -137,6 +179,43 @@
             </div>
         </div>
     </div>
+    {# intégratation du modal de paiement #}
+
+{% if document.reste > 0 %}
+    {{ form_start(form) }}
+    <div class="modal fade" id="payment-modal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Encaisser un paiement</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.montant) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.libelle) }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_row(form.modeDePaiement) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endif %}
+
 
 {% endblock %}
 

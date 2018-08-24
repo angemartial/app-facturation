@@ -9,13 +9,18 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Client;
 use AppBundle\Entity\Documents;
 use AppBundle\Entity\Entite;
+use AppBundle\Entity\Fournisseur;
 use AppBundle\Entity\LigneFacture;
+use AppBundle\Entity\Paiement;
 use AppBundle\Entity\TypeDeDocuments;
 use AppBundle\Form\ArticleType;
 use AppBundle\Form\DocumentsType;
 use AppBundle\Form\EntiteType;
+use AppBundle\Form\PaiementType;
+use Doctrine\ORM\Mapping\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,7 +52,25 @@ class CrmController extends Controller
             throw $this->createNotFoundException('Document introuvable');
         }
 
-        return $this->render('crm/show-document.html.twig',  ['document' => $document]);
+        $payment = new Paiement();
+        $payment->setMontant($document->getReste());
+        $form = $this->createForm(PaiementType::class, $payment);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            /** @var Paiement $data */
+            $data = $form->getData();
+            $data->setDate(new \DateTime());
+            $document->addPaiement($data);
+            $document->setModifiedAt(new \DateTime());
+            $em->persist($data);
+            $em->persist($document);
+            $em->flush();
+            return $this->redirectToRoute('show_document', ['code' => $code, 'id' => $id]);
+        }
+
+        return $this->render('crm/show-document.html.twig',  ['document' => $document, 'form' => $form->createView()]);
 
     }
 
@@ -65,6 +88,23 @@ class CrmController extends Controller
         return $this->render('crm/catalogue.html.twig', ['cataloguetwig' => $catalogue]);
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("liste/{type}", name="show_Entity")
+     */
+    public function listEntity(Request $request, $type){
+        $type = trim(strip_tags($type));
+
+        if(false === in_array($type, ['client', 'fournisseur'])){
+            throw $this->createNotFoundException('Aucun type correspondant');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $client = $em->getRepository($type === 'client' ? Client::class : Fournisseur::class)->findAll();
+        return $this->render('crm/list-client.html.twig', ['client' => $client, 'type' => $type]);
+   }
 
     /**
      * @Route("/document/{code}/{id}", name="document")
@@ -144,18 +184,26 @@ class CrmController extends Controller
     }
 
     /**
-     * @Route("/nouvelle-entite/{id}", requirements={"id" = "\d+"}, defaults={"id" = 0})
+     * @Route("/nouvelle-entite/{type}/{id}", name="new_entity", requirements={"id" = "\d+"}, defaults={"id" = 0})
      * @param Request $request
-     * @param $id
+     * @param int $id
+     * @param $type
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      * @internal param Entite|null $entite
      */
-    public function entiteAction(Request $request, $id){
+    public function entiteAction(Request $request, $type, int $id){
+
+        $type = trim(strip_tags($type));
+        if(false === in_array($type, ['client', 'fournisseur'])){
+            throw $this->createNotFoundException('Aucun type correspondant');
+        }
+
 
         $em = $this->getDoctrine()->getManager();
 
         if(0 === $id){
             $entite = new Entite();
+
         }else{
             $entite = $em->find(Entite::class, $id);
             if(null === $entite){
@@ -166,8 +214,20 @@ class CrmController extends Controller
         $form = $this->createForm(EntiteType::class, $entite);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-
+            /** @var Entite $entite */
             $entite = $form->getData();
+
+
+            if(null === $entite->getId()){
+                if('client' === $type ){
+                    $object = new Client();
+                }else{
+                    $object = new Fournisseur();
+                }
+                $object->setEntite($entite);
+                $em->persist($object);
+            }
+
             $em->persist($entite);
             $em->flush();
             $this->addFlash('success', 'Données sauvegardées avec succes');
@@ -175,7 +235,8 @@ class CrmController extends Controller
         }
 
         return $this->render('crm/edit-client.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'type' => $type
         ]);
     }
 

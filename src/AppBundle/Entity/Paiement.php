@@ -29,6 +29,12 @@ class Paiement
     private $montant;
 
     /**
+     * @var ModeDePaiement
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ModeDePaiement")
+     */
+    private $modeDePaiement;
+
+    /**
      * @return Documents
      */
     public function getDocument(): Documents
@@ -149,5 +155,25 @@ class Paiement
     {
         return $this->libelle;
     }
+
+    /**
+     * @return ModeDePaiement
+     */
+    public function getModeDePaiement()
+    {
+        return $this->modeDePaiement;
+    }
+
+    /**
+     * @param ModeDePaiement $modeDePaiement
+     * @return Paiement
+     */
+    public function setModeDePaiement(ModeDePaiement $modeDePaiement)
+    {
+        $this->modeDePaiement = $modeDePaiement;
+        return $this;
+    }
+
+
 }
 

@@ -1,7 +1,24 @@
 {% extends 'layout.html.twig' %}
 
+{% form_theme form _self %}
+
+{%- block choice_widget_expanded -%}
+    <div {{ block('widget_container_attributes') }}>
+        <div class="row">
+            {%- for child in form %}
+                <div class="expanded-type-choice col-md-6">
+                    {{- form_widget(child) -}}
+                    {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+                </div>
+            {% endfor -%}
+        </div>
+
+    </div>
+{%- endblock choice_widget_expanded -%}
+
+
 {% block content %}
-    <h1 class="container-fluid">Nouvelle entité</h1>
+    <h1 class="container-fluid"> {{ type == 'client' ? 'Nouveau client': 'Nouveau fournisseur' }}  {{ form_widget(form.code) }} </h1>
     <div class="container-fluid button-switch-group">
         <button data-target=".person-input-group" class="btn btn-primary active disabled">Particulier</button>
         <button data-target=".company-input-group" class="btn btn-primary">Entreprise</button>
@@ -34,6 +51,7 @@
         </div>
         <div class="row contact-input-group form-group">
             <h2 class="col-md-12">Contact</h2>
+
             <div class="col-md-4">
                 {{ form_row(form.adresse.adresse) }}
             </div>
@@ -80,11 +98,20 @@
                 {{ form_row(form.coordonneesBanque.montantDeLencours) }}
             </div>
         </div>
+        {% if type == 'fournisseur' %}
+            <div class="row form-group">
+                <h2>Classification article</h2>
+                <div class="col-md-12">
+                    {{ form_row(form.classificationArticles) }}
+                </div>
+            </div>
+        {% endif %}
+
         <div class="row submit-input-group form-group text-right">
             <div class="float-right">{{ form_row(form.submit) }}</div>
 
         </div>
-        {{ form_end(form) }}
+        {{ form_end(form, {'render_rest': false}) }}
     </div>
 {% endblock %}
 

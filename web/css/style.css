@@ -7,6 +7,30 @@ header {
     top: 0;
     left: 0;
 }
+.code-input {
+    width: auto;
+    display: inline-block;
+    top: -0.5rem;
+    position: relative;
+    margin-left: 1rem;
+}
+.action-buttons .btn {
+    width: 3rem;
+}
+.article-ligne {
+    width: 100%;
+}
+.ligne-widget.article-ligne {
+    margin: auto;
+}
+.marge-type-row {
+    width: 100%;
+    padding-left: 15px;
+}
+h1 .badge {
+    font-size: 1rem;
+    font-weight: normal;
+}
 .client {
     width: 25rem;
     background-color: rgba(0,0,0,0.05);
@@ -40,6 +64,10 @@ header {
 }
 h1 {
     padding: 0.5rem;
+}
+
+.expanded-type-choice label {
+    margin-left: 0.5rem;
 }
 .position-client-zone {
     margin-bottom: 2rem;
