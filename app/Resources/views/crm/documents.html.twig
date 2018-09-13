@@ -26,10 +26,10 @@
                         <td><a href="{{ path('show_document', { 'code': document.typeDeDocuments.code, 'id': document.id }) }}">{{ document.reference }}</a> </td>
                         <td>{{ document.date|date('d m Y') }}</td>
                         <td>{{ document.reste == 0 ? 'Payé' : 'En cours' }}</td>
-                        <td>{{ document.montantHT }}</td>
-                        <td>{{ document.montantTTC }}</td>
-                        <td>{{ document.montantTTC - document.reste }}</td>
-                        <td>{{ document.reste }}</td>
+                        <td>{{ document.montantHT|number_format(2, ',', ' ') }}</td>
+                        <td>{{ document.montantTTC|number_format(2, ',', ' ') }}</td>
+                        <td>{{ (document.montantTTC - document.reste)|number_format(2, ',', ' ') }}</td>
+                        <td>{{ document.reste|number_format(2, ',', ' ') }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -7,8 +7,9 @@
     <div class="container-fluid entite-form">
         {{ form_start(form) }}
         <div class="row form-group">
-            <h2 class="col-md-12">Informations de l'article</h2>
-            <div class="ligne-widget article-ligne">
+            <h2 class="col-md-12 ">Informations de l'article</h2>
+
+            <div class=" ligne-widget article-ligne">
                 {{ form_row(form.designation) }}
                 {{ form_row(form.quantite) }}
                 {{ form_row(form.unite) }}
@@ -47,7 +48,108 @@
     <script>
         $(function () {
             $('.marge-type-row > div').addClass('col-md-3');
-        })
+
+            var tva = 0,
+                pua = 0,
+                puv = 0,
+                margeB = 0,
+                pMargeB = 0,
+                coef = 0;
+
+            var display = function () {
+                $('.catalogue-marge-brute').val(margeB);
+                $('.catalogue-pourcentage-marge').val(pMargeB);
+                $('.catalogue-coefficient').val(coef);
+                $('.catalogue-puht-achat').val(pua);
+                $('.catalogue-puht-vente').val(puv);
+            };
+
+            display();
+
+            var calculMargeBrute = function () {
+                margeB = pMargeB === 100 ? 0 : pua * pMargeB / (100 - pMargeB);
+            };
+
+            var calculPua = function () {
+                pua = pMargeB === 0 ? 0 : margeB * (100 - pMargeB) / pMargeB;
+            };
+
+            var calculPMargeB = function () {
+              pMargeB = pua === 0 ? 0 : (pua - margeB) / pua;
+
+            };
+            var calculPuv = function () {
+                puv = margeB + pua;
+
+            };
+            var calculCoef = function () {
+                coef = pua === 0 ? 0 : (puv + (puv * tva / 100)  ) / pua;
+
+            };
+
+
+
+            $(document).on('change', '.catalogue-puht-achat', function (e) {
+                var target = $(e.currentTarget);
+                pua = parseFloat(target.val());
+
+                /* calculs */
+                calculPMargeB();
+                calculMargeBrute();
+                calculPuv();
+                calculCoef();
+                display();
+            });
+
+            $(document).on('change', '.catalogue-marge-brute', function (e) {
+                var target = $(e.currentTarget);
+                margeB = parseFloat(target.val());
+
+                calculPuv();
+                calculPMargeB();
+                calculCoef();
+                display();
+
+            })
+
+            $(document).on('change', '.catalogue-pourcentage-marge', function (e) {
+                var target = $(e.currentTarget);
+                pMargeB = parseFloat(target.val()) ;
+
+                calculMargeBrute();
+                calculPuv();
+                calculCoef();
+                display();
+            })
+
+            $(document).on('change', '.catalogue-puht-vente', function (e) {
+                var target = $(e.currentTarget);
+                puv = parseFloat(target.val());
+
+                calculCoef();
+                calculPMargeB();
+                calculPua();
+                calculMargeBrute();
+                display();
+
+            })
+
+            $(document).on('change', '.catalogue-coefficient', function (e) {
+                var target = $(e.currentTarget);
+                coef = parseFloat(target.val()) ;
+
+                calculPuv();
+                calculPMargeB();
+                calculPua();
+                calculMargeBrute();
+                display();
+
+            })
+
+
+
+
+        });
     </script>
 {% endblock %}
 

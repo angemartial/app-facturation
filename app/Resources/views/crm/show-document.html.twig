@@ -19,9 +19,12 @@
     <div class="container-fluid action-buttons position-client-zone">
         <a title="Modifier" href="{{ path('document', { code: document.typeDeDocuments.code, id: document.id }) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
         <a target="_blank" title="Telecharger au format pdf" href="{{ asset('pdf/' ~ document.reference ~ '.pdf') }}" class="btn btn-outline-info"><i class="fa fa-file"></i></a>
-        {% if document.reste > 0 %}
-            <a title="Encaisser un paiement" href="#" class="btn btn-outline-info" data-toggle="modal" data-target="#payment-modal"><i class="fa fa-money-bill-alt"></i></a>
+        {% if document.typeDeDocuments.code == 'FACT' %}
+            {% if document.reste > 0 %}
+                <a title="Encaisser un paiement" href="#" class="btn btn-outline-info" data-toggle="modal" data-target="#payment-modal"><i class="fa fa-money-bill-alt"></i></a>
+            {% endif %}
         {% endif %}
+
         <a href="#" title="Supprimer" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
     </div>
     <div class="container-fluid">
@@ -143,32 +146,35 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12">
-                <h3>Paiements</h3>
-                <div>
-                    <table class="table-bordered table">
-                        <thead class=" thead-light">
-                        <tr>
-                            <th>Montant</th>
-                            <th>Date</th>
-                            <th>Libellé</th>
-                            <th>Mode</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for paiement in document.paiements %}
+            {% if document.typeDeDocuments.code == 'FACT' %}
+                <div class="col-md-12">
+                    <h3>Paiements</h3>
+                    <div>
+                        <table class="table-bordered table">
+                            <thead class=" thead-light">
                             <tr>
-                                <td>{{ paiement.montant }}</td>
-                                <td>{{ paiement.date|localizeddate('long', 'none', 'fr') }}</td>
-                                <td>{{ paiement.libelle }}</td>
-                                <td>{{ paiement.modeDePaiement }}</td>
+                                <th>Montant</th>
+                                <th>Date</th>
+                                <th>Libellé</th>
+                                <th>Mode</th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                            {% for paiement in document.paiements %}
+                                <tr>
+                                    <td>{{ paiement.montant }}</td>
+                                    <td>{{ paiement.date|localizeddate('long', 'none', 'fr') }}</td>
+                                    <td>{{ paiement.libelle }}</td>
+                                    <td>{{ paiement.modeDePaiement }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
 
-            </div>
+                </div>
+            {% endif %}
+
             <div class="comments col-md-12">
                 {% if document.commentaire is not empty %}
                     <h3>Commentaires</h3>

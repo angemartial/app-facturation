@@ -19,7 +19,7 @@ class ArticleType extends AbstractType
         $builder
             ->add('designation', null, [
                 'attr' => [
-                    'class' => 'form-control widen'
+                    'class' => 'form-control widen '
                 ],
                 'label' => 'Désignation'
             ])
@@ -31,7 +31,7 @@ class ArticleType extends AbstractType
             ])
             ->add('prixUnitaire', null, [
                 'attr' => [
-                    'class' => 'form-control '
+                    'class' => 'form-control catalogue-puht-vente'
                 ],
                 'label' => 'Prix Unitaire'
             ])
@@ -43,7 +43,7 @@ class ArticleType extends AbstractType
             ])
             ->add('tva', null, [
                 'attr' => [
-                    'class' => 'form-control little-form-control'
+                    'class' => 'form-control little-form-control catalogue-tva'
                 ],
                 'label' => 'Tva'
             ])

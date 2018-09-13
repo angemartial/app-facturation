@@ -17,25 +17,25 @@ class MargeType extends AbstractType
 
             ->add('prixAchatHt', null, [
         'attr' => [
-            'class' => 'form-control '
+            'class' => 'form-control catalogue-puht-achat '
         ],
         'label' => "Prix d'achat HT"
     ])
             ->add('coefficientMultiplicateur',null, [
                 'attr' => [
-                    'class' => 'form-control '
+                    'class' => 'form-control catalogue-coefficient'
                 ],
                 'label' => ' Coefficient multiplicateur'
             ])
             ->add('pourcentageMarge',null, [
                 'attr' => [
-                    'class' => 'form-control '
+                    'class' => 'form-control catalogue-pourcentage-marge'
                 ],
                 'label' => ' % Marge'
             ])
             ->add('margeBrute', null, [
                 'attr' => [
-                    'class' => 'form-control '
+                    'class' => 'form-control catalogue-marge-brute'
                 ],
                 'label' => ' Marge brute'
             ]);
