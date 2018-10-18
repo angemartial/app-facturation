@@ -39,6 +39,21 @@ class CrmController extends Controller
     }
 
     /**
+     * @param int $page
+     * @param string $q
+     * @return Response
+     * @Route("/catalogue-modal/{page}/{q}", name="catalogue_modal")
+     */
+    public function catalogueModalAction(int $page = 1, string $q = ''){
+        $q = trim(strip_tags($q));
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository(Article::class);
+        $result = $repository->cataloguePaginatedAndFiltered($page, $q);
+
+        return $this->render('crm/catalogue-modal.html.twig', ['articles' => $result]);
+    }
+
+    /**
      * @param Request $request
      * @param $code
      * @param int $id

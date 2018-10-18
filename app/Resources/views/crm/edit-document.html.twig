@@ -67,6 +67,24 @@
         </div>
     </div>
     {{ form_end(form) }}
+
+    <div class="modal fade" id="article-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Catalogue de produits</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="catalogue">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block js %}
@@ -170,6 +188,33 @@
             $newFormLi.children('div').addClass('ligne-widget');
             $newLinkLi.before($newFormLi);
         }
+        var catalogue = {
+            'isInitiated': false,
+            'page': 1,
+            'q': '',
+            'trigger': null,
+            'container': $("#catalogue"),
+            'load': function () {
+                var url = "{{ path('catalogue_modal') }}";
+                url += '/' + catalogue.page;
+                if(catalogue.q.length){
+                    url += '/' + catalogue.q
+                }
+                $.get(url, function (data) {
+                    if(catalogue.page = 1){
+                        catalogue.container.html(data);
+                    }else{
+                        catalogue.append($(data));
+                    }
+                    catalogue.isInitiated = true;
+                    catalogue.page++;
+                });
+            }
+        };
+        $(document).on('click', '.choose-article', function () {
+            catalogue.load();
+            catalogue.trigger = $(this);
+        })
     </script>
 {% endblock %}
 

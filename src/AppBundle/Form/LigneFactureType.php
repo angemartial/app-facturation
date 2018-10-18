@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,26 +17,38 @@ class LigneFactureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
+            ->add('choisir', ButtonType::class, [
+                'attr' => [
+                    'class' => 'btn btn-info choose-article',
+                    'data-toggle' => 'modal',
+                    'data-target' => '#article-modal',
+                    'type' => 'button'
+                ],
+                'label' => '+'
+            ])
             ->add('reference', null, [
                 'attr' => [
-                    'class' => 'form-control little-form-control'
-                ]
+                    'class' => 'form-control little-form-control',
+                ],
+                'disabled' => true
             ])
             ->add('designation', TextareaType::class, [
                 'attr' => [
-                    'class' => 'form-control widen wide-form-control'
+                    'class' => 'form-control wide-form-control'
                 ]
             ])
             ->add('prixUnitaire', null, [
                 'attr' => [
-                    'class' => 'form-control pu'
+                    'class' => 'form-control little-form-control pu'
                 ],
-                'label' => 'Prix unitaire HT'
+                'label' => 'PU HT'
             ])
             ->add('quantite', null, [
                 'attr' => [
                     'class' => 'form-control little-form-control qte'
-                ]
+                ],
+                'label' => 'Qte'
             ])
             ->add('tva', null, [
                 'attr' => [
@@ -50,7 +63,7 @@ class LigneFactureType extends AbstractType
             ])
             ->add('total', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control total-ttc'
+                    'class' => 'form-control little-form-control total-ttc'
                 ],
                 'disabled' => true,
                 'mapped' => false,

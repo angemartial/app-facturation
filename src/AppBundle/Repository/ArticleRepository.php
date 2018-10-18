@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * ArticleRepository
  *
@@ -10,4 +12,17 @@ namespace AppBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
+    const MAX = 20;
+
+    public function cataloguePaginatedAndFiltered($page = 1, $q = ''){
+        $qb = $this->createQueryBuilder('a');
+        if(strlen($q) > 0){
+            $qb->where('a.designation LIKE :q')
+                ->setParameter('q', '%'.$q.'%');
+        }
+        $qb->setMaxResults(self::MAX)
+            ->setFirstResult(($page - 1) * self::MAX);
+
+        return new Paginator($qb);
+    }
 }

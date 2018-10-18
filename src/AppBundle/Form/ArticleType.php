@@ -53,6 +53,12 @@ class ArticleType extends AbstractType
                 ],
                 'label' => 'Classification article'
             ])
+            ->add('famille', null, [
+                'attr' => [
+                    'class' => 'form-control '
+                ],
+                'label' => 'Famille article'
+            ])
             ->add('classificationVente', null, [
                 'attr' => [
                     'class' => 'form-control '

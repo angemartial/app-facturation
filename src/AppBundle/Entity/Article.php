@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,7 +37,7 @@ class Article
 
 
     /**
-     * @var Fournisseur
+     * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Fournisseur")
      */
     private $fournisseurs;
@@ -56,7 +57,7 @@ class Article
 
     /**
      * @var Marge
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Marge")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Marge", cascade={"persist", "remove"})
      */
     private $marge;
 
@@ -71,6 +72,13 @@ class Article
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Unite")
      */
     private $unite;
+
+    /**
+     * @var FamilleArticle
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\FamilleArticle")
+     * @ORM\JoinColumn(nullable=false, name="id_famille")
+     */
+    private $famille;
 
     /**
      * @return Unite
@@ -138,6 +146,13 @@ class Article
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getFournisseursAsString(){
+        $fournisseurs = $this->fournisseurs;
+        return implode(',', array_map(function(Fournisseur $fournisseur){
+            return (string) $fournisseur->getEntite();
+        }, $fournisseurs->toArray()));
     }
 
     /**
@@ -292,21 +307,19 @@ class Article
     }
 
     /**
-     * @return Fournisseur
+     * @return ArrayCollection
      */
     public function getFournisseurs()
     {
         return $this->fournisseurs;
     }
 
-    /**
-     * @param Fournisseur $fournisseurs
-     * @return Article
-     */
-    public function setFournisseurs(Fournisseur $fournisseurs)
-    {
-        $this->fournisseurs = $fournisseurs;
-        return $this;
+    public function addFournisseur(Fournisseur $fournisseur){
+        $this->fournisseurs[] = $fournisseur;
+    }
+
+    public function removeFournisseur(Fournisseur $fournisseur){
+        $this->fournisseurs->removeElement($fournisseur);
     }
 
     /**
@@ -327,6 +340,23 @@ class Article
         return $this;
     }
 
+    /**
+     * @return FamilleArticle
+     */
+    public function getFamille()
+    {
+        return $this->famille;
+    }
+
+    /**
+     * @param FamilleArticle $famille
+     * @return Article
+     */
+    public function setFamille(FamilleArticle $famille)
+    {
+        $this->famille = $famille;
+        return $this;
+    }
 
 
 }

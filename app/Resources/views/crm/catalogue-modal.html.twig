@@ -1,0 +1,24 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Reference</th>
+        <th>Désignation</th>
+        <th>Prix U HT</th>
+        <th>Qté</th>
+        <th>Fournisseur</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for produit in articles %}
+        <tr>
+            <td><a href="#">{{ produit.reference }}</a> </td>
+            <td>{{ produit.designation }}</td>
+            <td>{{ produit.prixUnitaire }}</td>
+            <td>{{ produit.quantite }}</td>
+            <td>{{ produit.fournisseursAsString }}</td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
