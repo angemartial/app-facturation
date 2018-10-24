@@ -72,7 +72,13 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Catalogue de produits</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Catalogue de produits
+                        <label class="filter-catalogue-label float-right">
+                            <span><i class="fa fa-search"></i></span>
+                            <input placeholder="filtrer les articles" type="text" class="filter-catalogue">
+                        </label>
+
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -193,8 +199,12 @@
             'page': 1,
             'q': '',
             'trigger': null,
+            'changed': false,
             'container': $("#catalogue"),
             'load': function () {
+                if(catalogue.isInitiated && catalogue.changed === false){
+                    return;
+                }
                 var url = "{{ path('catalogue_modal') }}";
                 url += '/' + catalogue.page;
                 if(catalogue.q.length){
@@ -208,13 +218,34 @@
                     }
                     catalogue.isInitiated = true;
                     catalogue.page++;
+                    catalogue.changed = false;
                 });
             }
         };
         $(document).on('click', '.choose-article', function () {
             catalogue.load();
             catalogue.trigger = $(this);
-        })
+        });
+        $(document).on('keyup', '.filter-catalogue', function (e) {
+            var target = $(e.currentTarget),
+                value = $.trim(target.val());
+            if(value.length < 3 ){
+                return;
+            }
+            catalogue.q = value;
+            catalogue.page = 1;
+            catalogue.changed = true;
+            catalogue.load();
+        });
+        $(document).on('click', '.add-product-in-modal', function (e) {
+            var trigger = catalogue.trigger,
+                target = $(e.currentTarget),
+                line = trigger.parents('.ligne-widget');
+            line.find('.reference-input').val(target.attr('data-reference'));
+            line.find('.designation-input').val(target.attr('data-designation'));
+            line.find('.pu-input').val(target.attr('data-pu'));
+            $('#article-modal').modal('hide');
+        });
     </script>
 {% endblock %}
 

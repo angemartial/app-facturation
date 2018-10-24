@@ -29,18 +29,18 @@ class LigneFactureType extends AbstractType
             ])
             ->add('reference', null, [
                 'attr' => [
-                    'class' => 'form-control little-form-control',
+                    'class' => 'form-control little-form-control reference-input',
                 ],
                 'disabled' => true
             ])
             ->add('designation', TextareaType::class, [
                 'attr' => [
-                    'class' => 'form-control wide-form-control'
+                    'class' => 'form-control wide-form-control designation-input'
                 ]
             ])
             ->add('prixUnitaire', null, [
                 'attr' => [
-                    'class' => 'form-control little-form-control pu'
+                    'class' => 'form-control little-form-control pu pu-input'
                 ],
                 'label' => 'PU HT'
             ])

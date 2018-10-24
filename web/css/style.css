@@ -175,6 +175,22 @@ h1 {
     width: 2rem;
     margin-top: 2rem;
 }
+h5.modal-title {
+    display: block;
+    width: 100%;
+}
+.filter-catalogue-label {
+    position: relative;
+}
+.filter-catalogue-label span {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.filter-catalogue {
+    padding-left: 2.5rem;
+}
 .little-widget {
     width: 5rem;
 }

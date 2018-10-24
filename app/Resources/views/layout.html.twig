@@ -24,13 +24,13 @@
 <header></header>
 <div id="page" class="container-fluid">
     <ul id="left-menu"  class="col-2">
-        <li><a href="{{ path('index') }}"><i class="fa fa-tachometer-alt"></i>Tableau de Bord</a></li>
+        <li><a href="{{ path('index') }}"><i class="fa fa-tachometer-alt"></i>Tableau de bord</a></li>
         <li><a href="#"><i class="fa fa-shopping-cart"></i>Facturation</a>
             <ul class="sub-menu-left">
                 <li><a href="{{ path('documents', {"code" : "CUST_ORDER"}) }}"> Commande</a></li>
                 <li><a href="{{ path('documents', {"code" : "FACT"}) }}"> Facture</a></li>
                 <li><a href="{{ path('documents', {"code" : "QUOT"}) }}"> Devis</a></li>
-                <li><a href="{{ path('documents', {"code" : "SUPP_ORDER"}) }}"> Facture Fournisseurs</a></li>
+
                 <li><a href="#"> Paiements</a></li>
                 <li><a href="#"> Acomptes</a></li>
                 {#<li><a href="#"> Regroupements BL</a></li>#}
@@ -46,19 +46,25 @@
         <li><a href="#"><i class="fa fa-book-open"></i>Catalogue</a>
             <ul class="sub-menu-left">
                 <li><a href="{{ path('show-product') }}"> Articles</a></li>
+                <li><a href="#"> Famille articles</a></li>
             </ul>
         </li>
         <li><a href="#"><i class="fa fa-address-book"></i>Fournisseurs</a>
             <ul class="sub-menu-left">
-                <li><a href="{{ path('show_Entity', { type: 'fournisseur'  }) }}"> Fournisseurs</a></li>
+                <li><a href="{{ path('show_Entity', { type: 'fournisseur'  }) }}">Liste fournisseurs</a></li>
+                <li><a href="{{ path('documents', {"code" : "SUPP_ORDER"}) }}"> Commande fournisseurs</a></li>
+                <li><a href="#"> Facture fournisseurs</a></li>
+                <li><a href="#"> Retard de règlement</a></li>
+                <li><a href="#"> Arrivée à échéance</a></li>
             </ul>
         </li>
         <li><a href="#"><i class="fa fa-shopping-cart"></i>Caisse</a>
             <ul class="sub-menu-left">
-                <li><a href="#"> Entrée</a></li>
-                <li><a href="#"> Sortie</a></li>
+                <li><a href="#"> Apport</a></li>
+                <li><a href="#"> Dépense</a></li>
+                <li><a href="#"> Type de dépense</a></li>
                 <li><a href="#"> Mouvements de caisse</a></li>
-                <li><a href="#"> Depense hors caisse</a></li>
+                <li><a href="#"> Dépense hors caisse</a></li>
             </ul>
         </li>
         <li><a href="#"><i class="fa fa-truck"></i>Bons </a>
@@ -75,7 +81,17 @@
                 {#<li><a href="#"> Règlements</a></li>#}
             {#</ul>#}
         {#</li>#}
+        <li><a href="#"><i class="fas fa-sort-amount-up"></i>Comptabilité </a>
+            <ul class="sub-menu-left">
+                <li><a href="#">Journal de caisse </a></li>
+                <li><a href="#">Journal de vente </a></li>
+                <li><a href="#">Journal d'achat </a></li>
+                <li><a href="#">Balance </a></li>
+
+            </ul>
+        </li>
     </ul>
+
 
     <div id="content" class="col-10">
         {% block content %}

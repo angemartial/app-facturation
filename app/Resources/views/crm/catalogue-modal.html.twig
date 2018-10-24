@@ -1,12 +1,11 @@
 <table class="table">
     <thead>
     <tr>
-        <th>Reference</th>
+        <th>Réf</th>
         <th>Désignation</th>
         <th>Prix U HT</th>
-        <th>Qté</th>
-        <th>Fournisseur</th>
-
+        <th>Qté en stock</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -17,7 +16,9 @@
             <td>{{ produit.prixUnitaire }}</td>
             <td>{{ produit.quantite }}</td>
             <td>{{ produit.fournisseursAsString }}</td>
-
+            <td>
+                <button data-designation="{{ produit.designation }}" data-pu="{{ produit.prixUnitaire }}" data-reference="{{ produit.reference }}" class="btn btn-primary add-product-in-modal">Ajouter</button>
+            </td>
         </tr>
     {% endfor %}
     </tbody>
