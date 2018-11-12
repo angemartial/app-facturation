@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Compte
 {
+    use SocieteTrait;
+    
     /**
      * @var int
      *
@@ -34,7 +36,6 @@ class Compte
      * @ORM\Column(name="montant", type="string", length=255)
      */
     private $montant;
-
 
     /**
      * Get id
@@ -93,5 +94,7 @@ class Compte
     {
         return $this->montant;
     }
+    
+    
 }
 

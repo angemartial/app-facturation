@@ -14,6 +14,9 @@ use Symfony\Component\Validator\Constraints\DateTime;
  */
 class Documents
 {
+    
+    use SocieteTrait;
+    
     /**
      * @var int
      *
@@ -90,6 +93,13 @@ class Documents
      * @ORM\Column(name="dateDeLivraison", type="datetime")
      */
     private $dateDeLivraison;
+    
+    /**
+     * @var Societe
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Societe")
+     */
+    private $societe;
 
     /**
      * @var int
@@ -541,8 +551,7 @@ class Documents
         $this->modifiedAt = $modifiedAt;
         return $this;
     }
-
-
-
-
+    
+    
+    
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="ibohcrm@localhost" uuid="4e7d421c-5351-40cd-884b-de23e0551fa8">
+    <data-source source="LOCAL" name="facturation@localhost" uuid="4e7d421c-5351-40cd-884b-de23e0551fa8">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/ibohcrm</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/facturation</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />

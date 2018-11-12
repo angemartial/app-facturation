@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Entite
 {
+    
+    use SocieteTrait;
+    
     /**
      * @var int
      *

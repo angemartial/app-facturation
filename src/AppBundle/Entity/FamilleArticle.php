@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class FamilleArticle
 {
+    use SocieteTrait;
+    
     /**
      * @var int
      *

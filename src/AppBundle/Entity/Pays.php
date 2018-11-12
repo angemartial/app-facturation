@@ -27,7 +27,13 @@ class Pays
      * @ORM\Column(name="titre", type="string", length=255, unique=true)
      */
     private $titre;
-
+    
+    /**
+     * @var SystemeComptable
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SystemeComptable")
+     */
+    private $systemeComptable;
 
     /**
      * Get id
@@ -67,5 +73,27 @@ class Pays
     {
         return $this->getTitre();
     }
+    
+    /**
+     * @return SystemeComptable
+     */
+    public function getSystemeComptable ()
+    {
+        return $this -> systemeComptable;
+    }
+    
+    /**
+     * @param SystemeComptable $systemeComptable
+     *
+     * @return $this
+     */
+    public function setSystemeComptable ( SystemeComptable $systemeComptable )
+    {
+        $this -> systemeComptable = $systemeComptable;
+        
+        return $this;
+    }
+    
+    
 }
 

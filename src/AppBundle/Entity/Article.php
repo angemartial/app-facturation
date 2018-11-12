@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Article
 {
+    
+    use SocieteTrait;
+    
     /**
      * @var int
      *

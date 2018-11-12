@@ -4,3 +4,35 @@ app:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+hwi_oauth_security:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix: /connect
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+facebook_login:
+    path: /connect/facebook
+
+google_login:
+    path: /connect/google
+
+admin_security:
+    resource: "@DupUserBundle/Resources/config/admin.yml"
+    prefix:   /{_locale}/admin
+    defaults : { _locale: 'fr' }
+
+#easy_admin_bundle:
+#    resource: "@EasyAdminBundle/Controller/"
+#    type:     annotation
+#    prefix:   /{_locale}/admin
+#    defaults : { _locale: 'fr' }
+
+dup_user:
+    resource: "@DupUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

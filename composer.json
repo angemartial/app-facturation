@@ -4,7 +4,8 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "AppBundle\\": "src/AppBundle"
+            "AppBundle\\": "src/AppBundle",
+            "Dup\\UserBundle\\": "src/Dup/UserBundle"
         },
         "classmap": [
             "app/AppKernel.php",
@@ -25,13 +26,20 @@
         "doctrine/orm": "^2.5",
         "dompdf/dompdf": "^0.8.2",
         "friendsofsymfony/jsrouting-bundle": "^2.2",
+        "friendsofsymfony/user-bundle": "~2.0",
+        "guzzlehttp/psr7": "^1.4",
+        "hwi/oauth-bundle": "^0.6.3",
         "incenteev/composer-parameter-handler": "^2.0",
+        "php-http/curl-client": "^1.7",
+        "php-http/guzzle6-adapter": "^1.1",
+        "php-http/httplug-bundle": "^1.11",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.0.0",
         "symfony/monolog-bundle": "^3.1.0",
         "symfony/polyfill-apcu": "^1.0",
         "symfony/swiftmailer-bundle": "^2.6.4",
         "symfony/symfony": "3.4.*",
+        "symfony/templating": "^4.1",
         "twig/extensions": "^1.5",
         "twig/twig": "^1.0||^2.0"
     },

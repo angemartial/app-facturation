@@ -36,11 +36,11 @@ class OperationSurCompte
     private $libelle;
 
     /**
-     * @var string
+     * @var Compte
      *
-     * @ORM\Column(name="numeroCompte", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Compte")
      */
-    private $numeroCompte;
+    private $compte;
 
     /**
      * @var string
@@ -55,6 +55,20 @@ class OperationSurCompte
      * @ORM\Column(name="credit", type="decimal", precision=2, scale=0)
      */
     private $credit;
+    
+    /**
+     * @var Documents
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Documents")
+     */
+    private $document;
+    
+    /**
+     * @var array
+     *
+     * @ORM\Column(type="json_array", nullable=true)
+     */
+    private $piecesJointes;
 
 
     /**
@@ -114,30 +128,28 @@ class OperationSurCompte
     {
         return $this->libelle;
     }
-
+    
     /**
-     * Set numeroCompte
-     *
-     * @param string $numeroCompte
+     * @return Compte
+     */
+    public function getCompte () : Compte
+    {
+        return $this -> compte;
+    }
+    
+    /**
+     * @param Compte $compte
      *
      * @return OperationSurCompte
      */
-    public function setNumeroCompte($numeroCompte)
+    public function setCompte ( Compte $compte ) : OperationSurCompte
     {
-        $this->numeroCompte = $numeroCompte;
-
+        $this -> compte = $compte;
+        
         return $this;
     }
 
-    /**
-     * Get numeroCompte
-     *
-     * @return string
-     */
-    public function getNumeroCompte()
-    {
-        return $this->numeroCompte;
-    }
+    
 
     /**
      * Set debit
@@ -176,6 +188,48 @@ class OperationSurCompte
 
         return $this;
     }
+    
+    /**
+     * @return Documents
+     */
+    public function getDocument ()
+    {
+        return $this -> document;
+    }
+    
+    /**
+     * @param Documents $document
+     *
+     * @return OperationSurCompte
+     */
+    public function setDocument ( Documents $document ) : OperationSurCompte
+    {
+        $this -> document = $document;
+        
+        return $this;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getPiecesJointes ()
+    {
+        return $this -> piecesJointes;
+    }
+    
+    /**
+     * @param array $piecesJointes
+     *
+     * @return OperationSurCompte
+     */
+    public function setPiecesJointes ( array $piecesJointes ) : OperationSurCompte
+    {
+        $this -> piecesJointes = $piecesJointes;
+        
+        return $this;
+    }
+    
+    
 
     /**
      * Get credit

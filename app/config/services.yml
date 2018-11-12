@@ -4,6 +4,13 @@ parameters:
     #parameter_name: value
 
 services:
+    my.oauth_aware.user_provider.service:
+        class: Dup\UserBundle\Service\DupUserProvider
+        arguments:
+            - '@fos_user.user_manager'
+            - '@fos_user.object_manager'
+            - '@session'
+            - {'facebook' : 'facebookId', 'google' : 'googleId'}
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl
         tags:
