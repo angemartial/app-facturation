@@ -1,0 +1,23 @@
+    {% extends "::layout.html.twig" %}
+    {% block content %}
+        <section id="page" class="auto-vertical-center">
+            <div class="container center-content">
+                <h1 class="row logo-row">
+                    <img class="med-opacity" src="{{ asset('bundles/dupbackbone/images/webversalis-logo-w.svg') }}" alt="Logo">
+                    <div><em>web</em>versalis</div>
+                </h1>
+                {% set route = app.request.get('_route') %}
+                <form action="{{ route == 'admin_security_login' ? path("admin_security_check") : path("fos_user_security_check") }}" method="post" class="gr-2 gr-m-8 login-form horizontal-centered">
+                    {% for type, messages in app.session.flashbag.all() %}
+                        {% for message in messages %}
+                            <div class="flash-{{ type }} alert alert-{{ type }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% block fos_user_content %}
+                    {% endblock fos_user_content %}
+                </form>
+            </div>
+        </section>
+    {% endblock %}

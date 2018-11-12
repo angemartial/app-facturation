@@ -1,0 +1,15 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    {% if error %}
+        <div class="flash-error alert alert-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    <input class="row" type="text" id="username" name="_username" placeholder="Identifiant" required="required" />
+    <input class="row" placeholder="......" type="password" id="password" name="_password" required="required" />
+    <button type="submit" class="submit horizontal-centered">
+        <img src="{{ asset('bundles/dupbackbone/images/arrow-right-circle-w.svg') }}" alt="">
+    </button>
+{% endblock fos_user_content %}

@@ -1,0 +1,14 @@
+admin_security_login:
+    path: /login
+    methods: [GET, POST]
+    defaults: { _controller: FOSUserBundle:Security:login }
+
+admin_security_check:
+    path: /login_check
+    methods: POST
+    defaults: { _controller: FOSUserBundle:Security:check }
+
+admin_security_check:
+    path: /logout
+    methods: [GET, POST]
+    defaults: { _controller: FOSUserBundle:Security:logout }

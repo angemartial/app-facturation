@@ -1,0 +1,23 @@
+
+<form action="{{ path("fos_user_security_check") }}" method="post">
+    <div class="social-connect-providers">
+        <h3>Connexion en un clic avec :</h3>
+        <a href="{{ hwi_oauth_login_url('facebook') }}" class="social-login-bitmap">
+            <img src="{{ asset('bundles/dupuser/images/FB-f-Logo__blue_57.png') }}" alt="">
+        </a>
+        <a href="{{ hwi_oauth_login_url('google') }}" class="social-login-bitmap">
+            <img src="{{ asset('bundles/dupuser/images/btn_google_signin_light_normal_web@2x.png') }}" alt="">
+        </a>
+    </div>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    <div class="form-row">
+        <input placeholder="pseudo ou email" type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="textinput" />
+    </div>
+    <div class="form-row">
+        <input placeholder="votre mot de passe" type="password" id="password" name="_password" required="required" class="textinput" />
+    </div>
+    <hr>
+    <div class="form-row">
+        <input type="submit" id="_submit" name="_submit" value="Se connecter" class=" btn conn"/>
+    </div>
+</form>
