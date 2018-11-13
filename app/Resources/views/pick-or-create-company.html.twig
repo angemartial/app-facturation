@@ -42,7 +42,7 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <a  href="#">
+                <a data-target=".action-choice-create" class="action-choice-trigger"  href="#">
                     <img src="{{ asset('bundles/dupuser/images/bernard-tuck-528096-unsplash.jpg') }}" alt="Creer">
                     <h3>Créer une nouvelle société </h3>
                 </a>
@@ -55,6 +55,68 @@
                 <p>Renseignez dans le champs ci dessous le code d'invitation récu par mail</p>
                 <input placeholder="Code d'invitation" type="text" name="code">
             </form>
+        </div>
+        <div class="action-choice action-choice-create">
+            <h2>Creer une nouvelle société</h2>
+            <ul class="step-indicators">
+                <li data-index="1" class="step-indicator active"></li>
+                <li data-index="2" class="step-indicator"></li>
+                <li data-index="3" class="step-indicator"></li>
+            </ul>
+            <p>Suivez les differentes etapes et renseignez les informations demandées pour commencer à utiliser
+            l'app de facturation</p>
+            {{ form_start(form) }}
+            <div class="steps">
+                <div data-index="1" class="step-one step active">
+                    <h3 class="step-title">Identité de la société</h3>
+                    <div class="form-line">
+                        {{ form_row(form.raisonSociale) }}
+                    </div>
+                    <div class="form-line">
+                        {{ form_row(form.secteurActivite) }}
+                    </div>
+                    <div class="form-line">
+                        {{ form_row(form.activitePrincipale) }}
+                    </div>
+                    <div class="form-line date-line">
+                        {{ form_row(form.dateDeCreation) }}
+                    </div>
+                    <div class="form-line">
+                        {{ form_row(form.pays) }}
+                    </div>
+                    <div class="next-line">
+                        <button class="next-btn btn">Etape suivante</button>
+                    </div>
+                </div>
+                <div data-index="2" class="step-two step">
+                    <h3 class="step-title">Informations comptables</h3>
+                    <div class="form-line">
+                        {{ form_row(form.monnaie) }}
+                    </div>
+                    <div class="form-line">
+                        {{ form_row(form.capitalSocial) }}
+                    </div>
+                    <div class="form-line">
+                        {{ form_row(form.systemeComptable) }}
+                    </div>
+                    <div class="form-line">
+                        {{ form_row(form.formeJuridique) }}
+                    </div>
+                    <div class="next-line">
+                        <button class="previous-btn btn">Etape precedente</button>
+                        <button class="next-btn btn">Etape suivante</button>
+                    </div>
+                </div>
+                <div data-index="3" class="step-three step">
+                    <h3 class="step-title">Adresse</h3>
+                    {{ form_row(form.adresseSocietes) }}
+                    <div class="next-line">
+                        <button class="previous-btn btn">Etape precedente</button>
+                        <button type="submit" class="next-btn btn bg-success">Creer la société</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 

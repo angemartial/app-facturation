@@ -17,6 +17,7 @@ class Societe
     public function __construct ()
     {
         $this->agrements = new ArrayCollection();
+        $this->adresseSocietes = new ArrayCollection();
     }
     
     /**
@@ -63,6 +64,12 @@ class Societe
      * @ORM\Column(name="raisonSociale", type="string", length=255)
      */
     private $raisonSociale;
+    
+    /**
+     * @var AdresseSociete[]|ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\AdresseSociete", mappedBy="societe")
+     */
+    private $adresseSocietes;
 
     /**
      * @var string
@@ -98,6 +105,13 @@ class Societe
      * @ORM\Column(name="activitePrincipale", type="string", length=255)
      */
     private $activitePrincipale;
+    
+    /**
+     * @var Pays
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Pays")
+     */
+    private $pays;
 
 
     /**
@@ -314,6 +328,53 @@ class Societe
         return $this;
     }
     
+    /**
+     * @return Pays
+     */
+    public function getPays () :? Pays
+    {
+        return $this -> pays;
+    }
+    
+    /**
+     * @param Pays $pays
+     *
+     * @return Societe
+     */
+    public function setPays ( Pays $pays ) : Societe
+    {
+        $this -> pays = $pays;
+        
+        return $this;
+    }
+    
+    /**
+     * @return AdresseSociete[]
+     */
+    public function getAdresseSocietes ()
+    {
+        return $this -> adresseSocietes;
+    }
+    
+    public function addAdresseSociete(AdresseSociete $adresseSociete) : Societe
+    {
+        if(false === $this->adresseSocietes->contains( $adresseSociete)){
+            $this->adresseSocietes[] = $adresseSociete;
+            $adresseSociete->getSociete($this);
+        }
+        
+        return $this;
+        
+    }
+    
+    public function removeAdresseSociete(AdresseSociete $adresseSociete) : Societe
+    {
+        if($this->adresseSocietes->contains( $adresseSociete)){
+            $this->adresseSocietes->removeElement( $adresseSociete);
+        }
+        
+        return $this;
+    }
     
     
     

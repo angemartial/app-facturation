@@ -155,5 +155,10 @@ class Monnaie
     {
         return $this->tauxAuDollar;
     }
+    
+    public function __toString ()
+    {
+        return $this->iso.'--'.$this->libelle;
+    }
 }
 

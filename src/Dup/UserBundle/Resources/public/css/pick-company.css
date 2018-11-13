@@ -65,7 +65,7 @@ section#form-container {
     font-size: 1.7rem;
     color: rgba(0, 75, 156, 0.97);
 }
-.action-choice-join {
+.action-choice-join, .action-choice-create {
     position: absolute;
     width: 100%;
     background-color: rgba(255,255,255,0.95);
@@ -80,8 +80,12 @@ section#form-container {
     position: relative;
     transform: translateY(-50%);
 }
-.action-choice-join input:focus, .action-choice-join input:active{
-    border-color: rgba(0, 75, 156, 0.97);
+input:focus, input:active, select:focus, select:active{
+    border: solid 1px rgba(0, 75, 156, 0.97);
+    outline: none;
+}
+input[type=number] {
+    padding: 2px;
 }
 .action-choice-join input {
     padding: 0.5rem;
@@ -101,4 +105,78 @@ h1, h2 {
 }
 .action-choice{
     display: none;
+}
+h3.step-title {
+    font-size: 2rem;
+    margin: 2rem 0 1rem;
+    font-weight: 300;
+}
+.action-choice-create {
+    background-color: white;
+    height: auto;
+    max-height: 80vh;
+    overflow: auto;
+}
+ul.step-indicators {
+    list-style: none;
+    clear: both;
+    padding: 0;
+    overflow: auto;
+    margin: 1rem 0;
+}
+ul.step-indicators + * {
+    clear: both;
+}
+li.step-indicator {
+    float: left;
+    width: 10rem;
+    height: .5rem;
+    border-radius: 0.33rem;
+    margin-right: 2rem;
+    background-color: rgba(0,0,0,0.1);
+}
+li.step-indicator.active {
+    background-color: rgba(0, 75, 156, 0.97);
+}
+.form-line label + select, #appbundle_societe_adresseSocietes label + select{
+    padding: 3px;
+}
+.form-line {
+    float: left;
+    width: 50%;
+    padding-right: 1rem;
+    margin-bottom: 1rem;
+}
+.form-line label, #appbundle_societe_adresseSocietes label {
+    display: block;
+}
+.form-line label + input, .form-line label + select, #appbundle_societe_adresseSocietes label + input, #appbundle_societe_adresseSocietes label + select {
+    width: 100%;
+    height: 2rem;
+}
+.form-line.date-line select {
+    padding: 3px;
+    width: 33%;
+    height: 2rem;
+}
+.next-line .btn {
+    background-color: rgba(0, 75, 156, 0.97);
+    color: white;
+}
+.next-line .next-btn{
+    float: right;
+}
+.next-line .previous-btn{
+    float: left;
+}
+.next-line {
+    width: 100%;
+    margin-top: 2rem;
+    float: left;
+}
+.step{
+    display: none;
+}
+.step.active{
+    display: block;
 }

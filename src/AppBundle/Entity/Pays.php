@@ -20,6 +20,12 @@ class Pays
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @var string
+     * @ORM\Column(name="iso", type="string", length=3)
+     */
+    private $iso;
 
     /**
      * @var string
@@ -90,6 +96,26 @@ class Pays
     public function setSystemeComptable ( SystemeComptable $systemeComptable )
     {
         $this -> systemeComptable = $systemeComptable;
+        
+        return $this;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getIso () : string
+    {
+        return $this -> iso;
+    }
+    
+    /**
+     * @param string $iso
+     *
+     * @return Pays
+     */
+    public function setIso ( string $iso ) : Pays
+    {
+        $this -> iso = $iso;
         
         return $this;
     }
