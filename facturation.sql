@@ -286,6 +286,37 @@ INSERT INTO `client` VALUES (1,1);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `code_invitation`
+--
+
+DROP TABLE IF EXISTS `code_invitation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `code_invitation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `generated_by_id` int(11) DEFAULT NULL,
+  `societe_id` int(11) DEFAULT NULL,
+  `code` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `recipient_email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_D9B39C4477153098` (`code`),
+  KEY `IDX_D9B39C441BDD81B` (`generated_by_id`),
+  KEY `IDX_D9B39C44FCF77503` (`societe_id`),
+  CONSTRAINT `FK_D9B39C441BDD81B` FOREIGN KEY (`generated_by_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_D9B39C44FCF77503` FOREIGN KEY (`societe_id`) REFERENCES `societe` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `code_invitation`
+--
+
+LOCK TABLES `code_invitation` WRITE;
+/*!40000 ALTER TABLE `code_invitation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `code_invitation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `compte`
 --
 
@@ -752,7 +783,7 @@ CREATE TABLE `monnaie` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_B3A6E2E661587F41` (`iso`),
   UNIQUE KEY `UNIQ_B3A6E2E6A4D60759` (`libelle`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=286 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -761,6 +792,7 @@ CREATE TABLE `monnaie` (
 
 LOCK TABLES `monnaie` WRITE;
 /*!40000 ALTER TABLE `monnaie` DISABLE KEYS */;
+INSERT INTO `monnaie` VALUES (1,'ARM',NULL,'Argentine Peso (1881?1970)',NULL),(2,'ARL',NULL,'Argentine Peso Ley (1970?1983)',NULL),(3,'BOL',NULL,'Bolivian Boliviano (1863?1963)',NULL),(4,'BAN',NULL,'Bosnia-Herzegovina New Dinar (1994?1997)',NULL),(5,'BRZ',NULL,'Brazilian Cruzeiro (1942?1967)',NULL),(6,'BGO',NULL,'Bulgarian Lev (1879?1952)',NULL),(7,'BGM',NULL,'Bulgarian Socialist Lev',NULL),(8,'CLE',NULL,'Chilean Escudo',NULL),(9,'CNX',NULL,'Chinese People?s Bank Dollar',NULL),(10,'ISJ',NULL,'Icelandic Króna (1918?1981)',NULL),(11,'ILR',NULL,'Israeli Shekel (1980?1985)',NULL),(12,'MKN',NULL,'Macedonian Denar (1992?1993)',NULL),(13,'MVP',NULL,'Maldivian Rupee (1947?1981)',NULL),(14,'MDC',NULL,'Moldovan Cupon',NULL),(15,'MCF',NULL,'Monegasque Franc',NULL),(16,'KRH',NULL,'South Korean Hwan (1953?1962)',NULL),(17,'KRO',NULL,'South Korean Won (1945?1953)',NULL),(18,'VNN',NULL,'Vietnamese Dong (1978?1985)',NULL),(19,'YUR',NULL,'Yugoslavian Reformed Dinar (1992?1993)',NULL),(20,'AFA',NULL,'afghani (1927?2002)',NULL),(21,'AFN',NULL,'afghani afghan',NULL),(22,'ROL',NULL,'ancien leu roumain',NULL),(23,'MGA',NULL,'ariary malgache',NULL),(24,'ARA',NULL,'austral argentin',NULL),(25,'THB',NULL,'baht thaïlandais',NULL),(26,'PAB',NULL,'balboa panaméen',NULL),(27,'ETB',NULL,'birr éthiopien',NULL),(28,'VEF',NULL,'bolivar vénézuélien',NULL),(29,'VEB',NULL,'bolivar vénézuélien (1871?2008)',NULL),(30,'BOB',NULL,'boliviano bolivien',NULL),(31,'CRC',NULL,'colón costaricain',NULL),(32,'SVC',NULL,'colón salvadorien',NULL),(33,'NIC',NULL,'cordoba',NULL),(34,'GEK',NULL,'coupon de lari géorgien',NULL),(35,'DKK',NULL,'couronne danoise',NULL),(36,'EEK',NULL,'couronne estonienne',NULL),(37,'CSK',NULL,'couronne forte tchécoslovaque',NULL),(38,'ISK',NULL,'couronne islandaise',NULL),(39,'NOK',NULL,'couronne norvégienne',NULL),(40,'SKK',NULL,'couronne slovaque',NULL),(41,'SEK',NULL,'couronne suédoise',NULL),(42,'CZK',NULL,'couronne tchèque',NULL),(43,'BRC',NULL,'cruzado brésilien (1986?1989)',NULL),(44,'BRR',NULL,'cruzeiro',NULL),(45,'BRE',NULL,'cruzeiro brésilien (1990?1993)',NULL),(46,'GHC',NULL,'cédi',NULL),(47,'GHS',NULL,'cédi ghanéen',NULL),(48,'NIO',NULL,'córdoba oro nicaraguayen',NULL),(49,'GMD',NULL,'dalasi gambien',NULL),(50,'MKD',NULL,'denar macédonien',NULL),(51,'DZD',NULL,'dinar algérien',NULL),(52,'BHD',NULL,'dinar bahreïni',NULL),(53,'BAD',NULL,'dinar bosniaque',NULL),(54,'HRD',NULL,'dinar croate',NULL),(55,'YDD',NULL,'dinar du Yémen',NULL),(56,'IQD',NULL,'dinar irakien',NULL),(57,'JOD',NULL,'dinar jordanien',NULL),(58,'KWD',NULL,'dinar koweïtien',NULL),(59,'LYD',NULL,'dinar libyen',NULL),(60,'RSD',NULL,'dinar serbe',NULL),(61,'CSD',NULL,'dinar serbo-monténégrin',NULL),(62,'SDD',NULL,'dinar soudanais',NULL),(63,'TND',NULL,'dinar tunisien',NULL),(64,'YUM',NULL,'dinar yougoslave Noviy',NULL),(65,'YUN',NULL,'dinar yougoslave convertible',NULL),(66,'AED',NULL,'dirham des Émirats arabes unis',NULL),(67,'MAD',NULL,'dirham marocain',NULL),(68,'STD',NULL,'dobra santoméen',NULL),(69,'AUD',NULL,'dollar australien',NULL),(70,'BSD',NULL,'dollar bahaméen',NULL),(71,'BBD',NULL,'dollar barbadien',NULL),(72,'BMD',NULL,'dollar bermudien',NULL),(73,'BND',NULL,'dollar brunéien',NULL),(74,'BZD',NULL,'dollar bélizéen',NULL),(75,'CAD',NULL,'dollar canadien',NULL),(76,'HKD',NULL,'dollar de Hong Kong',NULL),(77,'SGD',NULL,'dollar de Singapour',NULL),(78,'XCD',NULL,'dollar des Caraïbes orientales',NULL),(79,'USS',NULL,'dollar des Etats-Unis (jour même)',NULL),(80,'USN',NULL,'dollar des Etats-Unis (jour suivant)',NULL),(81,'USD',NULL,'dollar des États-Unis',NULL),(82,'KYD',NULL,'dollar des îles Caïmans',NULL),(83,'SBD',NULL,'dollar des îles Salomon',NULL),(84,'GYD',NULL,'dollar du Guyana',NULL),(85,'FJD',NULL,'dollar fidjien',NULL),(86,'JMD',NULL,'dollar jamaïcain',NULL),(87,'LRD',NULL,'dollar libérien',NULL),(88,'NAD',NULL,'dollar namibien',NULL),(89,'NZD',NULL,'dollar néo-zélandais',NULL),(90,'RHD',NULL,'dollar rhodésien',NULL),(91,'SRD',NULL,'dollar surinamais',NULL),(92,'TTD',NULL,'dollar trinidadien',NULL),(93,'ZWD',NULL,'dollar zimbabwéen',NULL),(94,'ZWR',NULL,'dollar zimbabwéen (2008)',NULL),(95,'ZWL',NULL,'dollar zimbabwéen (2009)',NULL),(96,'GRD',NULL,'drachme grecque',NULL),(97,'AMD',NULL,'dram arménien',NULL),(98,'VND',NULL,'dông vietnamien',NULL),(99,'GQE',NULL,'ekwélé équatoguinéen',NULL),(100,'CVE',NULL,'escudo capverdien',NULL),(101,'GWE',NULL,'escudo de Guinée portugaise',NULL),(102,'MZE',NULL,'escudo mozambicain',NULL),(103,'PTE',NULL,'escudo portugais',NULL),(104,'TPE',NULL,'escudo timorais',NULL),(105,'EUR',NULL,'euro',NULL),(106,'CHE',NULL,'euro WIR',NULL),(107,'ANG',NULL,'florin antillais',NULL),(108,'AWG',NULL,'florin arubais',NULL),(109,'NLG',NULL,'florin néerlandais',NULL),(110,'SRG',NULL,'florin surinamais',NULL),(111,'HUF',NULL,'forint hongrois',NULL),(112,'XOF',NULL,'franc CFA (BCEAO)',NULL),(113,'XAF',NULL,'franc CFA (BEAC)',NULL),(114,'XPF',NULL,'franc CFP',NULL),(115,'XFU',NULL,'franc UIC',NULL),(116,'CHW',NULL,'franc WIR',NULL),(117,'BEF',NULL,'franc belge',NULL),(118,'BEC',NULL,'franc belge (convertible)',NULL),(119,'BEL',NULL,'franc belge (financier)',NULL),(120,'BIF',NULL,'franc burundais',NULL),(121,'KMF',NULL,'franc comorien',NULL),(122,'CDF',NULL,'franc congolais',NULL),(123,'LUC',NULL,'franc convertible luxembourgeois',NULL),(124,'DJF',NULL,'franc djiboutien',NULL),(125,'LUL',NULL,'franc financier luxembourgeois',NULL),(126,'FRF',NULL,'franc français',NULL),(127,'GNF',NULL,'franc guinéen',NULL),(128,'LUF',NULL,'franc luxembourgeois',NULL),(129,'MGF',NULL,'franc malgache',NULL),(130,'MLF',NULL,'franc malien',NULL),(131,'MAF',NULL,'franc marocain',NULL),(132,'XFO',NULL,'franc or',NULL),(133,'RWF',NULL,'franc rwandais',NULL),(134,'CHF',NULL,'franc suisse',NULL),(135,'HTG',NULL,'gourde haïtienne',NULL),(136,'PYG',NULL,'guaraní paraguayen',NULL),(137,'UAH',NULL,'hryvnia ukrainienne',NULL),(138,'PEI',NULL,'inti péruvien',NULL),(139,'UAK',NULL,'karbovanetz',NULL),(140,'PGK',NULL,'kina papouan-néo-guinéen',NULL),(141,'LAK',NULL,'kip loatien',NULL),(142,'HRK',NULL,'kuna croate',NULL),(143,'MWK',NULL,'kwacha malawite',NULL),(144,'ZMW',NULL,'kwacha zambien',NULL),(145,'ZMK',NULL,'kwacha zambien (1968?2012)',NULL),(146,'AOA',NULL,'kwanza angolais',NULL),(147,'AOK',NULL,'kwanza angolais (1977?1990)',NULL),(148,'AOR',NULL,'kwanza angolais réajusté (1995?1999)',NULL),(149,'BUK',NULL,'kyat birman',NULL),(150,'MMK',NULL,'kyat myanmarais',NULL),(151,'GEL',NULL,'lari géorgien',NULL),(152,'LVL',NULL,'lats letton',NULL),(153,'ALL',NULL,'lek albanais',NULL),(154,'ALK',NULL,'lek albanais (1947?1961)',NULL),(155,'HNL',NULL,'lempira hondurien',NULL),(156,'SLL',NULL,'leone sierra-léonais',NULL),(157,'MDL',NULL,'leu moldave',NULL),(158,'RON',NULL,'leu roumain',NULL),(159,'BGN',NULL,'lev bulgare',NULL),(160,'BGL',NULL,'lev bulgare (1962?1999)',NULL),(161,'SZL',NULL,'lilangeni swazi',NULL),(162,'ITL',NULL,'lire italienne',NULL),(163,'MTL',NULL,'lire maltaise',NULL),(164,'LTL',NULL,'litas lituanien',NULL),(165,'CYP',NULL,'livre chypriote',NULL),(166,'GIP',NULL,'livre de Gibraltar',NULL),(167,'SHP',NULL,'livre de Sainte-Hélène',NULL),(168,'FKP',NULL,'livre des îles Malouines',NULL),(169,'IEP',NULL,'livre irlandaise',NULL),(170,'ILP',NULL,'livre israélienne',NULL),(171,'LBP',NULL,'livre libanaise',NULL),(172,'MTP',NULL,'livre maltaise',NULL),(173,'SDG',NULL,'livre soudanaise',NULL),(174,'SDP',NULL,'livre soudanaise (1956?2007)',NULL),(175,'GBP',NULL,'livre sterling',NULL),(176,'SSP',NULL,'livre sud-soudanaise',NULL),(177,'SYP',NULL,'livre syrienne',NULL),(178,'TRY',NULL,'livre turque',NULL),(179,'TRL',NULL,'livre turque (1844?2005)',NULL),(180,'EGP',NULL,'livre égyptienne',NULL),(181,'LSL',NULL,'loti lesothan',NULL),(182,'AZN',NULL,'manat azéri',NULL),(183,'AZM',NULL,'manat azéri (1993?2006)',NULL),(184,'TMM',NULL,'manat turkmène',NULL),(185,'DEM',NULL,'mark allemand',NULL),(186,'BAM',NULL,'mark convertible bosniaque',NULL),(187,'DDM',NULL,'mark est-allemand',NULL),(188,'FIM',NULL,'mark finlandais',NULL),(189,'MZN',NULL,'metical mozambicain',NULL),(190,'BOV',NULL,'mvdol bolivien',NULL),(191,'MZM',NULL,'métical',NULL),(192,'ERN',NULL,'nafka érythréen',NULL),(193,'NGN',NULL,'naira nigérian',NULL),(194,'BTN',NULL,'ngultrum bouthanais',NULL),(195,'BRN',NULL,'nouveau cruzado',NULL),(196,'BRB',NULL,'nouveau cruzeiro brésilien (1967?1986)',NULL),(197,'YUD',NULL,'nouveau dinar yougoslave',NULL),(198,'TWD',NULL,'nouveau dollar taïwanais',NULL),(199,'AON',NULL,'nouveau kwanza angolais (1990?2000)',NULL),(200,'TMT',NULL,'nouveau manat turkmène',NULL),(201,'BYB',NULL,'nouveau rouble biélorusse (1994?1999)',NULL),(202,'ILS',NULL,'nouveau shekel israélien',NULL),(203,'ZRN',NULL,'nouveau zaïre zaïrien',NULL),(204,'MRO',NULL,'ouguiya mauritanien',NULL),(205,'MOP',NULL,'pataca macanaise',NULL),(206,'TOP',NULL,'pa?anga tongan',NULL),(207,'ADP',NULL,'peseta andorrane',NULL),(208,'ESP',NULL,'peseta espagnole',NULL),(209,'ESA',NULL,'peseta espagnole (compte A)',NULL),(210,'ESB',NULL,'peseta espagnole (compte convertible)',NULL),(211,'ARS',NULL,'peso argentin',NULL),(212,'ARP',NULL,'peso argentin (1983?1985)',NULL),(213,'GWP',NULL,'peso bissau-guinéen',NULL),(214,'BOP',NULL,'peso bolivien',NULL),(215,'CLP',NULL,'peso chilien',NULL),(216,'COP',NULL,'peso colombien',NULL),(217,'CUP',NULL,'peso cubain',NULL),(218,'CUC',NULL,'peso cubain convertible',NULL),(219,'DOP',NULL,'peso dominicain',NULL),(220,'MXP',NULL,'peso d?argent mexicain (1861?1992)',NULL),(221,'MXN',NULL,'peso mexicain',NULL),(222,'PHP',NULL,'peso philippin',NULL),(223,'UYU',NULL,'peso uruguayen',NULL),(224,'UYP',NULL,'peso uruguayen (1975?1993)',NULL),(225,'UYI',NULL,'peso uruguayen (unités indexées)',NULL),(226,'BWP',NULL,'pula botswanais',NULL),(227,'GTQ',NULL,'quetzal guatémaltèque',NULL),(228,'ZAR',NULL,'rand sud-africain',NULL),(229,'ZAL',NULL,'rand sud-africain (financier)',NULL),(230,'IRR',NULL,'rial iranien',NULL),(231,'OMR',NULL,'rial omanais',NULL),(232,'QAR',NULL,'rial qatari',NULL),(233,'SAR',NULL,'rial saoudien',NULL),(234,'YER',NULL,'rial yéménite',NULL),(235,'KHR',NULL,'riel cambodgien',NULL),(236,'MYR',NULL,'ringgit malais',NULL),(237,'BYN',NULL,'rouble biélorusse',NULL),(238,'BYR',NULL,'rouble biélorusse (2000?2016)',NULL),(239,'LVR',NULL,'rouble letton',NULL),(240,'RUB',NULL,'rouble russe',NULL),(241,'RUR',NULL,'rouble russe (1991?1998)',NULL),(242,'SUR',NULL,'rouble soviétique',NULL),(243,'TJR',NULL,'rouble tadjik',NULL),(244,'SCR',NULL,'roupie des Seychelles',NULL),(245,'INR',NULL,'roupie indienne',NULL),(246,'IDR',NULL,'roupie indonésienne',NULL),(247,'MUR',NULL,'roupie mauricienne',NULL),(248,'NPR',NULL,'roupie népalaise',NULL),(249,'PKR',NULL,'roupie pakistanaise',NULL),(250,'LKR',NULL,'roupie srilankaise',NULL),(251,'MVR',NULL,'rufiyaa maldivien',NULL),(252,'BRL',NULL,'réal brésilien',NULL),(253,'ATS',NULL,'schilling autrichien',NULL),(254,'KES',NULL,'shilling kényan',NULL),(255,'UGX',NULL,'shilling ougandais',NULL),(256,'UGS',NULL,'shilling ougandais (1966?1987)',NULL),(257,'SOS',NULL,'shilling somalien',NULL),(258,'TZS',NULL,'shilling tanzanien',NULL),(259,'PEN',NULL,'sol péruvien',NULL),(260,'PES',NULL,'sol péruvien (1863?1985)',NULL),(261,'KGS',NULL,'som kirghize',NULL),(262,'TJS',NULL,'somoni tadjik',NULL),(263,'ECS',NULL,'sucre équatorien',NULL),(264,'UZS',NULL,'sum ouzbek',NULL),(265,'GNS',NULL,'syli guinéen',NULL),(266,'BDT',NULL,'taka bangladeshi',NULL),(267,'WST',NULL,'tala samoan',NULL),(268,'LTT',NULL,'talonas lituanien',NULL),(269,'KZT',NULL,'tenge kazakh',NULL),(270,'SIT',NULL,'tolar slovène',NULL),(271,'MNT',NULL,'tugrik mongol',NULL),(272,'XRE',NULL,'type de fonds RINET',NULL),(273,'XEU',NULL,'unité de compte européenne (ECU)',NULL),(274,'MXV',NULL,'unité de conversion mexicaine (UDI)',NULL),(275,'ECV',NULL,'unité de valeur constante équatoriale (UVC)',NULL),(276,'COU',NULL,'unité de valeur réelle colombienne',NULL),(277,'CLF',NULL,'unité d?investissement chilienne',NULL),(278,'VUV',NULL,'vatu vanuatuan',NULL),(279,'KPW',NULL,'won nord-coréen',NULL),(280,'KRW',NULL,'won sud-coréen',NULL),(281,'JPY',NULL,'yen japonais',NULL),(282,'CNY',NULL,'yuan renminbi chinois',NULL),(283,'ZRZ',NULL,'zaïre zaïrois',NULL),(284,'PLZ',NULL,'zloty (1950?1995)',NULL),(285,'PLN',NULL,'zloty polonais',NULL);
 /*!40000 ALTER TABLE `monnaie` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -864,11 +896,12 @@ CREATE TABLE `pays` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titre` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `systeme_comptable_id` int(11) DEFAULT NULL,
+  `iso` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_349F3CAEFF7747B4` (`titre`),
   KEY `IDX_349F3CAEE74A125A` (`systeme_comptable_id`),
   CONSTRAINT `FK_349F3CAEE74A125A` FOREIGN KEY (`systeme_comptable_id`) REFERENCES `systeme_comptable` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=256 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -877,7 +910,7 @@ CREATE TABLE `pays` (
 
 LOCK TABLES `pays` WRITE;
 /*!40000 ALTER TABLE `pays` DISABLE KEYS */;
-INSERT INTO `pays` VALUES (1,'Côte d\'Ivoire',NULL),(2,'Belgique',NULL),(3,'France',NULL),(4,'Angleterre',NULL),(5,'Suisse',NULL),(6,'Ghana',NULL),(7,'Mali',NULL),(8,'Burkina Faso',NULL),(9,'Guinée Conakry',NULL),(10,'Guinée Bissau ',NULL);
+INSERT INTO `pays` VALUES (1,'Afghanistan',NULL,'AF'),(2,'Afrique du Sud',NULL,'ZA'),(3,'Albanie',NULL,'AL'),(4,'Algérie',NULL,'DZ'),(5,'Allemagne',NULL,'DE'),(6,'Andorre',NULL,'AD'),(7,'Angola',NULL,'AO'),(8,'Anguilla',NULL,'AI'),(9,'Antarctique',NULL,'AQ'),(10,'Antigua-et-Barbuda',NULL,'AG'),(11,'Arabie saoudite',NULL,'SA'),(12,'Argentine',NULL,'AR'),(13,'Arménie',NULL,'AM'),(14,'Aruba',NULL,'AW'),(15,'Australie',NULL,'AU'),(16,'Autriche',NULL,'AT'),(17,'Azerbaïdjan',NULL,'AZ'),(18,'Bahamas',NULL,'BS'),(19,'Bahreïn',NULL,'BH'),(20,'Bangladesh',NULL,'BD'),(21,'Barbade',NULL,'BB'),(22,'Belgique',NULL,'BE'),(23,'Belize',NULL,'BZ'),(24,'Bénin',NULL,'BJ'),(25,'Bermudes',NULL,'BM'),(26,'Bhoutan',NULL,'BT'),(27,'Biélorussie',NULL,'BY'),(28,'Bolivie',NULL,'BO'),(29,'Bosnie-Herzégovine',NULL,'BA'),(30,'Botswana',NULL,'BW'),(31,'Brésil',NULL,'BR'),(32,'Brunéi Darussalam',NULL,'BN'),(33,'Bulgarie',NULL,'BG'),(34,'Burkina Faso',NULL,'BF'),(35,'Burundi',NULL,'BI'),(36,'Cambodge',NULL,'KH'),(37,'Cameroun',NULL,'CM'),(38,'Canada',NULL,'CA'),(39,'Cap-Vert',NULL,'CV'),(40,'Ceuta et Melilla',NULL,'EA'),(41,'Chili',NULL,'CL'),(42,'Chine',NULL,'CN'),(43,'Chypre',NULL,'CY'),(44,'Colombie',NULL,'CO'),(45,'Comores',NULL,'KM'),(46,'Congo-Brazzaville',NULL,'CG'),(47,'Congo-Kinshasa',NULL,'CD'),(48,'Corée du Nord',NULL,'KP'),(49,'Corée du Sud',NULL,'KR'),(50,'Costa Rica',NULL,'CR'),(51,'Côte d?Ivoire',NULL,'CI'),(52,'Croatie',NULL,'HR'),(53,'Cuba',NULL,'CU'),(54,'Curaçao',NULL,'CW'),(55,'Danemark',NULL,'DK'),(56,'Diego Garcia',NULL,'DG'),(57,'Djibouti',NULL,'DJ'),(58,'Dominique',NULL,'DM'),(59,'Égypte',NULL,'EG'),(60,'El Salvador',NULL,'SV'),(61,'Émirats arabes unis',NULL,'AE'),(62,'Équateur',NULL,'EC'),(63,'Érythrée',NULL,'ER'),(64,'Espagne',NULL,'ES'),(65,'Estonie',NULL,'EE'),(66,'État de la Cité du Vatican',NULL,'VA'),(67,'États fédérés de Micronésie',NULL,'FM'),(68,'États-Unis',NULL,'US'),(69,'Éthiopie',NULL,'ET'),(70,'Eurozone',NULL,'EZ'),(71,'Fidji',NULL,'FJ'),(72,'Finlande',NULL,'FI'),(73,'France',NULL,'FR'),(74,'Gabon',NULL,'GA'),(75,'Gambie',NULL,'GM'),(76,'Géorgie',NULL,'GE'),(77,'Géorgie du Sud et îles Sandwich du Sud',NULL,'GS'),(78,'Ghana',NULL,'GH'),(79,'Gibraltar',NULL,'GI'),(80,'Grèce',NULL,'GR'),(81,'Grenade',NULL,'GD'),(82,'Groenland',NULL,'GL'),(83,'Guadeloupe',NULL,'GP'),(84,'Guam',NULL,'GU'),(85,'Guatemala',NULL,'GT'),(86,'Guernesey',NULL,'GG'),(87,'Guinée',NULL,'GN'),(88,'Guinée équatoriale',NULL,'GQ'),(89,'Guinée-Bissau',NULL,'GW'),(90,'Guyana',NULL,'GY'),(91,'Guyane française',NULL,'GF'),(92,'Haïti',NULL,'HT'),(93,'Honduras',NULL,'HN'),(94,'Hongrie',NULL,'HU'),(95,'Île Christmas',NULL,'CX'),(96,'Île de l?Ascension',NULL,'AC'),(97,'Île de Man',NULL,'IM'),(98,'Île Norfolk',NULL,'NF'),(99,'Îles Åland',NULL,'AX'),(100,'Îles Caïmans',NULL,'KY'),(101,'Îles Canaries',NULL,'IC'),(102,'Îles Cocos',NULL,'CC'),(103,'Îles Cook',NULL,'CK'),(104,'Îles Féroé',NULL,'FO'),(105,'Îles Malouines',NULL,'FK'),(106,'Îles Mariannes du Nord',NULL,'MP'),(107,'Îles Marshall',NULL,'MH'),(108,'Îles mineures éloignées des États-Unis',NULL,'UM'),(109,'Îles Pitcairn',NULL,'PN'),(110,'Îles Salomon',NULL,'SB'),(111,'Îles Turques-et-Caïques',NULL,'TC'),(112,'Îles Vierges britanniques',NULL,'VG'),(113,'Îles Vierges des États-Unis',NULL,'VI'),(114,'Inde',NULL,'IN'),(115,'Indonésie',NULL,'ID'),(116,'Irak',NULL,'IQ'),(117,'Iran',NULL,'IR'),(118,'Irlande',NULL,'IE'),(119,'Islande',NULL,'IS'),(120,'Israël',NULL,'IL'),(121,'Italie',NULL,'IT'),(122,'Jamaïque',NULL,'JM'),(123,'Japon',NULL,'JP'),(124,'Jersey',NULL,'JE'),(125,'Jordanie',NULL,'JO'),(126,'Kazakhstan',NULL,'KZ'),(127,'Kenya',NULL,'KE'),(128,'Kirghizistan',NULL,'KG'),(129,'Kiribati',NULL,'KI'),(130,'Kosovo',NULL,'XK'),(131,'Koweït',NULL,'KW'),(132,'La Réunion',NULL,'RE'),(133,'Laos',NULL,'LA'),(134,'Lesotho',NULL,'LS'),(135,'Lettonie',NULL,'LV'),(136,'Liban',NULL,'LB'),(137,'Libéria',NULL,'LR'),(138,'Libye',NULL,'LY'),(139,'Liechtenstein',NULL,'LI'),(140,'Lituanie',NULL,'LT'),(141,'Luxembourg',NULL,'LU'),(142,'Macédoine',NULL,'MK'),(143,'Madagascar',NULL,'MG'),(144,'Malaisie',NULL,'MY'),(145,'Malawi',NULL,'MW'),(146,'Maldives',NULL,'MV'),(147,'Mali',NULL,'ML'),(148,'Malte',NULL,'MT'),(149,'Maroc',NULL,'MA'),(150,'Martinique',NULL,'MQ'),(151,'Maurice',NULL,'MU'),(152,'Mauritanie',NULL,'MR'),(153,'Mayotte',NULL,'YT'),(154,'Mexique',NULL,'MX'),(155,'Moldavie',NULL,'MD'),(156,'Monaco',NULL,'MC'),(157,'Mongolie',NULL,'MN'),(158,'Monténégro',NULL,'ME'),(159,'Montserrat',NULL,'MS'),(160,'Mozambique',NULL,'MZ'),(161,'Myanmar (Birmanie)',NULL,'MM'),(162,'Namibie',NULL,'NA'),(163,'Nations Unies',NULL,'UN'),(164,'Nauru',NULL,'NR'),(165,'Népal',NULL,'NP'),(166,'Nicaragua',NULL,'NI'),(167,'Niger',NULL,'NE'),(168,'Nigéria',NULL,'NG'),(169,'Niue',NULL,'NU'),(170,'Norvège',NULL,'NO'),(171,'Nouvelle-Calédonie',NULL,'NC'),(172,'Nouvelle-Zélande',NULL,'NZ'),(173,'Oman',NULL,'OM'),(174,'Ouganda',NULL,'UG'),(175,'Ouzbékistan',NULL,'UZ'),(176,'Pakistan',NULL,'PK'),(177,'Palaos',NULL,'PW'),(178,'Panama',NULL,'PA'),(179,'Papouasie-Nouvelle-Guinée',NULL,'PG'),(180,'Paraguay',NULL,'PY'),(181,'Pays-Bas',NULL,'NL'),(182,'Pays-Bas caribéens',NULL,'BQ'),(183,'Pérou',NULL,'PE'),(184,'Philippines',NULL,'PH'),(185,'Pologne',NULL,'PL'),(186,'Polynésie française',NULL,'PF'),(187,'Porto Rico',NULL,'PR'),(188,'Portugal',NULL,'PT'),(189,'Qatar',NULL,'QA'),(190,'R.A.S. chinoise de Hong Kong',NULL,'HK'),(191,'R.A.S. chinoise de Macao',NULL,'MO'),(192,'République centrafricaine',NULL,'CF'),(193,'République dominicaine',NULL,'DO'),(194,'Roumanie',NULL,'RO'),(195,'Royaume-Uni',NULL,'GB'),(196,'Russie',NULL,'RU'),(197,'Rwanda',NULL,'RW'),(198,'Sahara occidental',NULL,'EH'),(199,'Saint-Barthélemy',NULL,'BL'),(200,'Saint-Christophe-et-Niévès',NULL,'KN'),(201,'Saint-Marin',NULL,'SM'),(202,'Saint-Martin',NULL,'MF'),(203,'Saint-Martin (partie néerlandaise)',NULL,'SX'),(204,'Saint-Pierre-et-Miquelon',NULL,'PM'),(205,'Saint-Vincent-et-les-Grenadines',NULL,'VC'),(206,'Sainte-Hélène',NULL,'SH'),(207,'Sainte-Lucie',NULL,'LC'),(208,'Samoa',NULL,'WS'),(209,'Samoa américaines',NULL,'AS'),(210,'Sao Tomé-et-Principe',NULL,'ST'),(211,'Sénégal',NULL,'SN'),(212,'Serbie',NULL,'RS'),(213,'Seychelles',NULL,'SC'),(214,'Sierra Leone',NULL,'SL'),(215,'Singapour',NULL,'SG'),(216,'Slovaquie',NULL,'SK'),(217,'Slovénie',NULL,'SI'),(218,'Somalie',NULL,'SO'),(219,'Soudan',NULL,'SD'),(220,'Soudan du Sud',NULL,'SS'),(221,'Sri Lanka',NULL,'LK'),(222,'Suède',NULL,'SE'),(223,'Suisse',NULL,'CH'),(224,'Suriname',NULL,'SR'),(225,'Svalbard et Jan Mayen',NULL,'SJ'),(226,'Swaziland',NULL,'SZ'),(227,'Syrie',NULL,'SY'),(228,'Tadjikistan',NULL,'TJ'),(229,'Taïwan',NULL,'TW'),(230,'Tanzanie',NULL,'TZ'),(231,'Tchad',NULL,'TD'),(232,'Tchéquie',NULL,'CZ'),(233,'Terres australes françaises',NULL,'TF'),(234,'Territoire britannique de l?océan Indien',NULL,'IO'),(235,'Territoires palestiniens',NULL,'PS'),(236,'Thaïlande',NULL,'TH'),(237,'Timor oriental',NULL,'TL'),(238,'Togo',NULL,'TG'),(239,'Tokélaou',NULL,'TK'),(240,'Tonga',NULL,'TO'),(241,'Trinité-et-Tobago',NULL,'TT'),(242,'Tristan da Cunha',NULL,'TA'),(243,'Tunisie',NULL,'TN'),(244,'Turkménistan',NULL,'TM'),(245,'Turquie',NULL,'TR'),(246,'Tuvalu',NULL,'TV'),(247,'Ukraine',NULL,'UA'),(248,'Uruguay',NULL,'UY'),(249,'Vanuatu',NULL,'VU'),(250,'Venezuela',NULL,'VE'),(251,'Vietnam',NULL,'VN'),(252,'Wallis-et-Futuna',NULL,'WF'),(253,'Yémen',NULL,'YE'),(254,'Zambie',NULL,'ZM'),(255,'Zimbabwe',NULL,'ZW');
 /*!40000 ALTER TABLE `pays` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1024,14 +1057,17 @@ CREATE TABLE `societe` (
   `capital_social` int(11) DEFAULT NULL,
   `dateDeCreation` datetime NOT NULL,
   `activitePrincipale` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `pays_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_19653DBDE74A125A` (`systeme_comptable_id`),
   KEY `IDX_19653DBD9AEE68EB` (`forme_juridique_id`),
   KEY `IDX_19653DBD5233A7FC` (`secteur_activite_id`),
   KEY `IDX_19653DBD98D3FE22` (`monnaie_id`),
+  KEY `IDX_19653DBDA6E44244` (`pays_id`),
   CONSTRAINT `FK_19653DBD5233A7FC` FOREIGN KEY (`secteur_activite_id`) REFERENCES `secteur_activite` (`id`),
   CONSTRAINT `FK_19653DBD98D3FE22` FOREIGN KEY (`monnaie_id`) REFERENCES `monnaie` (`id`),
   CONSTRAINT `FK_19653DBD9AEE68EB` FOREIGN KEY (`forme_juridique_id`) REFERENCES `forme_juridique` (`id`),
+  CONSTRAINT `FK_19653DBDA6E44244` FOREIGN KEY (`pays_id`) REFERENCES `pays` (`id`),
   CONSTRAINT `FK_19653DBDE74A125A` FOREIGN KEY (`systeme_comptable_id`) REFERENCES `systeme_comptable` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1187,7 +1223,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `UNIQ_8D93D64992FC23A8` (`username_canonical`),
   UNIQUE KEY `UNIQ_8D93D649A0D96FBF` (`email_canonical`),
   UNIQUE KEY `UNIQ_8D93D649C05FB297` (`confirmation_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1196,7 +1232,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'stefann.sasori@gmail.com','stefann.sasori@gmail.com','stefann.sasori@gmail.com','stefann.sasori@gmail.com',1,'jEYVEgMbSyqSyVIwZP/gfkNrNSVihheG8W9eydn6MbY','DnT2cxgYtf+E1uQCMOHVw4PSSTXgRig2ai9aV0peojKgk4vMBJKHoo8PaxVEHwBowGIwoa/UL0ofqkfIqgNANA==','2018-11-06 22:10:53',NULL,NULL,'a:0:{}',NULL,1,NULL,NULL,NULL,'local',NULL,NULL,NULL,NULL,'2018-11-06 22:10:54',NULL,'default.png',NULL,NULL,NULL);
+INSERT INTO `user` VALUES (1,'stefann.sasori@gmail.com','stefann.sasori@gmail.com','stefann.sasori@gmail.com','stefann.sasori@gmail.com',1,'jEYVEgMbSyqSyVIwZP/gfkNrNSVihheG8W9eydn6MbY','DnT2cxgYtf+E1uQCMOHVw4PSSTXgRig2ai9aV0peojKgk4vMBJKHoo8PaxVEHwBowGIwoa/UL0ofqkfIqgNANA==','2018-11-06 22:10:53',NULL,NULL,'a:0:{}',NULL,1,NULL,NULL,NULL,'local',NULL,NULL,NULL,NULL,'2018-11-06 22:10:54',NULL,'default.png',NULL,NULL,NULL),(3,'angemartialkoffi@gmail.com','angemartialkoffi@gmail.com','angemartialkoffi@gmail.com','angemartialkoffi@gmail.com',1,'i6rxmehiVr4OlaKd8Z93qS7n1efxn7xKdIk5fwdmixY','anFOWSTcwTLRj++6ghjxPQLaPJEx/9P0ESfcSW52Oh29VkyYmHixMrVvqtUYQK80qqJF+q9gP+7hqNiQ8DODkg==','2018-11-13 01:33:32',NULL,NULL,'a:0:{}',NULL,1,NULL,NULL,NULL,'local',NULL,NULL,NULL,NULL,'2018-11-13 23:13:42',NULL,'default.png',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1215,7 +1251,7 @@ CREATE TABLE `user_parameter` (
   PRIMARY KEY (`id`),
   KEY `IDX_2A771CF4A76ED395` (`user_id`),
   CONSTRAINT `FK_2A771CF4A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1224,7 +1260,7 @@ CREATE TABLE `user_parameter` (
 
 LOCK TABLES `user_parameter` WRITE;
 /*!40000 ALTER TABLE `user_parameter` DISABLE KEYS */;
-INSERT INTO `user_parameter` VALUES (1,1,'1','chat'),(2,1,'1','chrono'),(3,1,'1','battle');
+INSERT INTO `user_parameter` VALUES (1,1,'1','chat'),(2,1,'1','chrono'),(3,1,'1','battle'),(4,3,'1','chat'),(5,3,'1','chrono'),(6,3,'1','battle');
 /*!40000 ALTER TABLE `user_parameter` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1254,6 +1290,34 @@ LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `utilisateur_societe`
+--
+
+DROP TABLE IF EXISTS `utilisateur_societe`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `utilisateur_societe` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `societe_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_636ECA2FA76ED395` (`user_id`),
+  KEY `IDX_636ECA2FFCF77503` (`societe_id`),
+  CONSTRAINT `FK_636ECA2FA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_636ECA2FFCF77503` FOREIGN KEY (`societe_id`) REFERENCES `societe` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `utilisateur_societe`
+--
+
+LOCK TABLES `utilisateur_societe` WRITE;
+/*!40000 ALTER TABLE `utilisateur_societe` DISABLE KEYS */;
+/*!40000 ALTER TABLE `utilisateur_societe` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1264,4 +1328,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-12 21:22:24
+-- Dump completed on 2018-11-13 23:16:41
