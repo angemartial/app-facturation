@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Facturation - Choix de la société</title>
+    <link rel="stylesheet" href="{{ asset('bundles/dupuser/css/pick-company.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="container">
+            <div class="col-12">
+                {% for type, messages in app.session.flashbag.all %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ type ? type : '' }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="form-container" class="container-fluid">
+    <div class="splash">
+        <h1>Que voulez vous faire ?</h1>
+        <p>Vous avez la possibilité de rejoindre une société en utilisant un lien d'invitation recu par mail.
+           Vous pouvez aussi créer, administrer et ajouter des utilisateur à une toute nouvelle société.
+        </p>
+        <div class="action-choices row">
+            <div class="col-md-6">
+                <a data-target=".action-choice-join" class="action-choice-trigger" href="#">
+                    <img src="{{ asset('bundles/dupuser/images/lycs-lycs-744230-unsplash.jpg') }}" alt="Rejoindre">
+                    <h3>Rejoindre une société</h3>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a  href="#">
+                    <img src="{{ asset('bundles/dupuser/images/bernard-tuck-528096-unsplash.jpg') }}" alt="Creer">
+                    <h3>Créer une nouvelle société </h3>
+                </a>
+            </div>
+
+        </div>
+        <div class="action-choice action-choice-join">
+            <h2>Rejoignez une entreprise</h2>
+            <form method="post" action="#">
+                <p>Renseignez dans le champs ci dessous le code d'invitation récu par mail</p>
+                <input placeholder="Code d'invitation" type="text" name="code">
+            </form>
+        </div>
+    </div>
+
+</section>
+
+<footer>
+    <div class="container">
+        <ul>
+            <li><a href="#">A propos</a></li>
+            <li><a href="#">Contacts</a></li>
+            <li><a href="#">Confidentialité</a></li>
+            <li><a href="#">Conditions d'utilisation</a></li>
+        </ul>
+    </div>
+</footer>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('bundles/dupuser/js/pick-company.js') }}"></script>
+</body>
+</html>
