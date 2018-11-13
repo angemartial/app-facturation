@@ -30,8 +30,8 @@ security:
                 resource_owners:
                     facebook:           "/connect/check-facebook"
                     google:           "/connect/check-google"
-                login_path:        /connect
-                failure_path:      /connect
+                login_path:        /login
+                failure_path:      /login
                 oauth_user_provider:
                     service: my.oauth_aware.user_provider.service
             logout:
