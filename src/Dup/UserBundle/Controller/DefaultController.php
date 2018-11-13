@@ -2,6 +2,9 @@
 
 namespace Dup\UserBundle\Controller;
 
+use AppBundle\Entity\Societe;
+use AppBundle\Entity\UtilisateurSociete;
+use AppBundle\Form\SocieteType;
 use Dup\BackboneBundle\Service\ToArray;
 use Dup\UserBundle\Entity\User;
 use Dup\UserBundle\Entity\UserParameter;
@@ -29,7 +32,7 @@ class DefaultController extends Controller
             false === array_key_exists( 'plainPassword', $posts)
             
         ){
-            $this->addFlash( 'error', 'Merci de renseigner tous les champs requis');
+            $this->addFlash( 'danger', 'Merci de renseigner tous les champs requis');
             $error = true;
         }
         
@@ -40,24 +43,31 @@ class DefaultController extends Controller
         if( empty($email) ||
            empty($confirm) ||
            empty($password) ){
-            $this->addFlash( 'error', 'Merci de renseigner tous les champs requis');
+            $this->addFlash( 'danger', 'Merci de renseigner tous les champs requis');
             $error = true;
         }
         
         if ( false === filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->addFlash( 'error', 'Email est incorrecte');
+            $this->addFlash( 'danger', 'Email est incorrecte');
             $error = true;
         }
         
         if($confirm !== $password){
-            $this->addFlash( 'error', 'Les mots de passes ne sont pas identiques');
+            $this->addFlash( 'danger', 'Les mots de passes ne sont pas identiques');
+            $error = true;
+        }
+        $userManager = $this->get('fos_user.user_manager');
+        $exist = $userManager->findUserByEmail( $email);
+        if(null !== $exist){
+            $this->addFlash( 'danger', sprintf('l\'adresse email %s existe deja dans notre systeme', $email) );
             $error = true;
         }
         
         if($error === true){
             return $this->redirectToRoute( 'dup_user_social_login');
         }
-        $userManager = $this->get('fos_user.user_manager');
+        
+        
         /** @var User $user */
         $user = $userManager->createUser();
         
@@ -70,7 +80,7 @@ class DefaultController extends Controller
         $user->eraseCredentials();
         
         $this->sendConfirmationEmail( $user);
-        
+        $this->addFlash( 'success', 'L \'inscription a été prise en compte. Un lien de confirmation vous a été envoyé par mail. Merci de cliquer sur ce lien pour activer votre compte utilisateur');
         return $this->redirectToRoute( "index");
         
     }
@@ -108,6 +118,41 @@ class DefaultController extends Controller
         $em -> flush ();
         
         return new Response( "ok" );
+    }
+    
+    public function registrationConfirmedAction(){
+        return $this->redirectToRoute('dup_user_profile');
+    }
+    
+    public function userProfileAction(){
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $societeUtilisateurs = $em->getRepository( UtilisateurSociete::class)->findBy(['user' => $user]);
+        if(count( $societeUtilisateurs) === 0){
+            return $this->redirectToRoute( 'dup_user_pick_or_create_company');
+        }
+        return $this->redirectToRoute( 'index');
+    }
+    
+    public function pickOrCreateCompanyAction(Request $request){
+        $company = new Societe();
+        $user = $this->getUser();
+        $form = $this->createForm( SocieteType::class, $company);
+        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        if($form->isSubmitted() && $form->isValid()){
+            $company = $form->getData();
+            $userCompany = new UtilisateurSociete($user, $company);
+            $em->persist( $company);
+            $em->persist( $userCompany);
+            $em->flush();
+            return $this->redirectToRoute( 'index');
+        }
+        
+        return $this->render( 'pick-or-create-company.html.twig', [
+            'form' => $form->createView(),
+            'company' => $company
+        ]);
     }
     
     public function updateUserAction ( Request $request )

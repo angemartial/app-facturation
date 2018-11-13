@@ -12,6 +12,20 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 </head>
 <body>
+<div class="row">
+    <div class="container">
+        <div class="col-12">
+            {% for type, messages in app.session.flashbag.all %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type ? type : '' }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
  <section id="login-container" class="container-fluid">
      <h1>Bienvenue sur l'app de facturation</h1>
      <p>Gerez vos factures et bien plus encore</p>
@@ -43,7 +57,7 @@
          </div>
          <div class="col-md-6 login-option">
              <h3>Connexion</h3>
-             <form action="{{ path("dup_user_security_check") }}">
+             <form method="post" action="{{ path("dup_user_security_check") }}">
                  <div class="form-group">
                      <input class="form-control" type="email" name="_username" placeholder="Email">
                  </div>

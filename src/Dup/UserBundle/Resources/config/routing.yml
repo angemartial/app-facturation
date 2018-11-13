@@ -47,4 +47,14 @@ dup_user_security_login:
     path: /login
     defaults: { _controller: FOSUserBundle:Security:login, _locale : fr}
 
+fos_user_registration_confirmed:
+    path: /confirmed
+    defaults: { _controller: DupUserBundle:Default:registrationConfirmed }
 
+dup_user_profile:
+   path: /profile
+   defaults: { _controller: DupUserBundle:Default:userProfile }
+
+dup_user_pick_or_create_company:
+    path: /company-selection
+    defaults: { _controller: DupUserBundle:Default:pickOrCreateCompany }
