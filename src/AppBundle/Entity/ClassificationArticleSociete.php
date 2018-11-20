@@ -5,14 +5,17 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ClassificationVente
+ * ClassificationArticleSociete
  *
- * @ORM\Table(name="classification_vente")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ClassificationVenteRepository")
+ * @ORM\Table(name="classification_article_societe")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ClassificationArticleSocieteRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class ClassificationVente
+class ClassificationArticleSociete
 {
+
+    use SocieteTrait;
+
     /**
      * @var int
      *
@@ -61,7 +64,7 @@ class ClassificationVente
      *
      * @param string $titre
      *
-     * @return ClassificationVente
+     * @return ClassificationArticleSociete
      */
     public function setTitre($titre)
     {
@@ -86,16 +89,6 @@ class ClassificationVente
     }
 
     /**
-     * @throws \Exception
-     * @ORM\PrePersist()
-     */
-    public function checkCompteComptable(){
-        if($this->compteComptable->getSystemeComptable() !== $this->systemeComptable){
-            throw new \Exception('This account does not exist in the given account chart');
-        }
-    }
-
-    /**
      * @return CompteComptable
      */
     public function getCompteComptable():? CompteComptable
@@ -105,9 +98,9 @@ class ClassificationVente
 
     /**
      * @param CompteComptable $compteComptable
-     * @return ClassificationVente
+     * @return ClassificationArticleSociete
      */
-    public function setCompteComptable(CompteComptable $compteComptable): ClassificationVente
+    public function setCompteComptable(CompteComptable $compteComptable): ClassificationArticleSociete
     {
         $this->compteComptable = $compteComptable;
         return $this;
@@ -123,15 +116,22 @@ class ClassificationVente
 
     /**
      * @param SystemeComptable $systemeComptable
-     * @return ClassificationVente
+     * @return ClassificationArticleSociete
      */
-    public function setSystemeComptable(SystemeComptable $systemeComptable): ClassificationVente
+    public function setSystemeComptable(SystemeComptable $systemeComptable): ClassificationArticleSociete
     {
         $this->systemeComptable = $systemeComptable;
         return $this;
     }
 
-
-
+    /**
+     * @throws \Exception
+     * @ORM\PrePersist()
+     */
+    public function checkCompteComptable(){
+        if($this->compteComptable->getSystemeComptable() !== $this->systemeComptable){
+            throw new \Exception('This account does not exist in the given account chart');
+        }
+    }
 }
 

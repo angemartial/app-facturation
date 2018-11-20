@@ -5,13 +5,13 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ClassificationArticle
+ * CompteComptableParActionComptable
  *
- * @ORM\Table(name="classification_article")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ClassificationArticleRepository")
+ * @ORM\Table(name="compte_comptable_par_action_comptable")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CompteComptableParActionComptableRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class ClassificationArticle
+class CompteComptableParActionComptable
 {
     /**
      * @var int
@@ -23,27 +23,23 @@ class ClassificationArticle
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="titre", type="string", length=255)
-     */
-    private $titre;
-
-    /**
      * @var CompteComptable
-     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CompteComptable")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $compteComptable;
 
     /**
      * @var SystemeComptable
-     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SystemeComptable")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $systemeComptable;
+
+    /**
+     * @var ActionComptable
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ActionComptable")
+     */
+    private $actionComptable;
+
 
     /**
      * Get id
@@ -56,35 +52,6 @@ class ClassificationArticle
     }
 
     /**
-     * Set titre
-     *
-     * @param string $titre
-     *
-     * @return ClassificationArticle
-     */
-    public function setTitre($titre)
-    {
-        $this->titre = $titre;
-
-        return $this;
-    }
-
-    /**
-     * Get titre
-     *
-     * @return string
-     */
-    public function getTitre()
-    {
-        return $this->titre;
-    }
-
-    public function __toString()
-    {
-        return $this->getTitre();
-    }
-
-    /**
      * @return CompteComptable
      */
     public function getCompteComptable():? CompteComptable
@@ -94,9 +61,9 @@ class ClassificationArticle
 
     /**
      * @param CompteComptable $compteComptable
-     * @return ClassificationArticle
+     * @return CompteComptableParActionComptable
      */
-    public function setCompteComptable(CompteComptable $compteComptable): ClassificationArticle
+    public function setCompteComptable(CompteComptable $compteComptable): CompteComptableParActionComptable
     {
         $this->compteComptable = $compteComptable;
         return $this;
@@ -112,11 +79,29 @@ class ClassificationArticle
 
     /**
      * @param SystemeComptable $systemeComptable
-     * @return ClassificationArticle
+     * @return CompteComptableParActionComptable
      */
-    public function setSystemeComptable(SystemeComptable $systemeComptable): ClassificationArticle
+    public function setSystemeComptable(SystemeComptable $systemeComptable): CompteComptableParActionComptable
     {
         $this->systemeComptable = $systemeComptable;
+        return $this;
+    }
+
+    /**
+     * @return ActionComptable
+     */
+    public function getActionComptable():? ActionComptable
+    {
+        return $this->actionComptable;
+    }
+
+    /**
+     * @param ActionComptable $actionComptable
+     * @return CompteComptableParActionComptable
+     */
+    public function setActionComptable(ActionComptable $actionComptable): CompteComptableParActionComptable
+    {
+        $this->actionComptable = $actionComptable;
         return $this;
     }
 

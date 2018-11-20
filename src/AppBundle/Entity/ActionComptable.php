@@ -28,6 +28,11 @@ class ActionComptable
      */
     private $libelle;
 
+    /**
+     * @var string
+     * @ORM\Column(name="code", type="string", length=255, unique=true)
+     */
+    private $code;
 
     /**
      * Get id
@@ -62,5 +67,24 @@ class ActionComptable
     {
         return $this->libelle;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param mixed $code
+     * @return ActionComptable
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+        return $this;
+    }
+
 }
 

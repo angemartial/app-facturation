@@ -5,14 +5,17 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ClassificationVente
+ * ClassificationVenteSociete
  *
- * @ORM\Table(name="classification_vente")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ClassificationVenteRepository")
+ * @ORM\Table(name="classification_vente_societe")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ClassificationVenteSocieteRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class ClassificationVente
+class ClassificationVenteSociete
 {
+
+    use SocieteTrait;
+
     /**
      * @var int
      *
@@ -105,9 +108,9 @@ class ClassificationVente
 
     /**
      * @param CompteComptable $compteComptable
-     * @return ClassificationVente
+     * @return ClassificationVenteSociete
      */
-    public function setCompteComptable(CompteComptable $compteComptable): ClassificationVente
+    public function setCompteComptable(CompteComptable $compteComptable): ClassificationVenteSociete
     {
         $this->compteComptable = $compteComptable;
         return $this;
@@ -123,15 +126,12 @@ class ClassificationVente
 
     /**
      * @param SystemeComptable $systemeComptable
-     * @return ClassificationVente
+     * @return ClassificationVenteSociete
      */
-    public function setSystemeComptable(SystemeComptable $systemeComptable): ClassificationVente
+    public function setSystemeComptable(SystemeComptable $systemeComptable): ClassificationVenteSociete
     {
         $this->systemeComptable = $systemeComptable;
         return $this;
     }
-
-
-
 }
 
