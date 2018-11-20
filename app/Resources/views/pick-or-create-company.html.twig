@@ -84,6 +84,9 @@
                     <div class="form-line">
                         {{ form_row(form.pays) }}
                     </div>
+                    <div class="form-line">
+                        {{ form_row(form.permalien) }}
+                    </div>
                     <div class="next-line">
                         <button class="next-btn btn">Etape suivante</button>
                     </div>
@@ -112,11 +115,11 @@
                     {{ form_row(form.adresseSocietes) }}
                     <div class="next-line">
                         <button class="previous-btn btn">Etape precedente</button>
-                        <button type="submit" class="next-btn btn bg-success">Creer la société</button>
+                        <button type="submit" class="next-btn btn bg-success submit-btn">Creer la société</button>
                     </div>
                 </div>
             </div>
-
+            {{ form_end(form) }}
         </div>
     </div>
 

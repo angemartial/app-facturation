@@ -24,6 +24,9 @@ $(function () {
         }
     };
     $(document).on('click','.next-line .btn:not(.disabled)', function (e) {
+        if($(this).hasClass('submit-btn')){
+            return;
+        }
         e.preventDefault();
         $(this).addClass('disabled');
         if($(this).hasClass('next-btn')){
@@ -65,9 +68,7 @@ $(function () {
 
         $newLink.before(form);
         var fields = form.find('.nested-field');
-        console.log(fields);
         var line = fields.parent().parent().children();
-        console.log(line);
         line.addClass('form-line');
     }
 

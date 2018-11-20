@@ -67,7 +67,7 @@ class Societe
     
     /**
      * @var AdresseSociete[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\AdresseSociete", mappedBy="societe")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\AdresseSociete", mappedBy="societe", cascade={"persist", "remove"})
      */
     private $adresseSocietes;
 

@@ -58,7 +58,7 @@ class AdresseSociete
     /**
      * @var Adresse
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Adresse")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Adresse", cascade={"persist", "remove"})
      */
     private $adresse;
 
