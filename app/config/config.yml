@@ -103,3 +103,11 @@ hwi_oauth:
             scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
             options:
                 display: popup
+
+easy_admin:
+    entities:
+        # change the following to the namespaces of your own entities
+        - AppBundle\Entity\ActionComptable
+        - AppBundle\Entity\ClassificationVente
+        - AppBundle\Entity\ClassificationArticle
+        - AppBundle\Entity\CompteComptable

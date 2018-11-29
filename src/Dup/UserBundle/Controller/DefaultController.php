@@ -2,6 +2,12 @@
 
 namespace Dup\UserBundle\Controller;
 
+use AppBundle\Entity\ActionComptable;
+use AppBundle\Entity\ActionComptableSociete;
+use AppBundle\Entity\ClassificationArticle;
+use AppBundle\Entity\ClassificationArticleSociete;
+use AppBundle\Entity\ClassificationVente;
+use AppBundle\Entity\ClassificationVenteSociete;
 use AppBundle\Entity\Societe;
 use AppBundle\Entity\UtilisateurSociete;
 use AppBundle\Form\SocieteType;
@@ -70,8 +76,7 @@ class DefaultController extends Controller
         
         /** @var User $user */
         $user = $userManager->createUser();
-        
-        $user->setEnabled( true);
+
         $user->setUsername( $email);
         $user->setPlainPassword( $password);
         $user->setEmail( $email);
@@ -143,8 +148,10 @@ class DefaultController extends Controller
         if($form->isSubmitted() && $form->isValid()){
             $company = $form->getData();
             $userCompany = new UtilisateurSociete($user, $company);
+            $this->generateFixtures($company);
             $em->persist( $company);
             $em->persist( $userCompany);
+
             $em->flush();
             return $this->redirectToRoute( 'index');
         }
@@ -154,6 +161,27 @@ class DefaultController extends Controller
             'company' => $company
         ]);
     }
+
+    private function generateFixtures(Societe $societe){
+        $this->setFixtureSet($societe, ClassificationArticleSociete::class, ClassificationArticle::class, ['titre', 'compteComptable', 'systemeComptable']);
+        $this->setFixtureSet($societe, ClassificationVenteSociete::class, ClassificationVente::class, ['titre', 'compteComptable', 'systemeComptable']);
+        $this->setFixtureSet($societe, ActionComptableSociete::class, ActionComptable::class, ['libelle', 'code', 'systemeComptable', 'compteComptable']);
+    }
+
+    private function setFixtureSet(Societe $societe, $entityName, $existingName, $properties){
+        $em = $this->getDoctrine()->getManager();
+        $existingSet = $em->getRepository($existingName)->findBy(['systemeComptable' => $societe->getSystemeComptable()]);
+        foreach ($existingSet as $existing) {
+            $avecSociete = new $entityName();
+            $avecSociete->setSociete($societe);
+            $accessor = PropertyAccess::createPropertyAccessor();
+            foreach ($properties as $property) {
+                $accessor->setValue($avecSociete, $property, $accessor->getValue($existing, $property));
+            }
+            $em->persist($avecSociete);
+        }
+    }
+
     
     public function updateUserAction ( Request $request )
     {

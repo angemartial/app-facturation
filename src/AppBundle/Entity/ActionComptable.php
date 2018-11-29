@@ -24,15 +24,50 @@ class ActionComptable
     /**
      * @var string
      *
-     * @ORM\Column(name="libelle", type="string", length=255, unique=true)
+     * @ORM\Column(name="libelle", type="string", length=255)
      */
     private $libelle;
 
     /**
      * @var string
-     * @ORM\Column(name="code", type="string", length=255, unique=true)
+     * @ORM\Column(name="code", type="string", length=255)
      */
     private $code;
+
+    /**
+     * @var SystemeComptable
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SystemeComptable")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $systemeComptable;
+
+    /**
+     * @var CompteComptable
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CompteComptable")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $compteComptable;
+
+
+    /**
+     * @return SystemeComptable
+     */
+    public function getSystemeComptable():? SystemeComptable
+    {
+        return $this->systemeComptable;
+    }
+
+    /**
+     * @param SystemeComptable $systemeComptable
+     * @return ActionComptable
+     */
+    public function setSystemeComptable(SystemeComptable $systemeComptable): ActionComptable
+    {
+        $this->systemeComptable = $systemeComptable;
+        return $this;
+    }
 
     /**
      * Get id
@@ -85,6 +120,30 @@ class ActionComptable
         $this->code = $code;
         return $this;
     }
+    public function __toString()
+    {
+        return $this->code . ' ' . $this->systemeComptable->getLibelle();
+
+    }
+
+    /**
+     * @return CompteComptable
+     */
+    public function getCompteComptable():? CompteComptable
+    {
+        return $this->compteComptable;
+    }
+
+    /**
+     * @param CompteComptable $compteComptable
+     * @return ActionComptable
+     */
+    public function setCompteComptable(CompteComptable $compteComptable): ActionComptable
+    {
+        $this->compteComptable = $compteComptable;
+        return $this;
+    }
+
 
 }
 

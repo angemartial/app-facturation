@@ -15,11 +15,6 @@ use Symfony\Component\Form\FormError;
 
 class RegistrationController extends Controller
 {
-    
-    
-    
-    
-    
     public function clean($string){
         return trim(strip_tags( $string));
     }
@@ -38,7 +33,7 @@ class RegistrationController extends Controller
         $dispatcher = $this->get('event_dispatcher');
         $userManager = $this->get('fos_user.user_manager');
         $user = new User;
-        $user->setEnabled(true);
+        exit(var_dump('ok'));
         $form = $this->createForm(new RegistrationFormType, $user);
         $form->handleRequest($request);
         $url = $this->generateUrl('dup_dashboard_homepage');

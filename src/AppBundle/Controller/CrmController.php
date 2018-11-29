@@ -10,13 +10,19 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Client;
+use AppBundle\Entity\CompteComptable;
+use AppBundle\Entity\Depense;
 use AppBundle\Entity\Documents;
 use AppBundle\Entity\Entite;
 use AppBundle\Entity\Fournisseur;
 use AppBundle\Entity\LigneFacture;
 use AppBundle\Entity\Paiement;
+use AppBundle\Entity\Societe;
+use AppBundle\Entity\SystemeComptable;
 use AppBundle\Entity\TypeDeDocuments;
 use AppBundle\Form\ArticleType;
+use AppBundle\Form\CompteComptableType;
+use AppBundle\Form\DepenseType;
 use AppBundle\Form\DocumentsType;
 use AppBundle\Form\EntiteType;
 use AppBundle\Form\PaiementType;
@@ -25,9 +31,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\DateTime;
+
 
 class CrmController extends Controller
 {
+
+    /**
+     * @var Societe
+     */
+    public $company;
+
     /**
      * @param Request $request
      * @return Response
@@ -174,6 +188,34 @@ class CrmController extends Controller
         ]);
     }
 
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @Route("/creation-compte-comptable/{id}", name="create_compte_comptable")
+     */
+    public function createCompteComptable(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+
+            $compte = new CompteComptable();
+
+        $form = $this->createForm(CompteComptableType::class, $compte);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+
+            $compte = $form->getData();
+            $em->persist($compte);
+            $em->flush();
+            $this->addFlash('success', 'compte comptable ajouté ');
+//            return $this->redirectToRoute('app_homepage');
+        }
+
+        return $this->render("crm/edit-compte-comptable.html.twig", [
+            'formCompteComptable' => $form->createView()
+        ]);
+    }
+
+
     /**
      * @Route("/documents/{code}", name="documents", methods={"GET"})
      */
@@ -288,6 +330,44 @@ class CrmController extends Controller
         return $this->render('crm/create-product.html.twig', [
             'form' => $form->createView()
         ]);
+
+    }
+
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @Route("/creation-depense/{id}", name="create_depense")
+     */
+    public function createDepenseAction(Request $request, int $id){
+
+        $em =$this->getDoctrine()->getManager();
+
+        if( 0 === $id){
+            $depense = new Depense();
+            $depense->setDate( new \Datetime());
+        }
+        else{
+            $depense = $em->find(Depense::class, $id);
+            if(null === $depense){
+            throw $this->createNotFoundException('Cet élément n\'existe pas en base de données');
+            }
+        }
+
+        $form = $this->createForm(DepenseType::class, $depense);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+
+        $depense = $form->getData();
+        $em->persist($depense);
+        $em->flush();
+        }
+
+        return $this->render('crm/create-depense.html.twig', [
+            'formdepense' => $form->createView()
+        ]);
+
 
     }
 }

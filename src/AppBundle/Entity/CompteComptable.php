@@ -151,6 +151,11 @@ class CompteComptable
         
         return $this;
     }
-    
+
+    public function __toString()
+    {
+        return $this->code . ' ' .  $this->libelle . ' ' . $this->systemeComptable->getLibelle();
+
+    }
 }
 
