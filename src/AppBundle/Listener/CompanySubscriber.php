@@ -61,23 +61,34 @@ class CompanySubscriber implements EventSubscriberInterface
                 $error = "Vous n'etes pas encore membre d'une société. Vous pouvez en creer une nouvelle ou rejoindre une société existante.";
             }else{
                 $permalink = trim(strip_tags($event->getRequest()->attributes->get('permalink')));
-                $existing = $this->em->getRepository(Societe::class)->findOneBy(['permalien' => $permalink]);
-                if(null === $existing){
-                    $error = "L'entreprise $permalink n'existe pas dans notre systeme. Vous pouvez la créer ci dessous";
-                }else{
-                    $existingUserCompany = null;
-                    foreach ($userCompanies as $userCompany) {
-                        if($userCompany->getSociete()->getId() === $existing->getId()){
-                            $existingUserCompany = $existing;
-                            break;
+                if('anyo' !== $permalink){
+                    $existing = $this->em->getRepository(Societe::class)->findOneBy(['permalien' => $permalink]);
+
+                    if(null === $existing){
+                        $error = "L'entreprise $permalink n'existe pas dans notre systeme. Vous pouvez la créer ci dessous";
+                    }else{
+                        $existingUserCompany = null;
+                        foreach ($userCompanies as $userCompany) {
+                            if($userCompany->getSociete()->getId() === $existing->getId()){
+                                $existingUserCompany = $existing;
+                                break;
+                            }
+                        }
+                        if(null === $existingUserCompany){
+                            $error = "Vous ne faites pas encore partie de la société $permalink. Si vous disposez d'un lien d'invitation, vous pouvez l'utiliser ci dessous pour rejoindre la société.";
+                        }else{
+                            $controller[0]->company = $existing;
+                            return;
                         }
                     }
-                    if(null === $existingUserCompany){
-                        $error = "Vous ne faites pas encore partie de la société $permalink. Si vous disposez d'un lien d'invitation, vous pouvez l'utiliser ci dessous pour rejoindre la société.";
-                    }else{
-                        $controller[0]->company = $existing;
-                        return;
-                    }
+                }else{
+                    $existing = $userCompanies[0]->getSociete();
+                    $permalink = $existing->getPermalien();
+                    $redirectUrl = $this->router->generate('index', ['permalink' => $permalink]);
+                    $event->setController(function() use ($redirectUrl) {
+                        return new RedirectResponse($redirectUrl);
+                    });
+                    return;
                 }
             }
 

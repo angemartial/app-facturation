@@ -1,0 +1,38 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1 class="container-fluid">
+        Liste des dépenses
+    </h1>
+    <div class="container-fluid action-buttons">
+        <a href="{{ path('create_depense',  { id: 0 }) }}" class="btn btn-primary">Ajouter </a>
+    </div>
+    <div class="container-fluid list-container">
+        <table id="document-list">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Libéllé</th>
+                <th>Réference pièce</th>
+                <th>image</th>
+                <th>Fournisseur</th>
+                <th>Montant</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for depense in depense %}
+                <tr>
+                    <td><a href="#">{{ depense.date }}</a> </td>
+                    <td>{{ depense.libelle }}</td>
+                    <td>{{ depense.referencePiece }}</td>
+                    <td>{{ depense.scanPiece }}</td>
+                    <td>{{ depense.fournisseur }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+

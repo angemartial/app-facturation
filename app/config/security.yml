@@ -36,7 +36,7 @@ security:
                     service: my.oauth_aware.user_provider.service
             logout:
                 path:   dup_user_logout
-                target: /
+                target: /login
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

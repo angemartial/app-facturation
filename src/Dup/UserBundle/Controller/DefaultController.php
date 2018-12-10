@@ -126,7 +126,7 @@ class DefaultController extends Controller
     }
     
     public function registrationConfirmedAction(){
-        return $this->redirectToRoute('dup_user_profile');
+        return $this->redirectToRoute('index', ['permalink' => 'anyo']);
     }
     
     public function userProfileAction(){
@@ -146,6 +146,7 @@ class DefaultController extends Controller
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
         if($form->isSubmitted() && $form->isValid()){
+            /** @var Societe $company */
             $company = $form->getData();
             $userCompany = new UtilisateurSociete($user, $company);
             $this->generateFixtures($company);
@@ -153,7 +154,7 @@ class DefaultController extends Controller
             $em->persist( $userCompany);
 
             $em->flush();
-            return $this->redirectToRoute( 'index');
+            return $this->redirectToRoute( 'index', ['permalink' => $company->getPermalien()]);
         }
         
         return $this->render( 'pick-or-create-company.html.twig', [

@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Apport;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Client;
 use AppBundle\Entity\CompteComptable;
@@ -115,6 +116,33 @@ class CrmController extends Controller
         /* cataloguetwig contient les elements de la variable $catalogue , elle servira à appeler les elements de cette variable
         dans les boucles de la vue  */
         return $this->render('crm/catalogue.html.twig', ['cataloguetwig' => $catalogue]);
+    }
+
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/depense-liste", name="depense_liste")
+     */
+    public function showDepenseAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $depense = $em->getRepository(Depense::class)->findAll();
+        return $this->render('crm/depense.html.twig',[
+            'depense' => $depense
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/apport-liste", name="apport_liste")
+     */
+    public function showApportAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $apport = $em->getRepository(Apport::class)->findAll();
+        return $this->render('crm/apport.html.twig',[
+            'apport'=> $apport
+        ]);
     }
 
     /**
@@ -370,4 +398,26 @@ class CrmController extends Controller
 
 
     }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/parameter/", name="parameter_page")
+     */
+    public function parameterAction(Request $request){
+
+        return $this->render('crm/parameter.html.twig');
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/layout-one/", name="layout_one")
+     */
+    public function layoutOneAction(Request $request){
+
+        return $this->render('default/layout_one.html.twig');
+    }
+
+
 }

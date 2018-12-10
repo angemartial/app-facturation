@@ -22,7 +22,7 @@ trait SocieteTrait
     /**
      * @return Societe
      */
-    public function getSociete ()
+    public function getSociete ():? Societe
     {
         return $this -> societe;
     }

@@ -38,7 +38,12 @@ easy_admin_bundle:
     type:     annotation
     prefix:   /admin
 
+app_front_index:
+    path: /
+    defaults: { _controller: AppBundle:Default:index }
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
     prefix: /{permalink}
+    defaults: {permalink: 'anyo'}

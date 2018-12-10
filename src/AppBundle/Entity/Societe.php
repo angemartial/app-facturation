@@ -157,7 +157,7 @@ class Societe
      */
     public function setPermalien($permalien)
     {
-        $this->permalien = $permalien;
+        $this->permalien = strtolower($permalien);
 
         return $this;
     }
