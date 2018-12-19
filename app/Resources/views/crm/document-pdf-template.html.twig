@@ -9,9 +9,24 @@
 <body>
 <header>
     <div class="company font-weight-bold">
-        <span class="company-name">Iboh Company</span> <br>
-        iboh@ibohcompany.com <br>
-        07676745
+        {% if crm.company.logo is not empty %}
+        <div>
+            <img class="company-logo" src="{{ asset('uploads/' ~ crm.company.logo) }}">
+        </div>
+        {% endif %}
+        <span class="company-name">{{ crm.company.raisonSociale|title }}</span> <br>
+        {% for addressSociete in crm.company.adresseSocietes  %}
+            {% if loop.first %}
+                {% set address = addressSociete.adresse %}
+              <br>
+                {% if address.telBureau is not empty %}
+                    {{ address.telBureau }}
+                {% endif %}
+                {% if address.portable is not empty %}
+                    {{ address.portable }}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
     </div>
     <div class="document-title circle">
         <h1>{{ document.typeDeDocuments.titre }} N° {{ document.reference }}</h1>

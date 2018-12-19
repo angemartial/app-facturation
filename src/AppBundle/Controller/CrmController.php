@@ -27,9 +27,12 @@ use AppBundle\Form\DepenseType;
 use AppBundle\Form\DocumentsType;
 use AppBundle\Form\EntiteType;
 use AppBundle\Form\PaiementType;
+use AppBundle\Form\SocieteSettingsType;
 use Doctrine\ORM\Mapping\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\DateTime;
@@ -182,6 +185,7 @@ class CrmController extends Controller
 
          if(0 === $id){
              $document = new Documents();
+             $document->setSociete( $this->company);
              $document->setDate(new \DateTime());
          }else{
              $document = $em->find(Documents::class, $id);
@@ -206,7 +210,7 @@ class CrmController extends Controller
             $em->persist($data);
 
             $em->flush();
-            return $this->redirectToRoute('documents', ['code' => $type->getCode()]);
+            return $this->redirectToRoute('documents', ['code' => $type->getCode(), 'permalink' => $this->company->getPermalien()]);
          }
 
         return $this->render('crm/edit-document.html.twig', [
@@ -288,7 +292,7 @@ class CrmController extends Controller
 
         if(0 === $id){
             $entite = new Entite();
-
+            $entite->setSociete( $this->company);
         }else{
             $entite = $em->find(Entite::class, $id);
             if(null === $entite){
@@ -418,6 +422,72 @@ class CrmController extends Controller
 
         return $this->render('default/layout_one.html.twig');
     }
-
-
+    
+    /**
+     * @param Request $request
+     * @Route("/parameter/company", name="company_parameter_page")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function companySettingsAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $company = $this->company;
+        $form = $this->createForm( SocieteSettingsType::class, $company);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            /** @var Societe $company */
+            $company = $form->getData();
+            $em->persist( $company);
+            $em->flush();
+            $this->addFlash( 'success', 'Vos parametres ont été enregitrés avec succes');
+            return $this->redirectToRoute( 'company_parameter_page', ['permalink' => $company->getPermalien()]);
+        }
+        
+        return $this->render( 'crm/parameters/parameter.html.twig', ['company' => $company, 'form' => $form->createView()]);
+    }
+    
+    
+    /**
+     * @Route("/upload-from-dropzone", name="upload_from_dropzone")
+     */
+    public function uploadFromDropzoneAction(Request $request){
+        $file = $request->files->get('file');
+        return new JsonResponse($this->upload($file));
+    }
+    
+    /**
+     * @Route("/remove-upload", name="remove_upload")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function removeUploadAction(Request $request){
+        $file = $request->request->get('url');
+        $filename = basename($file);
+        $uploadDirectory = $this->getParameter('kernel.project_dir').'/web/uploads';
+        try{
+            unlink($uploadDirectory.'/'.$filename);
+            $result = 'ok';
+        }catch (\Exception $e){
+            $result = $e->getMessage();
+        }
+        return new JsonResponse([$result]);
+    }
+    
+    private function upload($file){
+        if(null !== $file && $file instanceof UploadedFile){
+            $extension = $file->guessClientExtension();
+            $extension = trim(strip_tags($extension));
+            $uniqid = uniqid('', true);
+            $uploadDirectory = $this->getParameter('kernel.project_dir').'/web/uploads';
+            $filename = $uniqid.'.'.$extension;
+            $file->move($uploadDirectory, $filename);
+            return [
+                'success' => true,
+                'file' => $filename
+            ];
+        }
+        
+        return [
+            'success' => false
+        ];
+    }
 }

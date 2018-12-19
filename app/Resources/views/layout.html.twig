@@ -114,7 +114,9 @@
 <script type="text/javascript" src="{{ asset('js/axios.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/lodash.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+{% block globalScript %}
 <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
+{% endblock %}
 {% block js %}{% endblock %}
 </body>
 </html>

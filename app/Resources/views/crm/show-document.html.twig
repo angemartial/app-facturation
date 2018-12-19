@@ -17,7 +17,7 @@
     </div>
 
     <div class="container-fluid action-buttons position-client-zone">
-        <a title="Modifier" href="{{ path('document', { code: document.typeDeDocuments.code, id: document.id }) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+        <a title="Modifier" href="{{ path('document', { code: document.typeDeDocuments.code, id: document.id, permalink: crm.company.permalien }) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
         <a target="_blank" title="Telecharger au format pdf" href="{{ asset('pdf/' ~ document.reference ~ '.pdf') }}" class="btn btn-outline-info"><i class="fa fa-file"></i></a>
         {% if document.typeDeDocuments.code == 'FACT' %}
             {% if document.reste > 0 %}

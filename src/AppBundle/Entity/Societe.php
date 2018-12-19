@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Societe
@@ -13,7 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Societe
 {
-    
     public function __construct ()
     {
         $this->agrements = new ArrayCollection();
@@ -29,6 +29,11 @@ class Societe
      */
     private $id;
     
+    /**
+     * @var string
+     * @ORM\Column(name="logo", type="string", length=255, nullable=true, unique=true)
+     */
+    private $logo;
     
     /**
      * @var SystemeComptable
@@ -376,7 +381,25 @@ class Societe
         return $this;
     }
     
+    /**
+     * @return string
+     */
+    public function getLogo () : ?string
+    {
+        return $this -> logo;
+    }
     
+    /**
+     * @param string $logo
+     *
+     * @return Societe
+     */
+    public function setLogo ( string $logo ) : Societe
+    {
+        $this -> logo = $logo;
+        
+        return $this;
+    }
     
 }
 

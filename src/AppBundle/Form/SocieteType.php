@@ -33,7 +33,8 @@ class SocieteType extends AbstractType
                 'allow_add' => true
             ])
             ->add('monnaie');
-    }/**
+    }
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

@@ -41,6 +41,7 @@ class DocumentListener
         $options = new Options();
         //$options->setDpi(300);
         $options->setIsHtml5ParserEnabled(true);
+        $options->set('isRemoteEnabled',true);
         $domPdf = new Dompdf($options);
         $domPdf->setPaper('A4', 'portrait');
 

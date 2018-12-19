@@ -52,7 +52,7 @@ class Entite
 
     /**
      * @var string
-     * @ORM\column(name="code", type="string", nullable=false)
+     * @ORM\column(name="code", type="string", nullable=true)
      */
     private $code;
 

@@ -96,7 +96,7 @@ h1 {
     margin: 0;
     background-color: rgba(0,0,0,0.1);
     padding: 0;
-    min-height: 100vh;
+    min-height: calc(100vh - 4rem);
     /* margin: 0; */
 }
 #left-menu ul, #left-menu {
@@ -252,4 +252,94 @@ button.remove-document-line {
 }
 body{
     overflow-x: hidden;
+}
+.param-group img {
+    width: 3rem;
+    height: 3rem;
+}
+.parameter-page h1 {
+    text-transform: uppercase;
+    font-weight: 300;
+}
+.parameter-page {
+    text-align: center;
+    max-width: 1024px;
+}
+
+h2.param-title {
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+.parameter, .parameter:hover {
+    color: inherit;
+    text-decoration: none;
+}
+.parameter:hover h2 {
+    color: #1077bd;
+}
+.parameter h2 {
+    transition-property: color;
+    transition-duration: 300ms;
+    transition-delay: 100ms;
+}
+.parameter-page h1 + p {
+    margin-top: 1rem;
+    margin-bottom: 5rem;
+}
+.company-parameter-page {
+    text-align: left;
+}
+.company-parameter-page h1 + p {
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+.company-parameter-page h1 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+.parameter-page .nav-tabs {
+    border-bottom: 2px solid #1077BD;
+}
+.parameter-page .nav-tabs > li.active > a, .parameter-page .nav-tabs > li.active > a:focus, .parameter-page .nav-tabs > li.active > a:hover {
+    border-width: 0;
+}
+.parameter-page .nav-tabs > li > a {
+    border: none;
+    color: #777;
+}
+.parameter-page .nav-tabs > li.active > a, .parameter-page .nav-tabs > li > a:hover {
+    border: none;
+    color: #1077BD !important;
+    background: transparent;
+}
+
+.parameter-page .tab-pane {
+    padding: 15px 0;
+}
+.parameter-page .tab-content{
+    padding:20px
+}
+.parameter-page .nav-item .active, .parameter-page .nav-item .active:hover  {
+    background-color: #1077BD !important;
+    color: white !important;
+}
+#company-tabs-contents select, #company-tabs-contents input {
+    width: 100%;
+}
+#company-tabs-contents .form-line {
+    margin-bottom: 2rem;
+}
+#company-tabs-contents .date-line select {
+    width: 33%;
+}
+.parameter-page nav{
+    position: relative;
+}
+.parameter-page nav .btn-success {
+    position: absolute;
+    right: 0;
+    bottom: 0.5rem;
 }

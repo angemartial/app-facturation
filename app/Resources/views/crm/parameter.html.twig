@@ -2,32 +2,38 @@
 
 {% block content %}
 
-    <div class="container mt-4">
-
-        <div class="row">
-
-                <div class="col-md-3 sm mt-3">
-                    <img src="{{ asset('img/icons/accounting.png') }}" alt="">
-                </div>
-                <div class="col-md-3 sm">
-                    <img src="{{ asset('img/icons/file-1.png') }}" alt="">
-                </div>
-                <div class="col-md-3 sm">
-                    <img src="{{ asset('img/icons/handshake.png') }}" alt="">
-                </div>
-
-        </div>
-
-        <div class="row">
-            
-            <div class="col-md-3 sm">
-                <img src="{{ asset('img/icons/project-management.png') }}" alt="">
-            </div>
-            <div class="col-md-3 sm">
+    <div class="container parameter-page mt-4">
+        <h1>Parametres</h1>
+        <p>Modifiez le comportement de l'application à l'aide des differents reglages ci dessous. Selon vos niveaux d'acces, vous pouvez personnaliser les
+         parametre de la société de sorte à obtenir un comportement plus proche de la gestion habituelle de votre entreprise.
+        </p>
+        <div class="row param-group">
+            <a href="#" class="col-md-4 sm parameter">
+                <img src="{{ asset('img/icons/accounting.png') }}" alt="">
+                <h2 class="param-title">Comptabilité</h2>
+                <p>
+                    Gestion des classification vente et achat des articles, des numeros de compte et les action qui y sont liés
+                </p>
+            </a>
+            <a href="#" class="col-md-4 sm parameter">
+                <img src="{{ asset('img/icons/file-1.png') }}" alt="">
+                <h2 class="param-title">Documents</h2>
+                <p>
+                    Gestion des templates de facture, bons de commande, bons de livraison, devis etc,
+                </p>
+            </a>
+            <a href="{{ path('company_parameter_page', { permalink: crm.company.permalien }) }}" class="col-md-4 sm parameter">
+                <img src="{{ asset('img/icons/handshake.png') }}" alt="">
+                <h2 class="param-title">Société</h2>
+                <p>Informations spécifiques d'une société, logo, entete</p>
+            </a>
+            <div class="col-md-4 sm parameter"></div>
+            <a href="#" class="col-md-4 sm parameter">
                 <img src="{{ asset('img/icons/user-29.png') }}" alt="">
-            </div>
-
-
+                <h2 class="param-title">Utilisateurs</h2>
+                <p>Gestion des droits d'acces, ajout d'utilisateur, profil et abonnement </p>
+            </a>
+            <div href="#" class="col-md-4 sm parameter"></div>
         </div>
 
     </div>

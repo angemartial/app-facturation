@@ -1,0 +1,137 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <div class="container parameter-page company-parameter-page mt-4">
+        <h1>Parametres | Société (<strong>{{ company.raisonSociale }})</strong></h1>
+        <p>Informations spécifiques d'une société, logo, entete</p>
+        {{ form_start(form) }}
+        <nav>
+            <ul class="nav nav-tabs" id="company-sub-parameters-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" id="identity" href="#identity-content">Identité de la société</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" id="accountant" href="#accountant-content">Comptabilité</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" id="logo-param" href="#logo-param-content">Logo</a>
+                </li>
+            </ul>
+            <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+        </nav>
+        <div class="tab-content" id="company-tabs-contents">
+            <div class="tab-pane fade show active" id="identity-content" role="tabpanel" aria-labelledby="identity">
+                <div class="row">
+                    <div class="form-line col-md-4">
+                        {{ form_row(form.raisonSociale) }}
+                    </div>
+                    <div class="form-line col-md-4">
+                        {{ form_row(form.secteurActivite) }}
+                    </div>
+                    <div class="form-line col-md-4">
+                        {{ form_row(form.activitePrincipale) }}
+                    </div>
+                    <div class="form-line date-line col-md-4">
+                        {{ form_row(form.dateDeCreation) }}
+                    </div>
+                    <div class="form-line col-md-4">
+                        {{ form_row(form.pays) }}
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="tab-pane fade show" id="accountant-content" role="tabpanel" aria-labelledby="accountant">
+                <div class="row">
+                    <div class="form-line col-md-4">
+                        {{ form_row(form.monnaie) }}
+                    </div>
+                    <div class="form-line col-md-4">
+                        {{ form_row(form.capitalSocial) }}
+                    </div>
+                    <div class="form-line col-md-4">
+                        {{ form_row(form.formeJuridique) }}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade show" id="logo-param-content" role="tabpanel" aria-labelledby="logo-param">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div id="upload-images" class="dropzone"></div>
+                        {{ form_row(form.logo) }}
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Votre logo actuel</h4>
+                        {% if company.logo is not empty %}
+                            <img class="company-current-logo" src="{{ asset('uploads/' ~ company.logo) }}" alt="">
+                        {% else %}
+                            <p>Vous n'avez pas rajouté de logo</p>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+
+{% endblock %}
+
+{% block globalScript %}
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/dropzone.min.css') }}">
+    <style>
+        img.company-current-logo {
+            width: 10rem;
+            height: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{{ asset('js/dropzone.min.js') }}"></script>
+    <script type="text/javascript">
+
+    </script>
+<script type="text/javascript">
+    Dropzone.autoDiscover = false;
+
+
+    /* Traductions de la zone d'upload d'images */
+
+    Dropzone.prototype.defaultOptions.dictDefaultMessage = "Glissez des images ici";
+    Dropzone.prototype.defaultOptions.dictFallbackMessage = "Votre navigateur ne supporte pas le glisser-deposer d'images";
+    Dropzone.prototype.defaultOptions.dictFallbackText = "SVP utilisez le formulaire d'upload ci dessous";
+    Dropzone.prototype.defaultOptions.dictFileTooBig = "L'image est trop grande ({{ '{{filesize}}' }}MiB). Taille maximum: {{ '{{maxFilesize}}' }}MiB.";
+    Dropzone.prototype.defaultOptions.dictInvalidFileType = "Vous ne pouvez pas uploader un fichier de ce type.";
+    Dropzone.prototype.defaultOptions.dictResponseError = "Le serveur a repondu avec le code suivant {{ '{{statusCode}}' }}.";
+    Dropzone.prototype.defaultOptions.dictCancelUpload = "Annuler l'upload";
+    Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = "Etes vous sur de vouloir annuler l'upload?";
+    Dropzone.prototype.defaultOptions.dictRemoveFile = "Supprimer l'image";
+    Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "Vous ne pouvez pas uploader plus d'images.";
+
+
+    /* Initialisation de la zone d'upload d'images*/
+    $("div#upload-images").dropzone({
+        url: "{{ path('upload_from_dropzone', {permalink: company.raisonSociale }) }}",
+        addRemoveLinks: true,
+        maxFiles: 1,
+        init: function() {
+            this.on("success", function(file, result) {
+                var input = $('#appbundle_societe_logo');
+                input.val(result.file);
+
+            });
+            this.on("removedfile", function (file) {
+                var input = $('#appbundle_societe_logo');
+
+                $.post("{{ path('remove_upload') }}", { 'url':  input.val() }, function () {
+                    input.val('');
+                });
+            });
+        }
+    });
+</script>
+{% endblock %}

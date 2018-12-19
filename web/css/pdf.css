@@ -73,6 +73,20 @@ h2 {
     /* margin-right: auto; */
     position: relative;
 }
+.company{
+    width: 15rem;
+    text-align: center;
+    border: solid 1px black;
+}
 .company-name {
     text-transform: uppercase;
+    text-align: center;
+    margin-top: 5rem;
+    width: 15rem;
+    padding: 1rem;
+}
+.company-logo{
+    margin-top: 2rem;
+    width: 9rem;
+    height: auto;
 }

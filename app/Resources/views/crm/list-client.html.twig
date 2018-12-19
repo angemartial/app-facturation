@@ -5,7 +5,7 @@
         Liste des {{ type }}s
     </h1>
     <div class="container-fluid action-buttons">
-        <a href="{{ path('new_entity',  { id: 0, type: type  }) }}" class="btn btn-primary">Ajouter </a>
+        <a href="{{ path('new_entity',  { id: 0, type: type, permalink: crm.company.permalien  }) }}" class="btn btn-primary">Ajouter </a>
     </div>
     <div class="container-fluid list-container">
         <table id="document-list">
