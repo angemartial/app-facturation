@@ -11,14 +11,14 @@
     <div class="company font-weight-bold">
         {% if crm.company.logo is not empty %}
         <div>
-            <img class="company-logo" src="{{ asset('uploads/' ~ crm.company.logo) }}">
+            <img class="company-logo" src="{{ absolute_url(asset('uploads/' ~ crm.company.logo)) }}">
         </div>
         {% endif %}
         <span class="company-name">{{ crm.company.raisonSociale|title }}</span> <br>
         {% for addressSociete in crm.company.adresseSocietes  %}
             {% if loop.first %}
                 {% set address = addressSociete.adresse %}
-              <br>
+                <br>
                 {% if address.telBureau is not empty %}
                     {{ address.telBureau }}
                 {% endif %}

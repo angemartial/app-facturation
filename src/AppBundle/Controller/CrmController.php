@@ -437,6 +437,7 @@ class CrmController extends Controller
             /** @var Societe $company */
             $company = $form->getData();
             $em->persist( $company);
+            
             $em->flush();
             $this->addFlash( 'success', 'Vos parametres ont été enregitrés avec succes');
             return $this->redirectToRoute( 'company_parameter_page', ['permalink' => $company->getPermalien()]);

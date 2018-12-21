@@ -21,32 +21,41 @@
 </head>
 <body>
 
-<header></header>
+<header>
+    <div class="logo-container float-left">
+        <span class="logo">IBOH Compta</span>
+    </div>
+    <div class="user-menu float-right">
+        <img class="user-menu-trigger" src="{{ asset('images/member-w.png') }}" alt="">
+        <ul>
+            <li><a href="{{ path('parameter_page', { permalink: crm.company.permalien }) }}"><img src="{{ asset('images/gear-a.svg') }}" alt="settings"> <span>parametres</span> </a></li>
+            <li><a href="{{ path('dup_user_logout')}}"> <img src="{{ asset('images/logout.svg') }}" alt="log out"> <span>deconnexion</span> </a></li>
+        </ul>
+    </div>
+</header>
 <div id="page" class="container-fluid">
-    <ul id="left-menu"  class="col-2">
-        <li><a href="{{ path('index', { "permalink": crm.company.permalien }) }}"><i class="fa fa-tachometer-alt"></i>Tableau de bord</a></li>
-        <li><a href="#"><i class="fa fa-shopping-cart"></i>Facturation</a>
+    <ul {% block currentPageMenu %}current-page-menu="dashboard"{% endblock %} id="left-menu"  class="col-2">
+        <li data-page="dashboard"><a href="{{ path('index', { "permalink": crm.company.permalien }) }}"><i class="fa fa-tachometer-alt"></i>Tableau de bord</a></li>
+        <li data-page="invoices"><a href="#"><i class="fa fa-shopping-cart"></i>Facturation</a>
             <ul class="sub-menu-left">
-                <li><a href="{{ path('documents', {"code" : "CUST_ORDER", "permalink": crm.company.permalien}) }}"> Commande</a></li>
-                <li><a href="{{ path('documents', {"code" : "FACT", "permalink": crm.company.permalien}) }}"> Facture</a></li>
-                <li><a href="{{ path('documents', {"code" : "QUOT", "permalink": crm.company.permalien}) }}"> Devis</a></li>
-                <li><a href="#"> Bons de commande</a></li>
-                <li><a href="#"> Paiements</a></li>
-                <li><a href="#"> Acomptes</a></li>
+                <li data-page="CUST_ORDER"><a href="{{ path('documents', {"code" : "CUST_ORDER", "permalink": crm.company.permalien}) }}"> Commande</a></li>
+                <li data-page="FACT"><a href="{{ path('documents', {"code" : "FACT", "permalink": crm.company.permalien}) }}"> Facture</a></li>
+                <li data-page="QUOT"><a href="{{ path('documents', {"code" : "QUOT", "permalink": crm.company.permalien}) }}"> Devis</a></li>
+                <li data-page="bon"><a href="#"> Bons de commande</a></li>
+                <li data-page="payment"><a href="#"> Paiements</a></li>
+                <li data-page="acomptes"><a href="#"> Acomptes</a></li>
                 {#<li><a href="#"> Regroupements BL</a></li>#}
             </ul>
         </li>
-        <li class="active"><a href="#"><i class="fa fa-users"></i>Clients</a>
+        <li><a href="#"><i class="fa fa-users"></i>Clients</a>
             <ul class="sub-menu-left">
-                <li><a href="{{ path('show_Entity', { type: 'client', "permalink": crm.company.permalien  }) }}"> Clients</a></li>
-
-
+                <li data-page="clients"><a href="{{ path('show_Entity', { type: 'client', "permalink": crm.company.permalien  }) }}"> Clients</a></li>
             </ul>
         </li>
         <li><a href="#"><i class="fa fa-book-open"></i>Catalogue</a>
             <ul class="sub-menu-left">
-                <li><a href="{{ path('show-product', { "permalink": crm.company.permalien }) }}"> Articles</a></li>
-                <li><a href="#"> Famille articles</a></li>
+                <li data-page="article"><a href="{{ path('show-product', { "permalink": crm.company.permalien }) }}"> Articles</a></li>
+                <li data-page="article-group"><a href="#"> Famille articles</a></li>
             </ul>
         </li>
         <li><a href="#"><i class="fa fa-address-book"></i>Fournisseurs</a>
@@ -91,6 +100,11 @@
 
             </ul>
         </li>
+        <li class="company-name">
+            <div>
+                <span>Société:</span> <img src="{{ asset('uploads/' ~ crm.company.logo) }}" alt=""> <span>{{ crm.company.raisonSociale }}</span>
+            </div>
+        </li>
     </ul>
 
 
@@ -114,6 +128,21 @@
 <script type="text/javascript" src="{{ asset('js/axios.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/lodash.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.user-menu-trigger').click(function (e) {
+            $('.user-menu > ul').fadeToggle('fast');
+        });
+        var leftMenu = $('#left-menu'),
+            currentMenuName = leftMenu.attr('current-page-menu'),
+            currentMenu = leftMenu.find('li[data-page="'+currentMenuName+'"]');
+        currentMenu.addClass('active');
+        var parent = currentMenu.parent();
+        if(parent.hasClass('sub-menu-left')){
+            parent.addClass('open');
+        }
+    })
+</script>
 {% block globalScript %}
 <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
 {% endblock %}

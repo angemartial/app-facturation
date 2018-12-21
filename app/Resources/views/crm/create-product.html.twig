@@ -60,11 +60,11 @@
                 coef = 0;
 
             var display = function () {
-                $('.catalogue-marge-brute').val(margeB);
-                $('.catalogue-pourcentage-marge').val(pMargeB);
-                $('.catalogue-coefficient').val(coef);
-                $('.catalogue-puht-achat').val(pua);
-                $('.catalogue-puht-vente').val(puv);
+                $('.catalogue-marge-brute').val(margeB.toFixed(2));
+                $('.catalogue-pourcentage-marge').val(pMargeB.toFixed(2));
+                $('.catalogue-coefficient').val(coef.toFixed(2));
+                $('.catalogue-puht-achat').val(pua.toFixed(2));
+                $('.catalogue-puht-vente').val(puv.toFixed(2));
             };
 
             display();

@@ -5,7 +5,7 @@
         Liste {{ type.titre|lower }}
     </h1>
     <div class="container-fluid action-buttons">
-        <a href="{{ path('document', { code: type.code, permalink: crm.company.permalien }) }}" class="btn btn-primary">Ajouter {{ type.titre|lower }}</a>
+        <a href="{{ path('document', { code: type.code, permalink: crm.company.permalien }) }}" class="btn btn-primary"><img title="Ajouter {{ type.titre|lower }}" src="{{ asset('images/edit-circle.svg') }}" alt=""></a>
     </div>
     <div class="container-fluid list-container">
         <table id="document-list">
@@ -36,4 +36,5 @@
         </table>
     </div>
 {% endblock %}
+{% block currentPageMenu %}current-page-menu="{{ type.code }}"{% endblock %}
 

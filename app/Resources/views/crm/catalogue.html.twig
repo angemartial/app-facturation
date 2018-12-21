@@ -5,7 +5,7 @@
         Liste des produits
     </h1>
     <div class="container-fluid action-buttons">
-        <a href="{{ path('edit_product',  { id: 0 }) }}" class="btn btn-primary">Ajouter </a>
+        <a href="{{ path('edit_product',  { id: 0, permalink: crm.company.permalien }) }}" class="btn btn-primary"><img title="Ajouter un produit" src="{{ asset('images/edit-circle.svg') }}" alt=""></a>
     </div>
     <div class="container-fluid list-container">
         <table id="document-list">
@@ -34,4 +34,5 @@
         </table>
     </div>
 {% endblock %}
+{% block currentPageMenu %}current-page-menu="article"{% endblock %}
 
